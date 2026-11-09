@@ -37,6 +37,7 @@ from .branding import PLUGIN_NAME, layer_role, layer_title, adopt_layer
 from .segment_sync import synchronize, validate as validate_segments
 from .file_io import write_geopackage
 from .layer_edits import edit_layer, checked
+from .i18n import TranslationManager, tr
 
 TAG = PLUGIN_NAME
 
@@ -70,6 +71,7 @@ class AutoBufferPlugin:
         self._route_hooks = []
         self._route_hook_layer = None
         self._segment_edit_snapshot = None
+        self._translations = TranslationManager()
 
     # ─────────────────────────────────────────────
     #  Ciclo di vita QGIS
@@ -77,13 +79,14 @@ class AutoBufferPlugin:
 
     def initGui(self):
         """Registra il plugin nell'interfaccia QGIS."""
+        self._translations.load()
         icon_path = os.path.join(self.plugin_dir, "resources", "icon.svg")
         if not os.path.exists(icon_path):
             icon_path = ":/images/themes/default/mActionBuffer.svg"
 
         action = QAction(QIcon(icon_path), PLUGIN_NAME, self.iface.mainWindow())
         action.triggered.connect(self.run)
-        action.setStatusTip("Disegna linea e genera buffer automatici")
+        action.setStatusTip(tr("Disegna linea e genera buffer automatici"))
         self.iface.addToolBarIcon(action)
         self.iface.addPluginToMenu(self.menu, action)
         self.actions.append(action)
@@ -158,6 +161,7 @@ class AutoBufferPlugin:
         self.actions.clear()
 
         log("Plugin scaricato.")
+        self._translations.unload()
 
     # ─────────────────────────────────────────────
     #  Entry point

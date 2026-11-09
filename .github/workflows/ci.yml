@@ -29,7 +29,7 @@ jobs:
       - name: Install distribution QGIS and PyQGIS
         run: |
           sudo apt-get update
-          sudo apt-get install --no-install-recommends -y python3-qgis qgis
+          sudo apt-get install --no-install-recommends -y python3-qgis qgis qttools5-dev-tools
 
       - name: Report tested QGIS version
         run: /usr/bin/python3 -c 'from qgis.core import Qgis; print(Qgis.QGIS_VERSION)'
@@ -42,6 +42,9 @@ jobs:
 
       - name: Check dock controls and workflow navigation
         run: /usr/bin/python3 tests/test_dock_panel.py
+
+      - name: Check translation lifecycle and catalogs
+        run: /usr/bin/python3 tests/test_i18n.py
 
       - name: Run original exporter smoke tests
         run: /usr/bin/python3 tests/test_plan_exporter.py
