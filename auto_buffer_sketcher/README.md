@@ -3,7 +3,7 @@
 ## Italiano
 
 Sviluppo ABS come plugin per QGIS e lo distribuisco con GPL-3.0-only.
-L’interfaccia della versione 0.2.1 segue la lingua di QGIS: italiano e inglese,
+L’interfaccia della versione 0.2.2 segue la lingua di QGIS: italiano e inglese,
 con italiano come ripiego. Per cambiare lingua riavvia QGIS dopo la modifica
 in Impostazioni → Opzioni → Generale.
 
@@ -41,7 +41,7 @@ Per la licenza completa vedi LICENSE; attribuzione in NOTICE.
 ## English
 
 I develop ABS as a QGIS plugin and distribute it under GPL-3.0-only.
-Version 0.2.1 follows the QGIS interface language: Italian and English,
+Version 0.2.2 follows the QGIS interface language: Italian and English,
 with Italian as fallback. Restart QGIS after changing the language in
 Settings → Options → General.
 

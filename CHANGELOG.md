@@ -1,6 +1,11 @@
 # Changelog
 
-## 0.2.1 — In sviluppo
+## 0.2.2 — In sviluppo
+
+- Il comando di eliminazione attiva lo strumento di selezione anche con una sola rotta, disattivando lo strumento vertici e rimuovendone il tratteggio residuo.
+- Conservate conferma, selezione multipla e sessioni di editing aperte dall’utente; nessuna pulizia indiscriminata delle sovrapposizioni di altri strumenti.
+
+## 0.2.1 — Sperimentale, distribuzione di sviluppo
 
 - Interfaccia disponibile in italiano e inglese secondo la lingua QGIS; verifiche del pannello compatto e della scala 150%.
 - Etichette inglesi delle schede e della modalità segmenti adattate allo spazio disponibile; guida disponibile nelle due lingue.
