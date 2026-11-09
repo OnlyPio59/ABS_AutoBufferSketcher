@@ -67,7 +67,7 @@ Non ho ancora implementato un secondo esportatore missione generico. Per aggiung
 
 Calcolo i buffer in un CRS UTM locale: estensioni oltre 6° in longitudine o latitudine, attraversamenti dell’antimeridiano e latitudini fuori da 80° S–84° N sono segnalati come non supportati. Il profilo `.plan` attuale richiede una rotta continua con almeno tre vertici e rifiuta geometrie non rappresentabili, come parti separate o buchi. I valori iniziali sono parametri del software, non una validazione di una missione.
 
-Mantengo **37 regressioni funzionali, 7 prove dell’interfaccia e 6 prove di confezionamento**, oltre allo smoke test degli esportatori. Le eseguo anche su GitHub Actions. Ho verificato l’installazione ZIP in un profilo QGIS isolato; le prove offscreen non coprono ogni interazione desktop o piattaforma.
+Mantengo **37 regressioni funzionali, 7 prove dell’interfaccia, 6 prove di confezionamento e 8 prove del sistema di traduzione**, oltre allo smoke test degli esportatori. Le eseguo anche su GitHub Actions. Ho verificato l’installazione ZIP in un profilo QGIS isolato; le prove offscreen non coprono ogni interazione desktop o piattaforma.
 
 Per le immagini e la [demo](examples/README.md) uso soltanto dati sintetici. La guida dettagliata è attualmente in italiano. Per una segnalazione o una proposta, usa i modelli nella sezione Issues.
 
@@ -140,7 +140,7 @@ I have not yet implemented a second generic mission exporter. Before adding one,
 
 I calculate buffers in a local UTM CRS. Extents greater than 6° in longitude or latitude, antimeridian crossings and latitudes outside 80° S–84° N are reported as unsupported. The current `.plan` profile requires a single continuous route with at least three vertices and rejects unrepresentable geometries such as separate parts or holes. Initial values are software parameters, not mission validation.
 
-I maintain **37 functional regressions, 7 interface checks and 6 packaging checks**, plus the exporter smoke tests, and run them through GitHub Actions. I have checked ZIP installation in an isolated QGIS profile; offscreen checks do not cover every desktop interaction or platform.
+I maintain **37 functional regressions, 7 interface checks, 6 packaging checks and 8 translation-system checks**, plus the exporter smoke tests, and run them through GitHub Actions. I have checked ZIP installation in an isolated QGIS profile; offscreen checks do not cover every desktop interaction or platform.
 
 I use only synthetic data for the screenshots and [demo](examples/README.md). The detailed guide is currently in Italian. For a bug report or proposal, use the repository’s issue templates.
 

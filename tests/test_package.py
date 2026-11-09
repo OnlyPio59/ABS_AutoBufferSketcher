@@ -20,6 +20,8 @@ class PackageTests(unittest.TestCase):
         package=self.root/'auto_buffer_sketcher'
         (package/'private.plan').write_text('must not ship')
         (package/'.env').write_text('must not ship')
+        (package/'i18n/private.txt').write_text('must not ship')
+        (package/'i18n/auto_buffer_sketcher_en.qm').write_bytes(b'synthetic packaging fixture')
         first=build_plugin(self.root,Path(self.temp.name)/'one',True)
         second=build_plugin(self.root,Path(self.temp.name)/'two',True)
         self.assertEqual(first[0].read_bytes(),second[0].read_bytes())
@@ -28,6 +30,9 @@ class PackageTests(unittest.TestCase):
             self.assertTrue(all(n.startswith('auto_buffer_sketcher/') for n in names))
             self.assertNotIn('auto_buffer_sketcher/private.plan',names)
             self.assertNotIn('auto_buffer_sketcher/.env',names)
+            self.assertNotIn('auto_buffer_sketcher/i18n/private.txt',names)
+            self.assertIn('auto_buffer_sketcher/i18n/auto_buffer_sketcher_en.ts',names)
+            self.assertIn('auto_buffer_sketcher/i18n/auto_buffer_sketcher_en.qm',names)
             self.assertIn('auto_buffer_sketcher/LICENSE',names)
             self.assertIn('auto_buffer_sketcher/README.md',names)
             self.assertIn('auto_buffer_sketcher/resources/icon.png',names)
