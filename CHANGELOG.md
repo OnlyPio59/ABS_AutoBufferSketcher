@@ -2,6 +2,9 @@
 
 ## 0.2.1 — In sviluppo
 
+- Predisposto caricamento dei cataloghi Qt secondo la lingua QGIS, con italiano come sorgente e fallback e rimozione del traduttore allo scaricamento del plugin.
+- Aggiunti cataloghi IT/EN iniziali, aggiornamento riproducibile dei testi marcati e inclusione TS/QM nel builder. Traduzione completa dell’interfaccia ancora in preparazione.
+
 - Presentazione divisa in italiano e inglese, con voce dell’autore in prima persona.
 - Destinazione RigiCloud esplicita nel comando e nel dialogo di esportazione .plan, senza modificare lo schema o i parametri esportati.
 - Documentata la distinzione fra .plan dedicato, formati GIS di scambio e possibili esportatori futuri.
