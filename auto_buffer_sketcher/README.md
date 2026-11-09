@@ -19,7 +19,8 @@ Missione e file contiene quote AMSL, export e salvataggio. Salva distanze
 memorizza i valori nel layer corrente. Rendi layer persistenti conserva
 anche i segmenti su GeoPackage; salva poi il progetto QGIS. Esporta
 GeoPackage salva una copia della rotta e dei buffer senza i segmenti.
-GeoJSON esporta le geometrie in WGS84. Il formato .plan richiede una
+GeoJSON esporta le geometrie in WGS84. L’esportazione .plan è pensata
+appositamente per RigiCloud, non come formato missione universale. Richiede una
 rotta continua con almeno tre vertici; la compatibilità completa con
 RigiCloud 1.19.9 è ancora in validazione.
 

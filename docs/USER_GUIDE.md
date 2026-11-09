@@ -66,7 +66,7 @@ Il formato `.plan` contiene anche parametri statici ereditati dall’esportatore
 | Esporta GeoPackage | Rotta e quattro buffer | Consegnare una copia dei risultati GIS. |
 | Rendi layer persistenti | Rotta, buffer e segmenti | Continuare il lavoro conservando i parametri per segmento. |
 | GeoJSON | Rotte, waypoint e buffer in WGS84 | Scambio con altri strumenti GIS; conserva parti separate e buchi. |
-| .plan | Una rotta selezionata e i buffer associati | Prova del flusso RigiCloud, nei limiti rappresentabili. |
+| .plan per RigiCloud | Una rotta selezionata, buffer e parametri del profilo dedicato | Flusso RigiCloud, nei limiti rappresentabili e con compatibilità ancora da verificare. |
 
 Se ci sono più rotte, l’esportazione `.plan` richiede la selezione esplicita di una sola rotta. Il profilo attuale richiede almeno tre vertici e rifiuta parti separate, anelli interni o altre geometrie non rappresentabili. Non tutti i file con estensione `.plan` usano lo stesso schema.
 
@@ -82,3 +82,11 @@ Se ci sono più rotte, l’esportazione `.plan` richiede la selezione esplicita 
 | L’export .plan viene rifiutato | Controlla rotta selezionata, numero di vertici e messaggio sulle geometrie non rappresentabili. |
 
 Per una segnalazione riproducibile usa il modello Issues e un esempio sintetico. Indica versione QGIS/plugin, sistema, CRS, modalità dei buffer e passaggi eseguiti.
+
+## A quale applicazione è destinato il .plan?
+
+Il comando **Esporta .plan per RigiCloud** produce il profilo specifico attualmente implementato per quel flusso, con missione VTOL, parametri di sicurezza e geofence. La compatibilità completa con RigiCloud 1.19.9 rimane da validare. Non è una dichiarazione di conformità a un formato universale.
+
+L’estensione `.plan` non identifica da sola uno schema comune a tutte le applicazioni. Per esempio, [QGroundControl documenta un proprio formato](https://docs.qgroundcontrol.com/master/en/qgc-dev-guide/file_formats/plan.html), diverso da quello attuale di ABS. Un eventuale esportatore aggiuntivo dovrà essere identificato con il nome del destinatario, avere una specifica/versione e prove di importazione dedicate. Non è presente un secondo esportatore missione generico.
+
+Per scambiare le geometrie senza vincolarsi al profilo missione RigiCloud, sono disponibili GeoJSON e GeoPackage; questi non equivalgono a un piano di volo eseguibile in qualsiasi software.
