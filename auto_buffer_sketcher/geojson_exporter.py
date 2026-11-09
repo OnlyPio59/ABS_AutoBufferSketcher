@@ -1,4 +1,6 @@
 """Lossless GeoJSON geometry export in WGS84, including all parts and rings."""
+
+from .i18n import tr
 from qgis.core import QgsMessageLog, Qgis
 from .branding import PLUGIN_NAME
 from .geometry_utils import as_wgs84_json
@@ -12,7 +14,7 @@ class GeoJSONExporter:
     def export(self, route_layer, buffer_layers_dict, output_path):
         try:
             if not route_layer or not route_layer.isValid():
-                raise ValueError('Layer rotta non valido.')
+                raise ValueError(tr('Layer rotta non valido.'))
             features = []
             sequence = 0
             for route in route_layer.getFeatures():
@@ -21,7 +23,7 @@ class GeoJSONExporter:
                     continue
                 geometry = as_wgs84_json(geom, route_layer.crs())
                 if geometry['type'] not in ('LineString', 'MultiLineString'):
-                    raise ValueError('La rotta deve essere una geometria lineare.')
+                    raise ValueError(tr('La rotta deve essere una geometria lineare.'))
                 features.append({'type': 'Feature', 'geometry': geometry, 'properties': {
                     'name': route_layer.name(), 'type': 'route', 'route_id': route.id()}})
                 parts = geometry['coordinates'] if geometry['type'] == 'MultiLineString' else [geometry['coordinates']]
@@ -32,7 +34,7 @@ class GeoJSONExporter:
                             'properties': {'seq': sequence, 'type': 'waypoint', 'name': f'Waypoint {sequence}',
                                 'route_id': route.id(), 'part': part_index}})
             if not features:
-                raise ValueError('Nessuna rotta da esportare.')
+                raise ValueError(tr('Nessuna rotta da esportare.'))
             for key, layer in buffer_layers_dict.items():
                 if layer is None or not layer.isValid():
                     continue
@@ -42,7 +44,7 @@ class GeoJSONExporter:
                         continue
                     geometry = as_wgs84_json(geom, layer.crs())
                     if geometry['type'] not in ('Polygon', 'MultiPolygon'):
-                        raise ValueError(f'Geometria buffer non poligonale: {layer.name()}')
+                        raise ValueError(tr('Geometria buffer non poligonale: {value}').format(value=layer.name()))
                     features.append({'type': 'Feature', 'geometry': geometry,
                         'properties': {'name': layer.name(), 'type': key}})
             write_json(output_path, {'type': 'FeatureCollection', 'features': features})

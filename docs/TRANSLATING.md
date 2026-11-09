@@ -1,7 +1,7 @@
 # Translating ABS
 
-The translation infrastructure is under development. The interface still uses Italian;
-the English catalog is a scaffold, not a completed translation.
+The 0.2.1 development source includes a complete Italian/English interface.
+The published 0.2.0 release retains its Italian interface. Other languages are not yet available.
 
 ## Language policy
 
@@ -38,9 +38,9 @@ python3 scripts/update_translations.py
 This standard-library AST extractor updates the Italian and English Qt TS catalogs
 in `auto_buffer_sketcher/i18n`, using the single `AutoBufferSketcher` context.
 It preserves existing translations and message comments, marks new entries unfinished,
-and retains removed entries as vanished. The catalogs currently contain only the
-first marked string; the remaining UI and error messages will be migrated in the
-next localization step. This is not a count of all visible plugin messages.
+and retains removed entries as vanished. The catalogs currently contain 198 completed source templates, covering UI text,
+accessibility, dialogs, statuses, errors, undo labels and plugin diagnostics.
+This counts unique templates, not every occurrence in the source.
 
 ## Edit, compile and verify
 
@@ -51,9 +51,12 @@ Edit TS files with Qt Linguist. For a completed language, compile with Qt Lingui
 lrelease -nounfinished auto_buffer_sketcher/i18n/auto_buffer_sketcher_en.ts
 ```
 
-Do not publish a partially translated English interface as a completed feature.
-Before adding the compiled catalog to a release, verify placeholders, dynamic
-messages, narrow panels, accessibility text and existing-project/export regressions.
+Compile both `it` and `en` catalogs after updating source text or translations.
+Do not publish an incomplete catalog as a completed feature.
+Before releasing, verify placeholders, dynamic messages, narrow panels,
+accessibility text and existing-project/export regressions.
+`tests/test_i18n.py` checks every shipped translation against the TS sources and
+compiled QM catalog; `tests/test_localized_workflows.py` checks bilingual workflows.
 The builder includes correctly named TS/QM catalogs; unrelated files in `i18n` are
 excluded. It does not compile catalogs or install development tools.
 
