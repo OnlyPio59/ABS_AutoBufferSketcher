@@ -52,6 +52,8 @@ def build_plugin(root, output, development=False):
             allowed = path.name in TEXT_FILES or path.suffix == '.py'
         else:
             allowed = relative.parts[0] == 'resources' and path.suffix.lower() in {'.svg', '.png'}
+            if len(relative.parts) == 2 and relative.parts[0] == 'i18n':
+                allowed = bool(re.fullmatch(r'auto_buffer_sketcher_[a-z]{2,3}(?:_[A-Za-z0-9]{2,8}){0,2}\.(?:ts|qm)', path.name))
         if allowed:
             paths.append(path)
     names = {p.relative_to(root).as_posix() for p in paths}

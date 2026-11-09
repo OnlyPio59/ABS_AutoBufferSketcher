@@ -41,4 +41,8 @@ python3 scripts/build_plugin.py --development --output dist
 
 Il pacchetto di sviluppo ammette il contatto ancora da completare e rimane sperimentale. Per un candidato al rilascio, omettere `--development`: i metadati obbligatori devono essere compilati. La validazione locale non certifica l’approvazione del catalogo, la visibilità degli URL o l’esistenza della casella email.
 
-Il builder include solo moduli del plugin, risorse, metadata, licenza, attribuzione e guida breve. File, ordine e timestamp ZIP sono deterministici per lo stesso sorgente; i pacchetti generati restano fuori dal versionamento. Prima di inviare al catalogo verificare anche le condizioni indicate nella [documentazione ufficiale QGIS](https://plugins.qgis.org/docs/publish/).
+Il builder include solo moduli del plugin, risorse, cataloghi di traduzione TS/QM, metadata, licenza, attribuzione e guida breve. File, ordine e timestamp ZIP sono deterministici per lo stesso sorgente; i pacchetti generati restano fuori dal versionamento. Prima di inviare al catalogo verificare anche le condizioni indicate nella [documentazione ufficiale QGIS](https://plugins.qgis.org/docs/publish/).
+
+## Traduzioni
+
+La struttura Qt per le lingue è in preparazione, con italiano come sorgente e fallback. Per aggiornare e compilare i cataloghi, vedere [Translating ABS](docs/TRANSLATING.md). I cataloghi iniziali non costituiscono ancora una UI inglese completa.
