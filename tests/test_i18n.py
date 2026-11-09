@@ -7,6 +7,8 @@ import tempfile
 import unittest
 from unittest.mock import patch
 import xml.etree.ElementTree as ET
+from collections import Counter
+from string import Formatter
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -118,6 +120,29 @@ class TranslationTests(unittest.TestCase):
         update(path, 'en', {SOURCE: [('plugin.py', 5)]})
         restored = {m.findtext('source'): m.find('translation') for m in ET.parse(path).findall('context/message')}
         self.assertIsNone(restored[SOURCE].get('type'))
+
+    def test_shipped_catalogs_cover_sources_preserve_placeholders_and_match_qm(self):
+        sources = messages(ROOT / 'auto_buffer_sketcher')
+        manager = TranslationManager(ROOT / 'auto_buffer_sketcher/i18n', self.settings)
+        try:
+            for language in ('it', 'en'):
+                tree = ET.parse(ROOT / f'auto_buffer_sketcher/i18n/auto_buffer_sketcher_{language}.ts')
+                entries = {m.findtext('source'): m.find('translation') for m in tree.findall('context/message')
+                           if m.find('translation').get('type') != 'vanished'}
+                self.assertEqual(set(entries), set(sources))
+                self.assertEqual(tree.getroot().get('sourcelanguage'), 'it_IT')
+                manager.load(language)
+                for source, translation in entries.items():
+                    with self.subTest(language=language, source=source):
+                        self.assertIsNone(translation.get('type'))
+                        self.assertTrue(translation.text)
+                        fields = lambda text: Counter((f, s, c) for _, f, s, c in Formatter().parse(text) if f is not None)
+                        self.assertEqual(fields(source), fields(translation.text))
+                        self.assertEqual(tr(source), translation.text)
+                        if language == 'it':
+                            self.assertEqual(source, translation.text)
+        finally:
+            manager.unload()
 
 
 if __name__ == '__main__':

@@ -9,6 +9,8 @@ Responsabilità:
 - Aggiornamento/creazione layer di output
 """
 
+from .i18n import tr
+
 import math
 
 from qgis.core import (
@@ -145,7 +147,7 @@ class BufferEngine:
         ]:
             dist = float(distances.get(key, DEFAULT_DISTANCES[key]))
             if not math.isfinite(dist) or dist < 0:
-                raise ValueError("Le distanze dei buffer devono essere numeri finiti non negativi.")
+                raise ValueError(tr('Le distanze dei buffer devono essere numeri finiti non negativi.'))
             if dist > 0:
                 buf = segment_geom.buffer(dist, 8)  # 8 segmenti per quarto di cerchio
                 if buf and not buf.isEmpty():
@@ -310,7 +312,7 @@ class BufferEngine:
 
         adopt_layer(seg_layer, LAYER_NAME_SEGMENTS)
         project.addMapLayer(seg_layer)
-        log(f"Creato layer '{seg_layer.name()}' con {seg_idx} segmenti.")
+        log(tr("Creato layer '{value}' con {seg_idx} segmenti.").format(value=seg_layer.name(), seg_idx=seg_idx))
         return seg_layer
 
     # ─────────────────────────────────────────────
@@ -360,20 +362,20 @@ class BufferEngine:
         layer.setCrs(crs)
 
         if not layer.isValid():
-            log(f"Errore: impossibile creare layer '{name}'", Qgis.Critical)
+            log(tr("Errore: impossibile creare layer '{name}'").format(name=name), Qgis.Critical)
             return None
 
         adopt_layer(layer, name)
         project.addMapLayer(layer)
         self._output_layers[name] = layer
-        log(f"Creato layer '{layer.name()}' ({crs_auth})")
+        log(tr("Creato layer '{value}' ({crs_auth})").format(value=layer.name(), crs_auth=crs_auth))
         return layer
 
     @staticmethod
     def _replace_layer_content(layer, geometry):
         from .layer_edits import edit_layer, checked
         if layer is None:
-            raise ValueError('Layer buffer non disponibile.')
+            raise ValueError(tr('Layer buffer non disponibile.'))
         geometry = QgsGeometry(geometry)
         geometries = []
         if not geometry.isEmpty():
@@ -385,12 +387,12 @@ class BufferEngine:
                 geometries = geometry.asGeometryCollection()
             else:
                 geometries = [geometry]
-        with edit_layer(layer, 'Aggiorna buffer'):
-            checked(layer.deleteFeatures([f.id() for f in layer.getFeatures()]), 'Buffer precedenti non sostituiti.')
+        with edit_layer(layer, tr('Aggiorna buffer')):
+            checked(layer.deleteFeatures([f.id() for f in layer.getFeatures()]), tr('Buffer precedenti non sostituiti.'))
             for part in geometries:
                 feat = QgsFeature(layer.fields())
                 feat.setGeometry(part)
-                checked(layer.addFeature(feat), 'Buffer non inserito.')
+                checked(layer.addFeature(feat), tr('Buffer non inserito.'))
         layer.triggerRepaint()
 
     @staticmethod
@@ -456,7 +458,7 @@ class BufferEngine:
             except RuntimeError:
                 pass
         self._output_layers.clear()
-        log("Layer di output rimossi.")
+        log(tr('Layer di output rimossi.'))
 
     def get_route_layer(self, project, crs=None):
         """Recupera o crea il layer sorgente della rotta.
@@ -485,7 +487,7 @@ class BufferEngine:
         layer.setCrs(crs)
 
         if not layer.isValid():
-            log(f"Errore: impossibile creare layer '{LAYER_NAME_ROUTE}'", Qgis.Critical)
+            log(tr("Errore: impossibile creare layer '{LAYER_NAME_ROUTE}'").format(LAYER_NAME_ROUTE=LAYER_NAME_ROUTE), Qgis.Critical)
             return None
 
         # Stile linea route: blu, spessore 2
@@ -501,5 +503,5 @@ class BufferEngine:
 
         adopt_layer(layer, LAYER_NAME_ROUTE)
         project.addMapLayer(layer)
-        log(f"Creato layer sorgente '{layer.name()}'")
+        log(tr("Creato layer sorgente '{value}'").format(value=layer.name()))
         return layer
