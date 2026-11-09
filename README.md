@@ -2,80 +2,138 @@
 
 <img src="docs/assets/logo-horizontal.svg" alt="ABS - AutoBufferSketcher" width="960" height="160">
 
-**Disegna una rotta. Definisci le distanze. Aggiorna i buffer mentre lavori in QGIS.**
+[Italiano](#italiano) · [English](#english)
 
-ABS è un progetto personale di **Francesco Rosano** per disegnare e modificare rotte, generare quattro fasce di buffer e gestire distanze uniformi oppure diverse per ogni segmento.
+![ABS in QGIS: rotta e quattro buffer su dati sintetici / route and four buffers using synthetic data](docs/assets/overview.png)
 
-*QGIS plugin for interactive route sketching, four metric buffer zones, per-segment distances, GeoPackage persistence, GeoJSON and `.plan` export.*
+## Italiano
 
-**Stato:** versione di sviluppo 0.2.0, sperimentale. Il plugin non è ancora pubblicato nel catalogo ufficiale QGIS. L’interfaccia è in italiano.
+### Il progetto
 
-![Rotta e quattro buffer in QGIS, su dati sintetici](docs/assets/overview.png)
+Sto sviluppando ABS come progetto personale per disegnare e modificare rotte in QGIS e gestire quattro fasce di buffer, con distanze uniformi oppure diverse per ogni segmento. Ho portato questo progetto anche nella mia tesina di fine corso.
 
-Tutte le immagini usano la [rotta sintetica inclusa](examples/README.md), senza dati operativi o servizi cartografici esterni.
+Con ABS voglio raccogliere nello stesso pannello il lavoro sulla rotta, il calcolo dei buffer e la preparazione dei dati da esportare. Per lo scambio GIS metto a disposizione GeoPackage e GeoJSON; per il flusso missione ho un’esportazione `.plan` pensata appositamente per **RigiCloud**.
+
+**Stato:** ho pubblicato la versione sperimentale [0.2.0](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.0); nel ramo di sviluppo preparo la 0.2.1. Il plugin non è ancora nel catalogo ufficiale QGIS. L’interfaccia attuale è in italiano: ho pianificato la traduzione inglese e la predisposizione per altre lingue.
 
 [Guida completa](docs/USER_GUIDE.md) · [Demo riproducibile](examples/README.md) · [Changelog](CHANGELOG.md) · [Contribuire](CONTRIBUTING.md)
 
-## Cosa puoi fare
+### Cosa posso fare con ABS
 
-- Disegnare rotte sulla mappa, modificare i vertici ed eliminare le linee con conferma.
-- Generare **Pregeocage**, **Geocage**, **Ground Buffer** e **Adjacent Area**, con distanze in metri e aggiornamento automatico o manuale.
-- Salvare quattro distanze indipendenti per ciascun segmento; conservarle durante divisioni compatibili e gestire esplicitamente le fusioni con valori diversi.
-- Salvare rotta, buffer e segmenti in GeoPackage e ripristinare modalità e parametri dal progetto QGIS.
-- Esportare GeoJSON in WGS84 e piani `.plan` per il flusso RigiCloud, entro i limiti documentati.
+- Disegnare rotte sulla mappa, modificare i vertici ed eliminare linee con conferma.
+- Generare **Pregeocage**, **Geocage**, **Ground Buffer** e **Adjacent Area** in metri, con aggiornamento automatico o manuale.
+- Salvare distanze indipendenti per ciascun segmento e ritrovarle passando da un segmento all’altro.
+- Rendere persistenti i layer e conservare modalità e parametri nel progetto QGIS.
+- Esportare geometrie GIS oppure un profilo missione `.plan` dedicato a RigiCloud, entro i limiti documentati.
 
-## Installazione
+### Installazione e primo utilizzo
 
-Il plugin usa Python, Qt e PyQGIS forniti con QGIS; non richiede pacchetti Python esterni.
+Uso Python, Qt e PyQGIS già forniti con QGIS, senza pacchetti Python esterni. Dichiaro QGIS **3.34–3.99**; le verifiche disponibili riguardano **3.34.4 e 3.44.15 su Linux**. Non ho ancora convalidato Windows, macOS o QGIS 4.
 
-**Da ZIP:** quando hai un pacchetto del plugin, apri **Plugin → Gestisci e installa plugin → Installa da ZIP**, selezionalo e abilita ABS. Dopo un aggiornamento, riavvia QGIS per ricaricare il codice Python.
+1. Scarica lo ZIP dagli asset della [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.0).
+2. In QGIS apri **Plugin → Gestisci e installa plugin → Installa da ZIP**. Dopo un aggiornamento, riavvia QGIS.
+3. Apri ABS dalla toolbar. In **Rotta e buffer** imposta le distanze e premi **Disegna linea**: clic sinistro per i vertici, clic destro per completare, Backspace per rimuovere l’ultimo vertice, Esc per annullare.
+4. Usa **Modifica linea** e **Salva modifiche** per intervenire sui vertici. Puoi disattivare l’aggiornamento automatico e usare **Ricalcola buffer**.
+5. Per valori locali, attiva **Distanze diverse per segmento**, seleziona un segmento, modifica i campi e premi **Salva distanze del segmento** prima di selezionare il successivo.
 
-**Dal sorgente:** apri **Impostazioni → Profili utente → Apri cartella del profilo attivo** e copia `auto_buffer_sketcher` dentro `python/plugins`. Riavvia QGIS e abilita **ABS - AutoBufferSketcher** dal gestore plugin. Per le versioni di sviluppo usa un profilo separato.
+Per lavorare dal sorgente, copia `auto_buffer_sketcher` in `python/plugins` del profilo QGIS e riavvia l’applicazione. Per lo sviluppo consiglio un profilo separato.
 
-Il minimo dichiarato è QGIS 3.34; le verifiche disponibili riguardano **QGIS 3.34.4 e 3.44.15 su Linux**. La versione è destinata a QGIS 3.x; QGIS 4, Windows e macOS non sono ancora convalidati.
+### Salvare ed esportare
 
-## Primo utilizzo
-
-1. Apri ABS dalla toolbar. Nella scheda **Rotta e buffer**, imposta le quattro distanze.
-2. Premi **Disegna linea**: clic sinistro per aggiungere vertici, clic destro per completare, Backspace per rimuovere l’ultimo vertice, Esc per annullare.
-3. Usa **Modifica linea** e poi **Salva modifiche** per intervenire sui vertici. L’aggiornamento automatico è inizialmente attivo; puoi usare anche **Ricalcola buffer**.
-4. Per distanze locali, attiva **Distanze diverse per segmento**, seleziona un segmento sulla mappa, imposta i valori e premi **Salva distanze del segmento**. Poi passa al successivo.
-5. Nella scheda **Missione e file**, scegli il formato di esportazione o rendi persistenti i layer. Salva anche il progetto QGIS per conservarne impostazioni e riferimenti.
-
-![Distanze indipendenti e salvataggio del segmento selezionato](docs/assets/segments.png)
-
-## Salvataggi ed esportazioni
-
-| Azione | Risultato |
+| Azione | Cosa ottengo |
 | --- | --- |
-| Salva distanze del segmento | Memorizza i quattro valori soltanto nel segmento selezionato del layer corrente. |
-| Applica a tutti i segmenti | Sostituisce le distanze di tutti i segmenti con i valori correnti. |
-| Esporta GeoPackage | Esporta rotta e quattro buffer. Non include il layer dei segmenti. |
-| Rendi layer persistenti | Salva anche i segmenti e sostituisce nel progetto i layer temporanei con quelli su disco. |
-| Esporta GeoJSON | Esporta rotte, waypoint e buffer in WGS84, comprese geometrie multipart e anelli interni. |
-| Esporta .plan | Esporta una rotta rappresentabile con i suoi buffer e i parametri di missione. |
+| Salva distanze del segmento | I quattro valori memorizzati soltanto nel segmento selezionato del layer corrente. |
+| Applica a tutti i segmenti | Gli stessi valori correnti su tutti i segmenti. |
+| Esporta GeoPackage | Una copia di rotta e quattro buffer, senza il layer segmenti. |
+| Rendi layer persistenti | Rotta, buffer e segmenti su disco; salvo poi anche il progetto QGIS. |
+| Esporta GeoJSON | Rotte, waypoint e buffer in WGS84, comprese parti separate e anelli interni. |
+| Esporta .plan per RigiCloud | Una rotta e i buffer associati nel profilo missione dedicato implementato da ABS. |
 
-La [guida d’uso](docs/USER_GUIDE.md) spiega la differenza fra salvare valori, salvare layer e salvare il progetto.
+Il pulsante del segmento salva nel layer corrente: per conservare layer temporanei dopo la chiusura uso **Rendi layer persistenti** e salvo il progetto QGIS.
 
-## Limiti e compatibilità
+### Perché specifico RigiCloud
 
-- Calcolo metrico regionale in un CRS UTM locale: estensioni oltre 6° in longitudine o latitudine, attraversamenti dell’antimeridiano e latitudini fuori da 80° S–84° N sono segnalati come non supportati.
-- `.plan` richiede una rotta continua con almeno tre vertici. Parti separate, buchi e buffer non rappresentabili vengono segnalati; GeoJSON conserva invece le geometrie complete.
-- **La compatibilità completa con RigiCloud 1.19.9 resta in validazione**, comprese quote, profilo e parametri. Un file JSON leggibile non dimostra l’accettazione della missione nel sistema target.
-- I valori iniziali sono parametri del software, non una verifica dell’adeguatezza di una missione.
+Il `.plan` che esporto contiene una missione VTOL, un profilo e parametri di sicurezza e i geofence. Lo considero un’esportazione dedicata al flusso **RigiCloud**, non un piano universale compatibile con qualunque applicazione. La compatibilità completa con **RigiCloud 1.19.9**, incluse quote, profilo e parametri, è ancora in validazione.
 
-## Qualità e sviluppo
+Non ho ancora implementato un secondo esportatore missione generico. Per aggiungerlo dovrò prima scegliere l’applicazione destinataria e il suo schema: la stessa estensione `.plan` è usata anche da formati differenti. GeoJSON e GeoPackage rimangono le mie opzioni di scambio delle geometrie GIS.
 
-La suite contiene **37 regressioni del plugin e 7 prove dell’interfaccia**, oltre allo smoke test degli esportatori. GitHub Actions le esegue con il Python di sistema e Qt offscreen. Le verifiche offscreen non coprono ogni interazione desktop o piattaforma.
+### Limiti e verifiche
 
-Il codice è in `auto_buffer_sketcher/`; i test sintetici sono in `tests/`. Per riprodurli o proporre una modifica, vedi [CONTRIBUTING.md](CONTRIBUTING.md). Per un problema, apri una segnalazione con il modello dedicato nella sezione Issues della repository, indicando versioni, CRS e passaggi riproducibili.
+Calcolo i buffer in un CRS UTM locale: estensioni oltre 6° in longitudine o latitudine, attraversamenti dell’antimeridiano e latitudini fuori da 80° S–84° N sono segnalati come non supportati. Il profilo `.plan` attuale richiede una rotta continua con almeno tre vertici e rifiuta geometrie non rappresentabili, come parti separate o buchi. I valori iniziali sono parametri del software, non una validazione di una missione.
 
-## Autore e licenza
+Mantengo **37 regressioni funzionali, 7 prove dell’interfaccia e 6 prove di confezionamento**, oltre allo smoke test degli esportatori. Le eseguo anche su GitHub Actions. Ho verificato l’installazione ZIP in un profilo QGIS isolato; le prove offscreen non coprono ogni interazione desktop o piattaforma.
 
-**Francesco Rosano** — progetto personale. Contatto tramite le Issues della repository.
+Per le immagini e la [demo](examples/README.md) uso soltanto dati sintetici. La guida dettagliata è attualmente in italiano. Per una segnalazione o una proposta, usa i modelli nella sezione Issues.
 
-Distribuito con licenza **GNU GPL versione 3 (GPL-3.0-only)**. Sono consentiti anche uso e distribuzione commerciali, nel rispetto della licenza. Vedi [LICENSE](LICENSE) e [NOTICE](NOTICE). La pubblicazione nel catalogo resta in preparazione; il contatto autore nei metadati è rosano_francesco@hotmail.it.
+### Licenza
 
-## Progetti precedenti
+Distribuisco ABS con **GPL-3.0-only**, che consente anche uso commerciale nel rispetto delle sue condizioni. Il mio contatto è **rosano_francesco@hotmail.it**. Attribuzione e testo completo sono in [NOTICE](NOTICE) e [LICENSE](LICENSE).
 
-I layer standard con nomi `ABC` continuano a essere riconosciuti. I nomi predefiniti passano al prefisso **ABS**, conservando file sorgente e nomi personalizzati. Il pacchetto Python mantiene l’identificatore `auto_buffer_sketcher`.
+Mantengo la compatibilità con i layer storici `ABC` e con i nomi personalizzati; l’identificatore Python resta `auto_buffer_sketcher`.
+
+---
+
+## English
+
+### The project
+
+I am developing ABS as a personal project to draw and edit routes in QGIS and manage four buffer zones, with uniform distances or different values for each segment. I also presented this project in my end-of-course thesis.
+
+With ABS, I want to bring route editing, buffer calculation and export preparation into the same panel. I provide GeoPackage and GeoJSON for GIS data exchange, and a `.plan` mission export designed specifically for the **RigiCloud** workflow.
+
+**Status:** I have published experimental version [0.2.0](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.0); the development branch is preparing 0.2.1. The plugin is not yet in the official QGIS plugin catalog. Its current interface is Italian: I have planned an English translation and support for further languages.
+
+[Detailed guide — Italian](docs/USER_GUIDE.md) · [Reproducible demo — Italian](examples/README.md) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
+
+### What I can do with ABS
+
+- Draw routes on the map, edit vertices and delete lines with confirmation.
+- Generate **Pregeocage**, **Geocage**, **Ground Buffer** and **Adjacent Area** in metres, with automatic or manual updates.
+- Save independent distances for each segment and retrieve them when switching between segments.
+- Save temporary layers to disk and preserve modes and parameters in the QGIS project.
+- Export GIS geometries or a dedicated RigiCloud `.plan` mission profile, within the documented limits.
+
+### Installation and first use
+
+I use the Python, Qt and PyQGIS components shipped with QGIS, without additional Python packages. I declare support for QGIS **3.34–3.99**; the available checks cover **3.34.4 and 3.44.15 on Linux**. I have not yet validated Windows, macOS or QGIS 4.
+
+1. Download the ZIP asset from the [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.0).
+2. In QGIS, open **Plugins → Manage and Install Plugins → Install from ZIP**. Restart QGIS after an update.
+3. Open ABS from its toolbar button. In **Rotta e buffer** (Route and buffers), set the distances and click **Disegna linea** (Draw line): left-click to add vertices, right-click to finish, Backspace to remove the last vertex and Esc to cancel.
+4. Use **Modifica linea** (Edit line) and **Salva modifiche** (Save changes) to edit vertices. You can disable automatic updates and use **Ricalcola buffer** (Recalculate buffers).
+5. For local values, enable **Distanze diverse per segmento** (Different distances per segment), select a segment, change the values and click **Salva distanze del segmento** (Save segment distances) before selecting the next segment.
+
+To work from source, copy `auto_buffer_sketcher` into the QGIS profile’s `python/plugins` directory and restart the application. I recommend a separate profile for development.
+
+### Saving and exporting
+
+| Action | What I get |
+| --- | --- |
+| Save segment distances | The four values stored only on the selected segment in the current layer. |
+| Apply to all segments | The current values applied to every segment. |
+| Export GeoPackage | A copy of the route and four buffers, without the segments layer. |
+| Make layers persistent | Route, buffers and segments saved to disk; I also save the QGIS project afterwards. |
+| Export GeoJSON | Routes, waypoints and buffers in WGS84, including multipart geometries and inner rings. |
+| Export .plan for RigiCloud | One route and its associated buffers in the dedicated mission profile implemented by ABS. |
+
+The segment button saves values in the current layer. To retain temporary layers after closing QGIS, I use **Rendi layer persistenti** (Make layers persistent) and save the QGIS project.
+
+### Why I specify RigiCloud
+
+The `.plan` I export contains a VTOL mission, a safety profile and settings, and geofences. I treat it as a dedicated export for the **RigiCloud** workflow, not a universal mission plan compatible with every application. Full compatibility with **RigiCloud 1.19.9**, including altitudes, profile and parameters, is still under validation.
+
+I have not yet implemented a second generic mission exporter. Before adding one, I will need to choose its destination application and schema: the `.plan` extension is also used by different formats. GeoJSON and GeoPackage remain my options for exchanging GIS geometries.
+
+### Limits and checks
+
+I calculate buffers in a local UTM CRS. Extents greater than 6° in longitude or latitude, antimeridian crossings and latitudes outside 80° S–84° N are reported as unsupported. The current `.plan` profile requires a single continuous route with at least three vertices and rejects unrepresentable geometries such as separate parts or holes. Initial values are software parameters, not mission validation.
+
+I maintain **37 functional regressions, 7 interface checks and 6 packaging checks**, plus the exporter smoke tests, and run them through GitHub Actions. I have checked ZIP installation in an isolated QGIS profile; offscreen checks do not cover every desktop interaction or platform.
+
+I use only synthetic data for the screenshots and [demo](examples/README.md). The detailed guide is currently in Italian. For a bug report or proposal, use the repository’s issue templates.
+
+### License
+
+I distribute ABS under **GPL-3.0-only**, which also permits commercial use under its terms. My contact address is **rosano_francesco@hotmail.it**. See [NOTICE](NOTICE) for attribution and [LICENSE](LICENSE) for the full terms.
+
+I preserve compatibility with historical `ABC` layer names and custom titles; the Python package identifier remains `auto_buffer_sketcher`.

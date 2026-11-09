@@ -1,6 +1,12 @@
 # Changelog
 
-## 0.2.0 — In sviluppo
+## 0.2.1 — In sviluppo
+
+- Presentazione divisa in italiano e inglese, con voce dell’autore in prima persona.
+- Destinazione RigiCloud esplicita nel comando e nel dialogo di esportazione .plan, senza modificare lo schema o i parametri esportati.
+- Documentata la distinzione fra .plan dedicato, formati GIS di scambio e possibili esportatori futuri.
+
+## 0.2.0 — Sperimentale
 
 - Licenza GPL-3.0-only, attribuzione a Francesco Rosano e documentazione inclusa nel pacchetto installabile.
 - Minimo QGIS dichiarato allineato alla versione 3.34 verificata; QGIS 4 escluso dalla dichiarazione di compatibilità.
