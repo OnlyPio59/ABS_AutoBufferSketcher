@@ -6,13 +6,14 @@ description=Draw a line and automatically generate pregeocage, geocage, ground b
 version=0.2.1
 author=Francesco Rosano
 email=rosano_francesco@hotmail.it
-about=Interactive route sketching with four metric buffer zones and independent per-segment distances. Includes GeoPackage persistence, GeoJSON and experimental RigiCloud .plan export.
+about=Interactive route sketching with four metric buffer zones and independent per-segment distances. Includes GeoPackage persistence, GeoJSON, experimental RigiCloud .plan export, and Italian/English interface translations.
     Requires QGIS 3.34 or later in the 3.x series, using the Python/Qt shipped with QGIS and no external Python packages. Tested on Linux with QGIS 3.34.4 and 3.44.15; Windows, macOS and QGIS 4 are not validated.
     Buffer calculation is regional (local UTM); broad extents and polar routes are not supported. Full RigiCloud 1.19.9 compatibility, including mission parameters and altitudes, is still under validation.
 tracker=https://github.com/OnlyPio59/ABS_AutoBufferSketcher/issues
 repository=https://github.com/OnlyPio59/ABS_AutoBufferSketcher
 homepage=https://github.com/OnlyPio59/ABS_AutoBufferSketcher#readme
-changelog=0.2.0 - ABS identity; metric buffers and segment persistence; redesigned panel and export safeguards.
+changelog=0.2.1 - Italian/English interface, bilingual guides and compact layout checks; dedicated RigiCloud export labels.
+    0.2.0 - ABS identity; metric buffers and segment persistence; redesigned panel and export safeguards.
 category=Vector
 icon=resources/icon.png
 tags=buffer,sketcher,line,geocage,pregeocage,drone,aviation

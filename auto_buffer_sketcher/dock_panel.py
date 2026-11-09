@@ -1,4 +1,6 @@
 """Dock UI for ABS - AutoBufferSketcher; calculation and export stay in plugin.py."""
+
+from .i18n import tr
 from pathlib import Path
 
 from qgis.PyQt.QtCore import Qt, QEvent, QPointF, pyqtSignal
@@ -94,14 +96,14 @@ class BufferDockPanel(QDockWidget):
         row.setContentsMargins(10, 10, 10, 10)
         mark = QSvgWidget(str(Path(__file__).parent / "resources/icon.svg"))
         mark.setFixedSize(44, 44)
-        mark.setAccessibleName("Logo ABS")
+        mark.setAccessibleName(tr('Logo ABS'))
         row.addWidget(mark)
         words = QVBoxLayout()
         title = QLabel(PLUGIN_NAME)
         title.setWordWrap(True)
         title.setObjectName("absTitle")
         words.addWidget(title)
-        subtitle = QLabel("Rotte, buffer e missioni")
+        subtitle = QLabel(tr('Rotte, buffer e missioni'))
         subtitle.setObjectName("absSubtitle")
         words.addWidget(subtitle)
         row.addLayout(words, 1)
@@ -115,28 +117,28 @@ class BufferDockPanel(QDockWidget):
         self.tabs.tabBar().setFont(tab_font)
         self.tabs.tabBar().setDrawBase(False)
         layout.addWidget(self.tabs, 1)
-        route = self._page("Rotta e buffer")
-        tools = self._card(route, "Rotta", "Disegna la linea sulla mappa o modifica i suoi vertici.")
-        self.btn_sketcher = self._button("Disegna linea", self.sketcher_requested, tools)
+        route = self._page(tr('Rotta e buffer'))
+        tools = self._card(route, tr('Rotta'), tr('Disegna la linea sulla mappa o modifica i suoi vertici.'))
+        self.btn_sketcher = self._button(tr('Disegna linea'), self.sketcher_requested, tools)
         self.btn_sketcher.setProperty("primary", True)
         row = QHBoxLayout()
-        self.btn_edit = self._button("Modifica linea", self.edit_requested, row,
-            "Attiva la modalità editing sul layer rotta.\nPuoi spostare, aggiungere o rimuovere vertici.")
-        self.btn_delete = self._button("Elimina linea", self.delete_requested, row,
-            "Seleziona una o più linee sulla mappa e clicca di nuovo per eliminarle.")
+        self.btn_edit = self._button(tr('Modifica linea'), self.edit_requested, row,
+            tr('Attiva la modalità editing sul layer rotta.\nPuoi spostare, aggiungere o rimuovere vertici.'))
+        self.btn_delete = self._button(tr('Elimina linea'), self.delete_requested, row,
+            tr('Seleziona una o più linee sulla mappa e clicca di nuovo per eliminarle.'))
         self.btn_delete.setProperty("danger", True)
         tools.addLayout(row)
 
-        distances = self._card(route, "Distanze dei buffer", "Valori in metri, applicati alla rotta.")
+        distances = self._card(route, tr('Distanze dei buffer'), tr('Valori in metri, applicati alla rotta.'))
         grid = QGridLayout()
         grid.setHorizontalSpacing(8)
         grid.setVerticalSpacing(8)
         grid.setColumnStretch(1, 1)
         for index, (key, name, value, color) in enumerate((
-            ("pregeocage", "Pregeocage", 50.0, "#22C55E"),
-            ("geocage", "Geocage", 100.0, "#FFD700"),
-            ("ground", "Ground Buffer", 150.0, "#DC143C"),
-            ("adjacent", "Adjacent Area", 5000.0, "#6f63c2"),
+            ("pregeocage", tr('Pregeocage'), 50.0, "#22C55E"),
+            ("geocage", tr('Geocage'), 100.0, "#FFD700"),
+            ("ground", tr('Ground Buffer'), 150.0, "#DC143C"),
+            ("adjacent", tr('Adjacent Area'), 5000.0, "#6f63c2"),
         )):
             swatch = QLabel("●")
             swatch.setStyleSheet(f"color: {color};")
@@ -149,44 +151,44 @@ class BufferDockPanel(QDockWidget):
             grid.addWidget(label, index, 1)
             grid.addWidget(spin, index, 2)
         distances.addLayout(grid)
-        self.chk_auto_update = QCheckBox("Aggiornamento automatico")
+        self.chk_auto_update = QCheckBox(tr('Aggiornamento automatico'))
         self.chk_auto_update.setChecked(True)
         self.chk_auto_update.toggled.connect(self.auto_update_toggled.emit)
         distances.addWidget(self.chk_auto_update)
-        self.chk_diff_buffers = QCheckBox("Distanze diverse per segmento")
-        self.chk_diff_buffers.setToolTip("Assegna distanze diverse ad ogni segmento della linea.")
+        self.chk_diff_buffers = QCheckBox(tr('Distanze diverse per segmento'))
+        self.chk_diff_buffers.setToolTip(tr('Assegna distanze diverse ad ogni segmento della linea.'))
         self.chk_diff_buffers.toggled.connect(self._on_diff_toggled)
         distances.addWidget(self.chk_diff_buffers)
-        self.btn_recalc = self._button("Ricalcola buffer", self.recalc_requested, distances)
+        self.btn_recalc = self._button(tr('Ricalcola buffer'), self.recalc_requested, distances)
 
-        self.btn_apply_all = self._button("Applica a tutti i segmenti", self.apply_to_all_segments,
-            distances, "Sostituisce le distanze di tutti i segmenti con i valori correnti.")
+        self.btn_apply_all = self._button(tr('Applica a tutti i segmenti'), self.apply_to_all_segments,
+            distances, tr('Sostituisce le distanze di tutti i segmenti con i valori correnti.'))
         self.btn_apply_all.hide()
         route.addStretch()
 
-        files = self._page("Missione e file")
-        mission = self._card(files, "Quote della missione",
-            "Quote AMSL: altitudini rispetto al livello medio del mare.")
+        files = self._page(tr('Missione e file'))
+        mission = self._card(files, tr('Quote della missione'),
+            tr('Quote AMSL: altitudini rispetto al livello medio del mare.'))
         grid = QGridLayout()
-        for index, (key, name, value) in enumerate((("flight", "Volo", 120.0), ("pad", "Pad", 40.0))):
-            spin = self._spinbox(f"Altitudine {name} (AMSL)", value, 5000.0)
+        for index, (key, name, value) in enumerate((("flight", tr('Volo'), 120.0), ("pad", tr('Pad'), 40.0))):
+            spin = self._spinbox(tr('Altitudine {name} (AMSL)').format(name=name), value, 5000.0)
             setattr(self, f"spin_alt_{key}", spin)
             label = QLabel(name)
             label.setBuddy(spin)
             grid.addWidget(label, index, 0)
             grid.addWidget(spin, index, 1)
         mission.addLayout(grid)
-        exports = self._card(files, "Esporta", "Scegli il formato per il passaggio successivo.")
+        exports = self._card(files, tr('Esporta'), tr('Scegli il formato per il passaggio successivo.'))
         for attr, text, signal, description in (
-            ("btn_export_plan", "Esporta .plan per RigiCloud", self.export_plan_requested, "Profilo missione dedicato a RigiCloud"),
-            ("btn_export_geojson", "Esporta GeoJSON", self.export_geojson_requested, "Dati geografici in formato JSON"),
-            ("btn_export", "Esporta GeoPackage", self.export_requested, "Rotta e buffer in un file .gpkg"),
+            ("btn_export_plan", tr('Esporta .plan per RigiCloud'), self.export_plan_requested, tr('Profilo missione dedicato a RigiCloud')),
+            ("btn_export_geojson", tr('Esporta GeoJSON'), self.export_geojson_requested, tr('Dati geografici in formato JSON')),
+            ("btn_export", tr('Esporta GeoPackage'), self.export_requested, tr('Rotta e buffer in un file .gpkg')),
         ):
             setattr(self, attr, self._button(text, signal, exports))
             self._description(exports, description)
-        persistence = self._card(files, "Salva i layer", "Conserva su disco i layer temporanei del plugin.")
-        self.btn_make_persistent = self._button("Rendi layer persistenti", self.make_persistent_requested,
-            persistence, "Converte i layer temporanei del plugin in layer permanenti salvandoli su disco.")
+        persistence = self._card(files, tr('Salva i layer'), tr('Conserva su disco i layer temporanei del plugin.'))
+        self.btn_make_persistent = self._button(tr('Rendi layer persistenti'), self.make_persistent_requested,
+            persistence, tr('Converte i layer temporanei del plugin in layer permanenti salvandoli su disco.'))
         files.addStretch()
 
         footer = QFrame()
@@ -198,18 +200,16 @@ class BufferDockPanel(QDockWidget):
         segment = QVBoxLayout(self.seg_group)
         segment.setContentsMargins(0, 0, 0, 6)
         segment.setSpacing(6)
-        self.seg_info_label = QLabel("Nessun segmento selezionato.")
+        self.seg_info_label = QLabel(tr('Nessun segmento selezionato.'))
         self.seg_info_label.setWordWrap(True)
         segment.addWidget(self.seg_info_label)
-        self.btn_apply_segment = self._button("Salva distanze del segmento", self.apply_to_segment,
-            segment, "Memorizza i quattro valori solo nel segmento selezionato.\n"
-            "Poi puoi selezionare un altro segmento. Per conservarli dopo la chiusura,\n"
-            "rendi persistenti i layer e salva il progetto QGIS.")
+        self.btn_apply_segment = self._button(tr('Salva distanze del segmento'), self.apply_to_segment,
+            segment, tr('Memorizza i quattro valori solo nel segmento selezionato.\nPoi puoi selezionare un altro segmento. Per conservarli dopo la chiusura,\nrendi persistenti i layer e salva il progetto QGIS.'))
         self.btn_apply_segment.setProperty("primary", True)
         self.btn_apply_segment.setEnabled(False)
         self.seg_group.hide()
         status_layout.addWidget(self.seg_group)
-        self.status_label = QLabel("Pronto.")
+        self.status_label = QLabel(tr('Pronto.'))
         self.status_label.setWordWrap(True)
         self.status_label.setTextFormat(Qt.PlainText)
         status_layout.addWidget(self.status_label)
@@ -369,11 +369,11 @@ class BufferDockPanel(QDockWidget):
         if not hasattr(self, "seg_info_label"):
             return
         if self._segment_id is None:
-            text = "Seleziona un segmento sulla mappa."
+            text = tr('Seleziona un segmento sulla mappa.')
         elif self.has_unsaved_segment_changes:
-            text = f"Segmento {self._segment_id}: modifiche da salvare."
+            text = tr('Segmento {segment_id}: modifiche da salvare.').format(segment_id=self._segment_id)
         else:
-            text = f"Segmento {self._segment_id}: distanze memorizzate nel layer."
+            text = tr('Segmento {segment_id}: distanze memorizzate nel layer.').format(segment_id=self._segment_id)
         self.seg_info_label.setText(text)
         self.btn_apply_segment.setEnabled(self._segment_id is not None)
 

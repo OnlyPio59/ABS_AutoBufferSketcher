@@ -1,4 +1,6 @@
 """Checked edits that do not commit unrelated edits owned by the user."""
+
+from .i18n import tr
 from contextlib import contextmanager
 
 
@@ -6,7 +8,7 @@ from contextlib import contextmanager
 def edit_layer(layer, title):
     owns = not layer.isEditable()
     if owns and not layer.startEditing():
-        raise ValueError(f'Layer non modificabile: {layer.name()}')
+        raise ValueError(tr('Layer non modificabile: {value}').format(value=layer.name()))
     layer.beginEditCommand(title)
     try:
         yield
@@ -14,7 +16,7 @@ def edit_layer(layer, title):
         if owns and not layer.commitChanges():
             errors = '; '.join(layer.commitErrors())
             layer.rollBack()
-            raise ValueError(f'Scrittura non riuscita: {errors}')
+            raise ValueError(tr('Scrittura non riuscita: {errors}').format(errors=errors))
     except Exception:
         if layer.isEditable():
             if owns:

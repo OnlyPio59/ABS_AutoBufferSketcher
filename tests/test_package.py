@@ -42,6 +42,10 @@ class PackageTests(unittest.TestCase):
             text=path.read_text();text='\n'.join('email='+value if line.startswith('email=') else line for line in text.splitlines())+'\n';path.write_text(text)
             with self.assertRaisesRegex(ValueError,'email'):build_plugin(self.root,Path(self.temp.name)/'release')
         self.assertFalse((Path(self.temp.name)/'release').exists())
+    def test_missing_compiled_translation_is_rejected(self):
+        (self.root/'auto_buffer_sketcher/i18n/auto_buffer_sketcher_en.qm').unlink()
+        with self.assertRaisesRegex(ValueError, 'Missing translation catalog'):
+            build_plugin(self.root,Path(self.temp.name)/'out',True)
     def test_release_path_with_synthetic_contact_fixture(self):
         # Fixture exercises validation only; no real contact is selected for the project.
         path=self.root/'auto_buffer_sketcher/metadata.txt'
