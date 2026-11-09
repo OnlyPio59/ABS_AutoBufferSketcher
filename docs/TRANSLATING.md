@@ -1,6 +1,6 @@
 # Translating ABS
 
-The 0.2.1 development source includes a complete Italian/English interface.
+The 0.2.2 development source includes a complete Italian/English interface.
 The published 0.2.0 release retains its Italian interface. Other languages are not yet available.
 
 ## Language policy
