@@ -1,4 +1,6 @@
 """Coordinate operations shared by the engine and exporters."""
+
+from .i18n import tr
 import json
 import math
 from qgis.core import QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsGeometry, QgsProject
@@ -6,15 +8,15 @@ from qgis.core import QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsG
 
 def transformed(geometry, source, destination):
     if not source.isValid() or not destination.isValid():
-        raise ValueError('CRS non valido: definire il sistema di riferimento dei layer.')
+        raise ValueError(tr('CRS non valido: definire il sistema di riferimento dei layer.'))
     result = QgsGeometry(geometry)
     if source != destination and not result.isEmpty():
         operation = QgsCoordinateTransform(source, destination, QgsProject.instance())
         if result.transform(operation) != 0:
-            raise ValueError('Trasformazione delle coordinate non riuscita.')
+            raise ValueError(tr('Trasformazione delle coordinate non riuscita.'))
     for point in result.vertices():
         if not math.isfinite(point.x()) or not math.isfinite(point.y()):
-            raise ValueError('Coordinate non finite dopo la trasformazione.')
+            raise ValueError(tr('Coordinate non finite dopo la trasformazione.'))
     return result
 
 
@@ -34,9 +36,9 @@ def metric_crs(layer):
     xs, ys = zip(*points)
     lon, lat = (min(xs)+max(xs))/2, (min(ys)+max(ys))/2
     if min(xs) < -180 or max(xs) > 180 or min(ys) < -80 or max(ys) > 84:
-        raise ValueError('Calcolo metrico locale supportato fra 80° S e 84° N; verificare il CRS della rotta.')
+        raise ValueError(tr('Calcolo metrico locale supportato fra 80° S e 84° N; verificare il CRS della rotta.'))
     if max(xs)-min(xs) > 6 or max(ys)-min(ys) > 6:
-        raise ValueError('Estensione troppo ampia per il calcolo UTM locale: suddividere la rotta in aree locali.')
+        raise ValueError(tr('Estensione troppo ampia per il calcolo UTM locale: suddividere la rotta in aree locali.'))
     zone = max(1, min(60, int((lon+180)//6)+1))
     epsg = (32600 if lat >= 0 else 32700) + zone
     auth = layer.crs().authid()

@@ -1,6 +1,10 @@
 # Guida d’uso — ABS - AutoBufferSketcher
 
-[Presentazione](../README.md) · [Esempio sintetico](../examples/README.md)
+[English](USER_GUIDE.en.md) · [Presentazione](../README.md) · [Esempio sintetico](../examples/README.md)
+
+## Lingua dell’interfaccia
+
+Nel sorgente 0.2.1, ABS segue la lingua impostata in QGIS: italiano e inglese sono disponibili, con italiano come ripiego. Per cambiarla usa **Impostazioni → Opzioni → Generale**, scegli la lingua dell’interfaccia e riavvia QGIS. La release 0.2.0 mantiene l’interfaccia italiana. Nomi dei layer, campi e dati esportati restano invariati.
 
 ## Il pannello
 

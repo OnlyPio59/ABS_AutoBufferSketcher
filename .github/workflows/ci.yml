@@ -46,5 +46,13 @@ jobs:
       - name: Check translation lifecycle and catalogs
         run: /usr/bin/python3 tests/test_i18n.py
 
+      - name: Check bilingual workflows and compact layout
+        run: /usr/bin/python3 tests/test_localized_workflows.py
+
+      - name: Check bilingual workflows at 150 percent scale
+        env:
+          QT_SCALE_FACTOR: '1.5'
+        run: /usr/bin/python3 tests/test_localized_workflows.py
+
       - name: Run original exporter smoke tests
         run: /usr/bin/python3 tests/test_plan_exporter.py

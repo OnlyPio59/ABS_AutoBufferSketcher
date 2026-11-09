@@ -14,7 +14,7 @@ Sto sviluppando ABS come progetto personale per disegnare e modificare rotte in 
 
 Con ABS voglio raccogliere nello stesso pannello il lavoro sulla rotta, il calcolo dei buffer e la preparazione dei dati da esportare. Per lo scambio GIS metto a disposizione GeoPackage e GeoJSON; per il flusso missione ho un’esportazione `.plan` pensata appositamente per **RigiCloud**.
 
-**Stato:** ho pubblicato la versione sperimentale [0.2.0](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.0); nel ramo di sviluppo preparo la 0.2.1. Il plugin non è ancora nel catalogo ufficiale QGIS. L’interfaccia attuale è in italiano: ho pianificato la traduzione inglese e la predisposizione per altre lingue.
+**Stato:** ho pubblicato la versione sperimentale [0.2.0](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.0); nel ramo di sviluppo preparo la 0.2.1. Il plugin non è ancora nel catalogo ufficiale QGIS. Nel sorgente 0.2.1 ho completato l’interfaccia italiana e inglese: segue la lingua di QGIS, con italiano come ripiego. Lo ZIP della release 0.2.0 conserva l’interfaccia italiana; le altre lingue restano da valutare.
 
 [Guida completa](docs/USER_GUIDE.md) · [Demo riproducibile](examples/README.md) · [Changelog](CHANGELOG.md) · [Contribuire](CONTRIBUTING.md)
 
@@ -67,9 +67,9 @@ Non ho ancora implementato un secondo esportatore missione generico. Per aggiung
 
 Calcolo i buffer in un CRS UTM locale: estensioni oltre 6° in longitudine o latitudine, attraversamenti dell’antimeridiano e latitudini fuori da 80° S–84° N sono segnalati come non supportati. Il profilo `.plan` attuale richiede una rotta continua con almeno tre vertici e rifiuta geometrie non rappresentabili, come parti separate o buchi. I valori iniziali sono parametri del software, non una validazione di una missione.
 
-Mantengo **37 regressioni funzionali, 7 prove dell’interfaccia, 6 prove di confezionamento e 8 prove del sistema di traduzione**, oltre allo smoke test degli esportatori. Le eseguo anche su GitHub Actions. Ho verificato l’installazione ZIP in un profilo QGIS isolato; le prove offscreen non coprono ogni interazione desktop o piattaforma.
+Mantengo **37 regressioni funzionali, 7 prove dell’interfaccia, 7 prove di confezionamento, 9 prove del sistema di traduzione e 4 prove dei flussi bilingui (ripetute anche con scala 150%)**, oltre allo smoke test degli esportatori. Le eseguo anche su GitHub Actions. Ho verificato l’installazione ZIP in un profilo QGIS isolato; le prove offscreen non coprono ogni interazione desktop o piattaforma.
 
-Per le immagini e la [demo](examples/README.md) uso soltanto dati sintetici. La guida dettagliata è attualmente in italiano. Per una segnalazione o una proposta, usa i modelli nella sezione Issues.
+Per le immagini e la [demo](examples/README.md) uso soltanto dati sintetici. La guida dettagliata è disponibile in [italiano](docs/USER_GUIDE.md) e [inglese](docs/USER_GUIDE.en.md). Per una segnalazione o una proposta, usa i modelli nella sezione Issues.
 
 ### Licenza
 
@@ -87,9 +87,9 @@ I am developing ABS as a personal project to draw and edit routes in QGIS and ma
 
 With ABS, I want to bring route editing, buffer calculation and export preparation into the same panel. I provide GeoPackage and GeoJSON for GIS data exchange, and a `.plan` mission export designed specifically for the **RigiCloud** workflow.
 
-**Status:** I have published experimental version [0.2.0](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.0); the development branch is preparing 0.2.1. The plugin is not yet in the official QGIS plugin catalog. Its current interface is Italian: I have planned an English translation and support for further languages.
+**Status:** I have published experimental version [0.2.0](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.0); the development branch is preparing 0.2.1. The plugin is not yet in the official QGIS plugin catalog. In the 0.2.1 source, I have completed the Italian and English interface: it follows the QGIS language, with Italian as fallback. The released 0.2.0 ZIP retains its Italian interface; further languages remain to be considered.
 
-[Detailed guide — Italian](docs/USER_GUIDE.md) · [Reproducible demo — Italian](examples/README.md) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
+[Detailed guide](docs/USER_GUIDE.en.md) · [Reproducible demo — Italian](examples/README.md) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
 
 ### Where it started
 
@@ -111,9 +111,9 @@ I use the Python, Qt and PyQGIS components shipped with QGIS, without additional
 
 1. Download the ZIP asset from the [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.0).
 2. In QGIS, open **Plugins → Manage and Install Plugins → Install from ZIP**. Restart QGIS after an update.
-3. Open ABS from its toolbar button. In **Rotta e buffer** (Route and buffers), set the distances and click **Disegna linea** (Draw line): left-click to add vertices, right-click to finish, Backspace to remove the last vertex and Esc to cancel.
-4. Use **Modifica linea** (Edit line) and **Salva modifiche** (Save changes) to edit vertices. You can disable automatic updates and use **Ricalcola buffer** (Recalculate buffers).
-5. For local values, enable **Distanze diverse per segmento** (Different distances per segment), select a segment, change the values and click **Salva distanze del segmento** (Save segment distances) before selecting the next segment.
+3. Open ABS from its toolbar button. In **Route / buffers** (**Rotta e buffer** in Italian), set the distances and click **Draw line** (**Disegna linea**): left-click to add vertices, right-click to finish, Backspace to remove the last vertex and Esc to cancel.
+4. Use **Edit line** (**Modifica linea**) and **Save changes** (**Salva modifiche**) to edit vertices. You can disable automatic updates and use **Recalculate buffers** (**Ricalcola buffer**).
+5. For local values, enable **Per-segment distances** (**Distanze diverse per segmento**), select a segment, change the values and click **Save segment distances** (**Salva distanze del segmento**) before selecting the next segment.
 
 To work from source, copy `auto_buffer_sketcher` into the QGIS profile’s `python/plugins` directory and restart the application. I recommend a separate profile for development.
 
@@ -140,9 +140,9 @@ I have not yet implemented a second generic mission exporter. Before adding one,
 
 I calculate buffers in a local UTM CRS. Extents greater than 6° in longitude or latitude, antimeridian crossings and latitudes outside 80° S–84° N are reported as unsupported. The current `.plan` profile requires a single continuous route with at least three vertices and rejects unrepresentable geometries such as separate parts or holes. Initial values are software parameters, not mission validation.
 
-I maintain **37 functional regressions, 7 interface checks, 6 packaging checks and 8 translation-system checks**, plus the exporter smoke tests, and run them through GitHub Actions. I have checked ZIP installation in an isolated QGIS profile; offscreen checks do not cover every desktop interaction or platform.
+I maintain **37 functional regressions, 7 interface checks, 7 packaging checks, 9 translation-system checks and 4 bilingual workflow checks (also repeated at 150% scale)**, plus the exporter smoke tests, and run them through GitHub Actions. I have checked ZIP installation in an isolated QGIS profile; offscreen checks do not cover every desktop interaction or platform.
 
-I use only synthetic data for the screenshots and [demo](examples/README.md). The detailed guide is currently in Italian. For a bug report or proposal, use the repository’s issue templates.
+I use only synthetic data for the screenshots and [demo](examples/README.md). The detailed guide is available in [English](docs/USER_GUIDE.en.md) and [Italian](docs/USER_GUIDE.md). For a bug report or proposal, use the repository’s issue templates.
 
 ### License
 

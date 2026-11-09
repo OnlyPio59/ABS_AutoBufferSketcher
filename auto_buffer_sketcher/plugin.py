@@ -126,7 +126,7 @@ class AutoBufferPlugin:
         project.cleared.connect(self._on_project_cleared)
         self.dock_panel.spin_alt_flight.valueChanged.connect(self._save_route_state)
         self.dock_panel.spin_alt_pad.valueChanged.connect(self._save_route_state)
-        log("Plugin inizializzato.")
+        log(tr('Plugin inizializzato.'))
 
     def unload(self):
         """Rimuove il plugin dall'interfaccia QGIS."""
@@ -160,7 +160,7 @@ class AutoBufferPlugin:
             self.iface.removeToolBarIcon(action)
         self.actions.clear()
 
-        log("Plugin scaricato.")
+        log(tr('Plugin scaricato.'))
         self._translations.unload()
 
     # ─────────────────────────────────────────────
@@ -172,7 +172,7 @@ class AutoBufferPlugin:
         self.dock_panel.show()
         self.dock_panel.raise_()
         self._ensure_route_layer()
-        self.dock_panel.set_status("Pronto. Clicca 'Disegna Linea' per iniziare.")
+        self.dock_panel.set_status(tr("Pronto. Clicca 'Disegna Linea' per iniziare."))
 
     # ─────────────────────────────────────────────
     #  Gestione layer sorgente
@@ -250,15 +250,15 @@ class AutoBufferPlugin:
         # Restore the pre-edit distances/topology before recalculating the reverted route.
         if self._segment_edit_snapshot is not None and self._is_layer_alive(self._segments_layer):
             try:
-                with edit_layer(self._segments_layer, 'Ripristina segmenti prima della modifica'):
-                    checked(self._segments_layer.deleteFeatures([f.id() for f in self._segments_layer.getFeatures()]), 'Ripristino segmenti non riuscito.')
+                with edit_layer(self._segments_layer, tr('Ripristina segmenti prima della modifica')):
+                    checked(self._segments_layer.deleteFeatures([f.id() for f in self._segments_layer.getFeatures()]), tr('Ripristino segmenti non riuscito.'))
                     for original in self._segment_edit_snapshot:
                         from qgis.core import QgsFeature
                         f=QgsFeature(original)
                         f.setId(-1)
-                        checked(self._segments_layer.addFeature(f), 'Segmento non ripristinato.')
+                        checked(self._segments_layer.addFeature(f), tr('Segmento non ripristinato.'))
             except Exception as error:
-                self.dock_panel.set_status(f'Ripristino segmenti interrotto: {error}')
+                self.dock_panel.set_status(tr('Ripristino segmenti interrotto: {error}').format(error=error))
                 log(str(error), Qgis.Critical)
 
     def _on_route_edit_stopped(self):
@@ -280,9 +280,9 @@ class AutoBufferPlugin:
             state = json.loads(raw) if raw else {}
             values = {k: float(state.get('distances', {}).get(k, v)) for k,v in DEFAULT_DISTANCES.items()}
             if any(not 0 <= v <= 50000 for v in values.values()):
-                raise ValueError('Distanze salvate non valide.')
+                raise ValueError(tr('Distanze salvate non valide.'))
         except (TypeError, ValueError):
-            self.dock_panel.set_status('Stato salvato non valido: aggiornamento automatico disabilitato.')
+            self.dock_panel.set_status(tr('Stato salvato non valido: aggiornamento automatico disabilitato.'))
             state = {'auto': False};values = dict(DEFAULT_DISTANCES)
         self._global_distances = values
         candidates = self._layers_for_role(LAYER_NAME_SEGMENTS)
@@ -324,7 +324,7 @@ class AutoBufferPlugin:
         self._ensure_route_layer()
 
         if self._route_layer is None:
-            self.dock_panel.set_status("Errore: impossibile creare il layer sorgente.")
+            self.dock_panel.set_status(tr('Errore: impossibile creare il layer sorgente.'))
             return
 
         canvas = self.iface.mapCanvas()
@@ -336,13 +336,13 @@ class AutoBufferPlugin:
 
         canvas.setMapTool(self.sketcher_tool)
         self.dock_panel.set_status(
-            "Modalità disegno: Click SX = vertice, Click DX = fine, ESC = annulla"
+            tr('Modalità disegno: Click SX = vertice, Click DX = fine, ESC = annulla')
         )
-        log("Sketcher tool attivato.")
+        log(tr('Sketcher tool attivato.'))
 
     def _on_line_sketched(self, geometry):
         """Callback quando una linea viene completata dal sketcher."""
-        self.dock_panel.set_status("Linea creata. Generazione buffer...")
+        self.dock_panel.set_status(tr('Linea creata. Generazione buffer...'))
 
         # Disattiva il sketcher tool dopo il completamento della linea
         canvas = self.iface.mapCanvas()
@@ -352,7 +352,7 @@ class AutoBufferPlugin:
 
         # Genera buffer immediatamente
         if self._on_recalc():
-            self.dock_panel.set_status("Buffer generati. Modifica la linea per aggiornamento real-time.")
+            self.dock_panel.set_status(tr('Buffer generati. Modifica la linea per aggiornamento real-time.'))
 
         # Connetti event handler per aggiornamenti futuri
         if self.dock_panel.is_auto_update and self._route_layer:
@@ -363,45 +363,44 @@ class AutoBufferPlugin:
         self._ensure_route_layer()
 
         if self._route_layer is None:
-            self.dock_panel.set_status("Errore: nessun layer rotta trovato.")
+            self.dock_panel.set_status(tr('Errore: nessun layer rotta trovato.'))
             return
 
         if self._route_layer.isEditable():
             # Già in editing → salva e esci
             if not self._route_layer.commitChanges():
-                self.dock_panel.set_status("Salvataggio non riuscito: " + "; ".join(self._route_layer.commitErrors()))
+                self.dock_panel.set_status(tr('Salvataggio non riuscito: ') + "; ".join(self._route_layer.commitErrors()))
                 return
-            self.dock_panel.set_status("Editing terminato. Modifiche salvate.")
-            self.dock_panel.btn_edit.setText("Modifica linea")
+            self.dock_panel.set_status(tr('Editing terminato. Modifiche salvate.'))
+            self.dock_panel.btn_edit.setText(tr('Modifica linea'))
             # Ricalcola buffer dopo le modifiche
             self._on_recalc()
-            log("Editing disattivato, buffer ricalcolati.")
+            log(tr('Editing disattivato, buffer ricalcolati.'))
         else:
             # Entra in editing e attiva il vertex tool
             if not self._route_layer.startEditing():
-                self.dock_panel.set_status("Il layer rotta non è modificabile.")
+                self.dock_panel.set_status(tr('Il layer rotta non è modificabile.'))
                 return
             self.iface.setActiveLayer(self._route_layer)
             self.iface.actionVertexTool().trigger()
             self.dock_panel.set_status(
-                "Modalità modifica: sposta/aggiungi/rimuovi vertici. "
-                "Clicca di nuovo 'Modifica Linea' per salvare."
+                tr("Modalità modifica: sposta/aggiungi/rimuovi vertici. Clicca 'Salva modifiche' per salvare.")
             )
-            self.dock_panel.btn_edit.setText("Salva modifiche")
-            log("Editing attivato con vertex tool.")
+            self.dock_panel.btn_edit.setText(tr('Salva modifiche'))
+            log(tr('Editing attivato con vertex tool.'))
 
     def _on_delete_requested(self):
         """Gestisce eliminazione linee: seleziona → conferma eliminazione."""
         self._ensure_route_layer()
 
         if self._route_layer is None:
-            self.dock_panel.set_status("Errore: nessun layer rotta trovato.")
+            self.dock_panel.set_status(tr('Errore: nessun layer rotta trovato.'))
             return
 
         # Conta features nel layer
         feat_count = self._route_layer.featureCount()
         if feat_count == 0:
-            self.dock_panel.set_status("Nessuna linea da eliminare.")
+            self.dock_panel.set_status(tr('Nessuna linea da eliminare.'))
             return
 
         if not self._delete_pending:
@@ -413,40 +412,39 @@ class AutoBufferPlugin:
                 fid = next(self._route_layer.getFeatures()).id()
                 self._route_layer.selectByIds([fid])
                 self._delete_pending = True
-                self.dock_panel.btn_delete.setText("Conferma eliminazione")
+                self.dock_panel.btn_delete.setText(tr('Conferma eliminazione'))
                 self.dock_panel.set_status(
-                    f"1 linea selezionata. Clicca 'Conferma Eliminazione' per rimuoverla."
+                    tr("1 linea selezionata. Clicca 'Conferma Eliminazione' per rimuoverla.")
                 )
             else:
                 # Più features → attiva il tool di selezione
                 self.iface.actionSelect().trigger()
                 self._delete_pending = True
-                self.dock_panel.btn_delete.setText("Conferma eliminazione")
+                self.dock_panel.btn_delete.setText(tr('Conferma eliminazione'))
                 self.dock_panel.set_status(
-                    f"{feat_count} linee presenti. Seleziona quelle da eliminare, "
-                    "poi clicca 'Conferma Eliminazione'."
+                    tr("{feat_count} linee presenti. Seleziona quelle da eliminare, poi clicca 'Conferma Eliminazione'.").format(feat_count=feat_count)
                 )
-            log(f"Delete: fase selezione ({feat_count} features).")
+            log(tr('Delete: fase selezione ({feat_count} features).').format(feat_count=feat_count))
         else:
             # FASE 2: Elimina le feature selezionate
             selected_ids = self._route_layer.selectedFeatureIds()
 
             if not selected_ids:
-                self.dock_panel.set_status("Nessuna linea selezionata. Seleziona prima.")
+                self.dock_panel.set_status(tr('Nessuna linea selezionata. Seleziona prima.'))
                 return
 
             try:
-                with edit_layer(self._route_layer, 'Elimina rotte selezionate'):
-                    checked(self._route_layer.deleteFeatures(selected_ids), 'Cancellazione non riuscita.')
+                with edit_layer(self._route_layer, tr('Elimina rotte selezionate')):
+                    checked(self._route_layer.deleteFeatures(selected_ids), tr('Cancellazione non riuscita.'))
             except Exception as error:
                 self.dock_panel.set_status(str(error))
                 return
 
             deleted_count = len(selected_ids)
             self._delete_pending = False
-            self.dock_panel.btn_delete.setText("Elimina linea")
-            self.dock_panel.set_status(f"{deleted_count} linea/e eliminata/e.")
-            log(f"Eliminate {deleted_count} features.")
+            self.dock_panel.btn_delete.setText(tr('Elimina linea'))
+            self.dock_panel.set_status(tr('{deleted_count} linea/e eliminata/e.').format(deleted_count=deleted_count))
+            log(tr('Eliminate {deleted_count} features.').format(deleted_count=deleted_count))
 
             # Ricalcola buffer (o puliscili se non ci sono più linee)
             self._on_recalc()
@@ -459,13 +457,13 @@ class AutoBufferPlugin:
             if not self._is_layer_alive(self._route_layer):
                 self._ensure_route_layer()
             if self._route_layer is None or not self._route_layer.isValid():
-                raise ValueError('Nessun layer rotta valido.')
+                raise ValueError(tr('Nessun layer rotta valido.'))
             seg_layer = None
             if self.dock_panel.is_diff_buffers:
                 if not self._is_layer_alive(self._segments_layer):
                     candidates = self._layers_for_role(LAYER_NAME_SEGMENTS)
                     if len(candidates) != 1:
-                        raise ValueError('Layer segmenti mancante o ambiguo: ripristinarlo prima del ricalcolo.')
+                        raise ValueError(tr('Layer segmenti mancante o ambiguo: ripristinarlo prima del ricalcolo.'))
                     self._segments_layer = candidates[0]
                     self._segments_layer.selectionChanged.connect(self._on_segment_selected)
                 synchronize(self._route_layer, self._segments_layer, self._global_distances)
@@ -476,10 +474,10 @@ class AutoBufferPlugin:
                 self._global_distances, segments_layer=seg_layer)
             self.buffer_engine.update_output_layers(QgsProject.instance(), dissolved, self._route_layer.crs())
             self._save_route_state()
-            self.dock_panel.set_status('Buffer aggiornati.')
+            self.dock_panel.set_status(tr('Buffer aggiornati.'))
             return True
         except Exception as error:
-            self.dock_panel.set_status(f'Ricalcolo interrotto: {error}')
+            self.dock_panel.set_status(tr('Ricalcolo interrotto: {error}').format(error=error))
             log(str(error), Qgis.Critical)
             return False
         finally:
@@ -496,10 +494,10 @@ class AutoBufferPlugin:
         """Connette/disconnette l'event handler."""
         if enabled and self._route_layer:
             self.event_handler.connect_to_layer(self._route_layer)
-            self.dock_panel.set_status("Auto-update attivato.")
+            self.dock_panel.set_status(tr('Auto-update attivato.'))
         else:
             self.event_handler.disconnect()
-            self.dock_panel.set_status("Auto-update disattivato.")
+            self.dock_panel.set_status(tr('Auto-update disattivato.'))
         self._save_route_state()
 
     # ─────────────────────────────────────────────
@@ -516,7 +514,7 @@ class AutoBufferPlugin:
 
             if self._route_layer is None or self._route_layer.featureCount() == 0:
                 self.dock_panel.set_status(
-                    "Disegna prima una linea, poi attiva i buffer differenziati."
+                    tr('Disegna prima una linea, poi attiva i buffer differenziati.')
                 )
                 self.dock_panel.chk_diff_buffers.blockSignals(True)
                 self.dock_panel.chk_diff_buffers.setChecked(False)
@@ -535,7 +533,7 @@ class AutoBufferPlugin:
 
             if found_seg_layer:
                 self._segments_layer = found_seg_layer
-                log("Trovato layer segmenti esistente nel progetto. Riuso.")
+                log(tr('Trovato layer segmenti esistente nel progetto. Riuso.'))
             else:
                 # Crea il layer segmenti
                 distances = dict(self._global_distances)
@@ -546,7 +544,7 @@ class AutoBufferPlugin:
             try:
                 synchronize(self._route_layer, self._segments_layer, self._global_distances)
             except Exception as error:
-                self.dock_panel.set_status(f'Modalità segmenti: {error}')
+                self.dock_panel.set_status(tr('Modalità segmenti: {error}').format(error=error))
                 self.dock_panel.chk_auto_update.setChecked(False)
                 return
             self._save_route_state()
@@ -568,10 +566,9 @@ class AutoBufferPlugin:
 
             seg_count = self._segments_layer.featureCount()
             self.dock_panel.set_status(
-                f"Modalità segmenti attiva: {seg_count} segmenti. "
-                "Clicca su un segmento per modificarne le distanze."
+                tr('Modalità segmenti attiva: {seg_count} segmenti. Clicca su un segmento per modificarne le distanze.').format(seg_count=seg_count)
             )
-            log(f"Modalità differenziata attivata: {seg_count} segmenti.")
+            log(tr('Modalità differenziata attivata: {seg_count} segmenti.').format(seg_count=seg_count))
         else:
             # Rimuovi il layer segmenti
             if self._is_layer_alive(self._segments_layer):
@@ -585,7 +582,7 @@ class AutoBufferPlugin:
             self.dock_panel.set_segment_info(None)
             self.dock_panel.set_distances(self._global_distances)
             self._save_route_state()
-            self.dock_panel.set_status("Modalità buffer uniforme.")
+            self.dock_panel.set_status(tr('Modalità buffer uniforme.'))
             # Ricalcola buffer con distanze globali
             self._on_recalc()
 
@@ -606,7 +603,7 @@ class AutoBufferPlugin:
             return
 
         sel_ids = self._segments_layer.selectedFeatureIds()
-        log(f"Selezione segmenti cambiata: {len(sel_ids)} selezionati, ids={list(sel_ids)}")
+        log(tr('Selezione segmenti cambiata: {value} selezionati, ids={value2}').format(value=len(sel_ids), value2=list(sel_ids)))
 
         if not sel_ids:
             self._selected_seg_id = None
@@ -626,8 +623,7 @@ class AutoBufferPlugin:
             'adjacent': feat[SEG_FIELD_ADJACENT],
         }
         self.dock_panel.set_segment_info(seg_id, distances)
-        log(f"Segmento {seg_id} selezionato: pre={distances['pregeocage']}m, "
-            f"geo={distances['geocage']}m, gnd={distances['ground']}m")
+        log(tr('Segmento {seg_id} selezionato: pre={value}m, geo={value2}m, gnd={value3}m').format(seg_id=seg_id, value=distances['pregeocage'], value2=distances['geocage'], value3=distances['ground']))
 
     def _on_apply_to_segment(self):
         self._apply_segment_values(False)
@@ -638,32 +634,32 @@ class AutoBufferPlugin:
     def _apply_segment_values(self, all_segments):
         try:
             if not self._is_layer_alive(self._segments_layer):
-                raise ValueError('Layer segmenti non valido.')
+                raise ValueError(tr('Layer segmenti non valido.'))
             validate_segments(self._segments_layer)
             features = list(self._segments_layer.getFeatures()) if all_segments else self._segments_layer.selectedFeatures()
             if not features:
-                raise ValueError('Nessun segmento selezionato.')
+                raise ValueError(tr('Nessun segmento selezionato.'))
             if not all_segments:
                 features = features[:1]
             distances = self.dock_panel.get_distances()
             fields = (('pregeocage',SEG_FIELD_PRECAGE),('geocage',SEG_FIELD_GEOCAGE),
                 ('ground',SEG_FIELD_GROUND),('adjacent',SEG_FIELD_ADJACENT))
-            with edit_layer(self._segments_layer, 'Modifica distanze dei segmenti'):
+            with edit_layer(self._segments_layer, tr('Modifica distanze dei segmenti')):
                 for feat in features:
                     for key,field in fields:
                         checked(self._segments_layer.changeAttributeValue(feat.id(),
-                            self._segments_layer.fields().indexFromName(field), distances[key]), 'Distanza non salvata.')
+                            self._segments_layer.fields().indexFromName(field), distances[key]), tr('Distanza non salvata.'))
             recalculated = self._on_recalc()
             self.dock_panel.mark_segment_saved()
-            target = 'Tutti i segmenti' if all_segments else f'Segmento {features[0][SEG_FIELD_ID]}'
+            target = tr('Tutti i segmenti') if all_segments else tr('Segmento {value}').format(value=features[0][SEG_FIELD_ID])
             if recalculated:
-                self.dock_panel.set_status(f'{target}: distanze salvate nel layer. Puoi selezionare un altro segmento.')
+                self.dock_panel.set_status(tr('{target}: distanze salvate nel layer. Puoi selezionare un altro segmento.').format(target=target))
             else:
                 detail = self.dock_panel.status_label.text()
-                self.dock_panel.set_status(f'{target}: distanze salvate, ma {detail}')
+                self.dock_panel.set_status(tr('{target}: distanze salvate, ma {detail}').format(target=target, detail=detail))
             return True
         except Exception as error:
-            self.dock_panel.set_status(f'Salvataggio distanze non riuscito: {error}')
+            self.dock_panel.set_status(tr('Salvataggio distanze non riuscito: {error}').format(error=error))
             return False
 
     def _on_export(self):
@@ -679,30 +675,30 @@ class AutoBufferPlugin:
                 layers.append(lyr)
 
         if not layers:
-            self.dock_panel.set_status("Nessun layer da esportare.")
+            self.dock_panel.set_status(tr('Nessun layer da esportare.'))
             return
 
         file_path, _ = QFileDialog.getSaveFileName(
             self.dock_panel,
-            "Esporta Buffer in GeoPackage",
+            tr('Esporta Buffer in GeoPackage'),
             os.path.expanduser("~/abs_results.gpkg"),
-            "GeoPackage (*.gpkg)",
+            tr('GeoPackage (*.gpkg)'),
         )
 
         if not file_path:
             return
 
-        self.dock_panel.set_status("Esportazione in corso...")
+        self.dock_panel.set_status(tr('Esportazione in corso...'))
         try:
             if not self._on_recalc():
                 return
             layers = [l for l in project.mapLayers().values() if layer_role(l) in export_names]
             write_geopackage(layers, file_path, project)
-            self.dock_panel.set_status(f"Risultati esportati in {os.path.basename(file_path)} (rotta e buffer; per i segmenti usare Rendi Layer Persistenti).")
-            log(f"Esportazione completata: {file_path}")
+            self.dock_panel.set_status(tr('Risultati esportati in {value} (rotta e buffer; per i segmenti usare Rendi Layer Persistenti).').format(value=os.path.basename(file_path)))
+            log(tr('Esportazione completata: {file_path}').format(file_path=file_path))
         except Exception as e:
-            self.dock_panel.set_status(f"Errore esportazione: {e}")
-            log(f"Errore esportazione: {e}", Qgis.Critical)
+            self.dock_panel.set_status(tr('Errore esportazione: {e}').format(e=e))
+            log(tr('Errore esportazione: {e}').format(e=e), Qgis.Critical)
 
     def _buffer_layer_dict(self):
         from .buffer_engine import (LAYER_NAME_PREGEOCAGE,LAYER_NAME_GEOCAGE,LAYER_NAME_GROUND,LAYER_NAME_ADJACENT)
@@ -714,7 +710,7 @@ class AutoBufferPlugin:
         route = self._route_layer
         if route.featureCount() > 1:
             if route.selectedFeatureCount() != 1:
-                raise ValueError('Più rotte presenti: selezionare una sola rotta sulla mappa per esportare il .plan.')
+                raise ValueError(tr('Più rotte presenti: selezionare una sola rotta sulla mappa per esportare il .plan.'))
             route = route.materialize(QgsFeatureRequest().setFilterFids(route.selectedFeatureIds()))
         dissolved = self.buffer_engine.build_all_buffers(route, self._global_distances,
             self._segments_layer if self.dock_panel.is_diff_buffers else None)
@@ -728,7 +724,7 @@ class AutoBufferPlugin:
             if not g.isEmpty():
                 g.convertToMultiType()
                 f=QgsFeature();f.setGeometry(g)
-                checked(layer.dataProvider().addFeatures([f])[0], 'Buffer di esportazione non creato.')
+                checked(layer.dataProvider().addFeatures([f])[0], tr('Buffer di esportazione non creato.'))
             buffers[key]=layer
         return route,buffers
 
@@ -746,7 +742,7 @@ class AutoBufferPlugin:
                     break
 
         if not self._route_layer:
-            self.dock_panel.set_status("Nessun layer rotta trovato.")
+            self.dock_panel.set_status(tr('Nessun layer rotta trovato.'))
             return
 
         # Cerca i layer buffer nel progetto
@@ -768,15 +764,15 @@ class AutoBufferPlugin:
 
         file_path, _ = QFileDialog.getSaveFileName(
             self.dock_panel,
-            "Esporta piano per RigiCloud (.plan)",
+            tr('Esporta piano per RigiCloud (.plan)'),
             os.path.expanduser("~/abs_mission.plan"),
-            "RigiCloud Plan (*.plan)",
+            tr('RigiCloud Plan (*.plan)'),
         )
 
         if not file_path:
             return
 
-        self.dock_panel.set_status("Generazione file .plan in corso...")
+        self.dock_panel.set_status(tr('Generazione file .plan in corso...'))
         try:
             distances = self.dock_panel.get_distances()
             config = self.dock_panel.get_mission_config()
@@ -795,12 +791,12 @@ class AutoBufferPlugin:
             )
 
             if success:
-                self.dock_panel.set_status(f"Piano esportato in {os.path.basename(file_path)}")
+                self.dock_panel.set_status(tr('Piano esportato in {value}').format(value=os.path.basename(file_path)))
             else:
                 self.dock_panel.set_status(exporter.last_error)
         except Exception as e:
-            self.dock_panel.set_status(f"Errore esportazione piano: {e}")
-            log(f"Errore esportazione piano: {e}", Qgis.Critical)
+            self.dock_panel.set_status(tr('Errore esportazione piano: {e}').format(e=e))
+            log(tr('Errore esportazione piano: {e}').format(e=e), Qgis.Critical)
 
     def _on_export_geojson(self):
         """Esporta la rotta, i waypoint e i buffer in un file GeoJSON."""
@@ -816,7 +812,7 @@ class AutoBufferPlugin:
                     break
 
         if not self._route_layer:
-            self.dock_panel.set_status("Nessun layer rotta trovato.")
+            self.dock_panel.set_status(tr('Nessun layer rotta trovato.'))
             return
 
         # Cerca i layer buffer nel progetto
@@ -838,15 +834,15 @@ class AutoBufferPlugin:
 
         file_path, _ = QFileDialog.getSaveFileName(
             self.dock_panel,
-            "Esporta in GeoJSON",
+            tr('Esporta in GeoJSON'),
             os.path.expanduser("~/abs_mission.geojson"),
-            "GeoJSON Files (*.geojson)",
+            tr('GeoJSON Files (*.geojson)'),
         )
 
         if not file_path:
             return
 
-        self.dock_panel.set_status("Generazione file GeoJSON in corso...")
+        self.dock_panel.set_status(tr('Generazione file GeoJSON in corso...'))
         try:
             if not self._on_recalc():
                 return
@@ -859,12 +855,12 @@ class AutoBufferPlugin:
             )
 
             if success:
-                self.dock_panel.set_status(f"GeoJSON esportato in {os.path.basename(file_path)}")
+                self.dock_panel.set_status(tr('GeoJSON esportato in {value}').format(value=os.path.basename(file_path)))
             else:
                 self.dock_panel.set_status(exporter.last_error)
         except Exception as e:
-            self.dock_panel.set_status(f"Errore esportazione GeoJSON: {e}")
-            log(f"Errore esportazione GeoJSON: {e}", Qgis.Critical)
+            self.dock_panel.set_status(tr('Errore esportazione GeoJSON: {e}').format(e=e))
+            log(tr('Errore esportazione GeoJSON: {e}').format(e=e), Qgis.Critical)
 
     def _on_make_persistent(self):
         from qgis.core import QgsVectorLayer
@@ -875,16 +871,16 @@ class AutoBufferPlugin:
             LAYER_NAME_GEOCAGE,LAYER_NAME_GROUND,LAYER_NAME_ADJACENT)
         layers = [l for l in project.mapLayers().values() if layer_role(l) in names]
         if not layers:
-            self.dock_panel.set_status('Nessun layer da salvare.')
+            self.dock_panel.set_status(tr('Nessun layer da salvare.'))
             return
         if any(l.isEditable() for l in layers):
-            self.dock_panel.set_status('Salvare o annullare le modifiche dei layer prima di renderli persistenti.')
+            self.dock_panel.set_status(tr('Salvare o annullare le modifiche dei layer prima di renderli persistenti.'))
             return
         if all(l.providerType() != 'memory' for l in layers):
-            self.dock_panel.set_status('I layer sono già persistenti.')
+            self.dock_panel.set_status(tr('I layer sono già persistenti.'))
             return
         file_path, _ = QFileDialog.getSaveFileName(self.dock_panel,
-            'Salva Layer del Plugin in GeoPackage', os.path.expanduser('~/abs_data.gpkg'), 'GeoPackage (*.gpkg)')
+            tr('Salva Layer del Plugin in GeoPackage'), os.path.expanduser('~/abs_data.gpkg'), tr('GeoPackage (*.gpkg)'))
         if not file_path:
             return
         try:
@@ -897,7 +893,7 @@ class AutoBufferPlugin:
             for old in layers:
                 new = QgsVectorLayer(f'{file_path}|layername={old.name()}', old.name(), 'ogr')
                 if not new.isValid():
-                    raise ValueError(f'Riapertura non riuscita: {old.name()}; i layer originali sono ancora nel progetto.')
+                    raise ValueError(tr('Riapertura non riuscita: {value}; i layer originali sono ancora nel progetto.').format(value=old.name()))
                 new.setRenderer(old.renderer().clone())
                 for key in old.customPropertyKeys():
                     new.setCustomProperty(key, old.customProperty(key))
@@ -922,7 +918,7 @@ class AutoBufferPlugin:
                 self.event_handler.connect_to_layer(self._route_layer)
             if self.dock_panel.is_diff_buffers and self._is_layer_alive(self._segments_layer):
                 self._segments_layer.selectionChanged.connect(self._on_segment_selected)
-            self.dock_panel.set_status('Layer persistenti salvati; le altre tabelle del GeoPackage sono state conservate.')
+            self.dock_panel.set_status(tr('Layer persistenti salvati; le altre tabelle del GeoPackage sono state conservate.'))
         except Exception as error:
-            self.dock_panel.set_status(f'Salvataggio interrotto: {error}')
+            self.dock_panel.set_status(tr('Salvataggio interrotto: {error}').format(error=error))
             log(str(error), Qgis.Critical)

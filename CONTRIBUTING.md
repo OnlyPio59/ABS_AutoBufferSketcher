@@ -45,4 +45,4 @@ Il builder include solo moduli del plugin, risorse, cataloghi di traduzione TS/Q
 
 ## Traduzioni
 
-La struttura Qt per le lingue è in preparazione, con italiano come sorgente e fallback. Per aggiornare e compilare i cataloghi, vedere [Translating ABS](docs/TRANSLATING.md). I cataloghi iniziali non costituiscono ancora una UI inglese completa.
+La UI del sorgente 0.2.1 è disponibile in italiano e inglese, con italiano come sorgente e fallback. Per aggiornare e compilare i cataloghi, vedere [Translating ABS](docs/TRANSLATING.md). Prima di proporre cambiamenti ai testi, rigenerare i cataloghi e verificarli con i test di traduzione e dei flussi bilingui.

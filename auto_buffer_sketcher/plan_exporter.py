@@ -2,6 +2,8 @@
 plan_exporter.py — Esportatore in formato .plan (Rigicloud) per ABS - AutoBufferSketcher.
 """
 
+from .i18n import tr
+
 import json
 import uuid
 from .file_io import write_json
@@ -76,18 +78,18 @@ class PlanExporter:
         """
         try:
             if not route_layer or not route_layer.isValid():
-                raise ValueError("Layer rotta non valido per l’esportazione.")
+                raise ValueError(tr('Layer rotta non valido per l’esportazione.'))
 
             # 1. Costruisci i mission items (waypoint)
             mission_items = self._build_mission_items(route_layer, config)
             if not mission_items:
-                raise ValueError("Nessun vertice trovato nella rotta.")
+                raise ValueError(tr('Nessun vertice trovato nella rotta.'))
 
             for key, distance in distances.items():
                 if distance > 0:
                     layer = buffer_layers_dict.get(key)
                     if layer is None or not layer.isValid() or layer.featureCount() == 0:
-                        raise ValueError(f"Buffer richiesto mancante: {key}. Ricalcolare prima dell'esportazione.")
+                        raise ValueError(tr("Buffer richiesto mancante: {key}. Ricalcolare prima dell'esportazione.").format(key=key))
 
             # 2. Costruisci il geofence (poligoni buffer)
             polygons = self._build_geofence({key:layer for key,layer in buffer_layers_dict.items() if distances.get(key, 0) > 0 or (layer is not None and layer.isValid() and layer.featureCount() > 0)}, route_layer.crs(), config)
@@ -117,12 +119,12 @@ class PlanExporter:
             write_json(output_path, plan_data)
             self.last_error = ""
 
-            self._log(f"Esportazione pianificazione completata con successo in: {output_path}")
+            self._log(tr('Esportazione pianificazione completata con successo in: {output_path}').format(output_path=output_path))
             return True
 
         except Exception as e:
             self.last_error = str(e)
-            self._log(f"Errore durante l'esportazione del piano: {str(e)}", Qgis.Critical)
+            self._log(tr("Errore durante l'esportazione del piano: {value}").format(value=str(e)), Qgis.Critical)
             import traceback
             self._log(traceback.format_exc(), Qgis.Critical)
             return False
@@ -139,7 +141,7 @@ class PlanExporter:
         if len(features) > 1:
             selected = route_layer.selectedFeatures()
             if len(selected) != 1:
-                raise ValueError('Più rotte presenti: selezionare una sola rotta sulla mappa per esportare il .plan.')
+                raise ValueError(tr('Più rotte presenti: selezionare una sola rotta sulla mappa per esportare il .plan.'))
             features = selected
         geom = features[0].geometry()
         if geom.isNull() or geom.isEmpty():
@@ -150,14 +152,14 @@ class PlanExporter:
         if geom.isMultipart():
             parts = geom.asMultiPolyline()
             if len(parts) != 1:
-                raise ValueError('Il .plan richiede una rotta continua singola; esportare i tratti separatamente.')
+                raise ValueError(tr('Il .plan richiede una rotta continua singola; esportare i tratti separatamente.'))
             points = parts[0]
         else:
             points = geom.asPolyline()
         if len(points) < 3:
-            raise ValueError('Il profilo VTOL .plan richiede almeno 3 vertici: decollo, transizione front e arrivo con transizione back/atterraggio. Nessuna posizione viene inventata.')
+            raise ValueError(tr('Il profilo VTOL .plan richiede almeno 3 vertici: decollo, transizione front e arrivo con transizione back/atterraggio. Nessuna posizione viene inventata.'))
         if any(points[i] == points[i+1] for i in range(len(points)-1)):
-            raise ValueError('La rotta contiene vertici consecutivi duplicati.')
+            raise ValueError(tr('La rotta contiene vertici consecutivi duplicati.'))
 
         # Trasformatore di coordinate da CRS sorgente a WGS84 (EPSG:4326)
         src_crs = route_layer.crs()
@@ -315,7 +317,7 @@ class PlanExporter:
             if layer and layer.isValid() and layer.featureCount() > 0:
                 features = list(layer.getFeatures())
                 if len(features) != 1:
-                    raise ValueError(f'Buffer {dict_key}: più feature non rappresentabili nel profilo .plan attuale.')
+                    raise ValueError(tr('Buffer {dict_key}: più feature non rappresentabili nel profilo .plan attuale.').format(dict_key=dict_key))
                 geom = features[0].geometry()
                 if not geom.isNull() and not geom.isEmpty():
                     # Assicuriamoci che sia un poligono ed estraiamo l'anello esterno
@@ -324,13 +326,13 @@ class PlanExporter:
                         # Prendi la prima parte se multipolity
                         parts = poly_geom.asGeometryCollection()
                         if len(parts) != 1:
-                            raise ValueError(f'Buffer {dict_key}: parti separate non supportate dal profilo .plan attuale; usare GeoJSON.')
+                            raise ValueError(tr('Buffer {dict_key}: parti separate non supportate dal profilo .plan attuale; usare GeoJSON.').format(dict_key=dict_key))
                         poly_geom = parts[0]
 
                     # Estrarre l'anello esterno (exterior ring)
                     polygon_xy = poly_geom.asPolygon()
                     if len(polygon_xy) != 1:
-                        raise ValueError(f'Buffer {dict_key}: buchi o geometria vuota non supportati dal profilo .plan attuale; usare GeoJSON.')
+                        raise ValueError(tr('Buffer {dict_key}: buchi o geometria vuota non supportati dal profilo .plan attuale; usare GeoJSON.').format(dict_key=dict_key))
                     if polygon_xy:
                         exterior_ring = polygon_xy[0]
                         # Riproietta e popola vertici
@@ -342,7 +344,7 @@ class PlanExporter:
                             })
 
             if not vertices:
-                raise ValueError(f'Buffer {dict_key} vuoto o non valido.')
+                raise ValueError(tr('Buffer {dict_key} vuoto o non valido.').format(dict_key=dict_key))
 
             # Altitudine del geofence (se supportata da questo tipo nel plan)
             alt_amsl = None

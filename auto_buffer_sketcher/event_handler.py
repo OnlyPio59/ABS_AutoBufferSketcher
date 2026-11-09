@@ -2,6 +2,8 @@
 event_handler.py — Real-time buffer update via QGIS signals with debounce.
 """
 
+from .i18n import tr
+
 from .branding import PLUGIN_NAME
 from qgis.core import QgsMessageLog, Qgis
 from qgis.PyQt.QtCore import QTimer, QObject
@@ -53,7 +55,7 @@ class EventHandler(QObject):
         layer.committedFeaturesAdded.connect(self._on_committed)
         layer.committedFeaturesRemoved.connect(self._on_committed)
         self._connected = True
-        log(f"EventHandler connesso a '{layer.name()}'")
+        log(tr("EventHandler connesso a '{value}'").format(value=layer.name()))
 
     def disconnect(self):
         """Disconnette tutti i segnali. Crash-proof: gestisce oggetti C++ già distrutti."""
@@ -92,7 +94,7 @@ class EventHandler(QObject):
             self._update_fn()
             return
         if not self._is_layer_alive(self._source_layer):
-            log("Layer sorgente non più valido, skip ricalcolo.")
+            log(tr('Layer sorgente non più valido, skip ricalcolo.'))
             self._connected = False
             self._source_layer = None
             return
@@ -102,13 +104,12 @@ class EventHandler(QObject):
             from qgis.core import QgsProject
             project = QgsProject.instance()
             distances = self._get_distances()
-            log(f"Ricalcolo buffer: pre={distances.get('pregeocage')}m, "
-                f"geo={distances.get('geocage')}m, gnd={distances.get('ground')}m")
+            log(tr('Ricalcolo buffer: pre={value}m, geo={value2}m, gnd={value3}m').format(value=distances.get('pregeocage'), value2=distances.get('geocage'), value3=distances.get('ground')))
             dissolved = self._engine.build_all_buffers(self._source_layer, distances)
             self._engine.update_output_layers(project, dissolved, self._source_layer.crs())
-            log("Buffer aggiornati.")
+            log(tr('Buffer aggiornati.'))
         except (RuntimeError, Exception) as e:
-            log(f"Errore ricalcolo: {e}", Qgis.Critical)
+            log(tr('Errore ricalcolo: {e}').format(e=e), Qgis.Critical)
 
     def force_update(self):
         self._timer.stop()

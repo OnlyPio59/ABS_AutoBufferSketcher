@@ -2,8 +2,12 @@
 
 ## 0.2.1 — In sviluppo
 
+- Interfaccia disponibile in italiano e inglese secondo la lingua QGIS; verifiche del pannello compatto e della scala 150%.
+- Etichette inglesi delle schede e della modalità segmenti adattate allo spazio disponibile; guida disponibile nelle due lingue.
+- Corretto il messaggio italiano di editing affinché indichi il pulsante effettivo «Salva modifiche».
+
 - Predisposto caricamento dei cataloghi Qt secondo la lingua QGIS, con italiano come sorgente e fallback e rimozione del traduttore allo scaricamento del plugin.
-- Aggiunti cataloghi IT/EN iniziali, aggiornamento riproducibile dei testi marcati e inclusione TS/QM nel builder. Traduzione completa dell’interfaccia ancora in preparazione.
+- Aggiunti cataloghi IT/EN iniziali, aggiornamento riproducibile dei testi marcati e inclusione TS/QM nel builder. Completata la traduzione inglese di 198 testi, con cataloghi compilati IT/EN, controlli dei placeholder, flussi bilingui ed export invarianti.
 
 - Presentazione divisa in italiano e inglese, con voce dell’autore in prima persona.
 - Destinazione RigiCloud esplicita nel comando e nel dialogo di esportazione .plan, senza modificare lo schema o i parametri esportati.

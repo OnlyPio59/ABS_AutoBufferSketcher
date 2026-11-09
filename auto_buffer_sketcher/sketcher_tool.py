@@ -8,6 +8,8 @@ Responsabilità:
 - Supporta ESC per annullare il disegno corrente
 """
 
+from .i18n import tr
+
 from qgis.gui import QgsMapToolEmitPoint, QgsRubberBand
 from .branding import PLUGIN_NAME
 from qgis.core import (
@@ -106,7 +108,7 @@ class LineSketcherTool(QgsMapToolEmitPoint):
         # Aggiorna rubber band dei vertici
         self._vertex_band.addPoint(point, True)
 
-        log(f"Vertice aggiunto: ({point.x():.2f}, {point.y():.2f}) — totale: {len(self._vertices)}")
+        log(tr('Vertice aggiunto: ({value:.2f}, {value2:.2f}) — totale: {value3}').format(value=point.x(), value2=point.y(), value3=len(self._vertices)))
 
     def _finalize_line(self):
         try:
@@ -119,7 +121,7 @@ class LineSketcherTool(QgsMapToolEmitPoint):
     def _store_line(self):
         """Completa la linea e crea la feature nel layer sorgente."""
         if len(self._vertices) < 2:
-            log("Servono almeno 2 vertici per creare una linea.", Qgis.Warning)
+            log(tr('Servono almeno 2 vertici per creare una linea.'), Qgis.Warning)
             self._cancel()
             return
 
@@ -128,7 +130,7 @@ class LineSketcherTool(QgsMapToolEmitPoint):
         geom = QgsGeometry.fromPolylineXY(layer_points)
 
         if geom.isNull() or geom.isEmpty():
-            log("Geometria risultante non valida.", Qgis.Warning)
+            log(tr('Geometria risultante non valida.'), Qgis.Warning)
             self._cancel()
             return
 
@@ -136,17 +138,17 @@ class LineSketcherTool(QgsMapToolEmitPoint):
         if self.target_layer and self.target_layer.isValid():
             owns_edit = not self.target_layer.isEditable()
             if owns_edit and not self.target_layer.startEditing():
-                raise ValueError("Impossibile modificare il layer rotta.")
+                raise ValueError(tr('Impossibile modificare il layer rotta.'))
             feat = QgsFeature(self.target_layer.fields())
             feat.setGeometry(geom)
             if not self.target_layer.addFeature(feat):
                 if owns_edit:
                     self.target_layer.rollBack()
-                raise ValueError("Inserimento della rotta non riuscito.")
+                raise ValueError(tr('Inserimento della rotta non riuscito.'))
             if owns_edit and not self.target_layer.commitChanges():
                 self.target_layer.rollBack()
-                raise ValueError("Salvataggio della rotta non riuscito.")
-            log(f"Linea creata con {len(self._vertices)} vertici.")
+                raise ValueError(tr('Salvataggio della rotta non riuscito.'))
+            log(tr('Linea creata con {value} vertici.').format(value=len(self._vertices)))
 
         # Emetti segnale per notificare il plugin
         self.line_sketched.emit(geom)
@@ -159,7 +161,7 @@ class LineSketcherTool(QgsMapToolEmitPoint):
         """Annulla il disegno corrente."""
         self._vertices.clear()
         self._cleanup_rubber_bands()
-        log("Disegno annullato.")
+        log(tr('Disegno annullato.'))
 
     def _refresh_rubber_bands(self):
         """Ridisegna le rubber bands dopo modifica ai vertici."""
