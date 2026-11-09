@@ -12,8 +12,8 @@ import unittest
 from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from qgis.core import (QgsApplication,QgsProject,QgsVectorLayer,QgsFeature,QgsGeometry,QgsPointXY,
-    QgsCoordinateReferenceSystem,QgsCoordinateTransform,QgsRectangle,QgsField,Qgis)
-from qgis.gui import QgsMapCanvas
+    QgsCoordinateReferenceSystem,QgsCoordinateTransform,QgsRectangle,QgsField,Qgis,QgsWkbTypes)
+from qgis.gui import QgsMapCanvas,QgsMapToolEmitPoint,QgsRubberBand
 from qgis.PyQt.QtCore import Qt,QPoint,QVariant
 from qgis.PyQt.QtWidgets import QMainWindow,QAction
 from qgis.PyQt.QtTest import QTest
@@ -356,6 +356,53 @@ class Tests(unittest.TestCase):
         self.assertEqual(self.p._route_layer.featureCount(),1)
         self.assertTrue(self.p._route_layer.rollBack())
         self.assertEqual(self.p._route_layer.featureCount(),2)
+
+    def _check_delete_leaves_edit_tool(self, count):
+        first = self.seed()
+        if count == 2:
+            self.seed([(x+10000,y) for x,y in BASE])
+        canvas = self.iface.canvas
+        route = self.p._route_layer
+
+        class EditTool(QgsMapToolEmitPoint):
+            # Exercise the public map-tool lifecycle; the native vertex tool is
+            # additionally checked in the isolated QGIS application integration.
+            def __init__(self):
+                super().__init__(canvas)
+                self.band = QgsRubberBand(canvas, QgsWkbTypes.LineGeometry)
+                self.band.setToGeometry(line(), route)
+            def deactivate(self):
+                self.band.hide()
+                super().deactivate()
+
+        edit = EditTool()
+        select = QgsMapToolEmitPoint(canvas)
+        other = QgsRubberBand(canvas, QgsWkbTypes.LineGeometry)
+        other.setToGeometry(line(), self.p._route_layer)
+        KEEP.extend((edit, select, other))
+        self.iface.vertex.triggered.connect(lambda: canvas.setMapTool(edit))
+        self.iface.select.triggered.connect(lambda: canvas.setMapTool(select))
+        self.p._on_edit_requested()
+        self.assertIs(canvas.mapTool(), edit)
+        self.assertTrue(edit.band.isVisible())
+        self.p._route_layer.changeGeometry(first, line([(x,y+100) for x,y in BASE]))
+        self.p._on_delete_requested()
+        self.assertIs(canvas.mapTool(), select)
+        self.assertFalse(edit.band.isVisible())
+        self.assertTrue(other.isVisible())  # Do not sweep other tools' overlays.
+        self.p._route_layer.selectByIds([first])
+        self.p._on_delete_requested()
+        self.assertEqual(self.p._route_layer.featureCount(), count-1)
+        self.assertTrue(self.p._route_layer.isEditable())
+        self.assertTrue(self.p._route_layer.rollBack())
+        self.assertEqual(self.p._route_layer.featureCount(), count)
+        other.hide()
+
+    def test_single_route_delete_clears_edit_overlay_without_committing_user_edits(self):
+        self._check_delete_leaves_edit_tool(1)
+
+    def test_multiple_route_delete_clears_only_the_edit_tools_overlay(self):
+        self._check_delete_leaves_edit_tool(2)
 
     def test_loaded_plugin_restores_project_read_without_duplicate_actions(self):
         self.seed();self.diff(20);path=self.folder/'restore.gpkg'

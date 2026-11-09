@@ -4,7 +4,7 @@
   <context>
     <name>AutoBufferSketcher</name>
     <message>
-      <location filename="../plugin.py" line="417" />
+      <location filename="../plugin.py" line="420" />
       <source>1 linea selezionata. Clicca 'Conferma Eliminazione' per rimuoverla.</source>
       <translation>1 line selected. Click 'Confirm deletion' to remove it.</translation>
     </message>
@@ -51,23 +51,23 @@ You can move, add or remove vertices.</translation>
       <translation>Segment attributes are missing or not numeric.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="497" />
+      <location filename="../plugin.py" line="499" />
       <source>Auto-update attivato.</source>
       <translation>Automatic updates enabled.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="500" />
+      <location filename="../plugin.py" line="502" />
       <source>Auto-update disattivato.</source>
       <translation>Automatic updates disabled.</translation>
     </message>
     <message>
       <location filename="../event_handler.py" line="110" />
-      <location filename="../plugin.py" line="477" />
+      <location filename="../plugin.py" line="479" />
       <source>Buffer aggiornati.</source>
       <translation>Buffers updated.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="727" />
+      <location filename="../plugin.py" line="729" />
       <source>Buffer di esportazione non creato.</source>
       <translation>Export buffer could not be created.</translation>
     </message>
@@ -132,13 +132,13 @@ You can move, add or remove vertices.</translation>
       <translation>Identifier field could not be created.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="438" />
+      <location filename="../plugin.py" line="440" />
       <source>Cancellazione non riuscita.</source>
       <translation>Deletion failed.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="415" />
-      <location filename="../plugin.py" line="423" />
+      <location filename="../plugin.py" line="418" />
+      <location filename="../plugin.py" line="425" />
       <source>Conferma eliminazione</source>
       <translation>Confirm deletion</translation>
     </message>
@@ -178,7 +178,7 @@ You can move, add or remove vertices.</translation>
       <translation>Geographic data in JSON format</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="427" />
+      <location filename="../plugin.py" line="429" />
       <source>Delete: fase selezione ({feat_count} features).</source>
       <translation>Delete: selection stage ({feat_count} features).</translation>
     </message>
@@ -198,7 +198,7 @@ You can move, add or remove vertices.</translation>
       <translation>Draw line and generate automatic buffers</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="517" />
+      <location filename="../plugin.py" line="519" />
       <source>Disegna prima una linea, poi attiva i buffer differenziati.</source>
       <translation>Draw a line first, then enable different distances per segment.</translation>
     </message>
@@ -208,7 +208,7 @@ You can move, add or remove vertices.</translation>
       <translation>Drawing cancelled.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="651" />
+      <location filename="../plugin.py" line="653" />
       <source>Distanza non salvata.</source>
       <translation>Distance could not be saved.</translation>
     </message>
@@ -249,17 +249,17 @@ You can move, add or remove vertices.</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="127" />
-      <location filename="../plugin.py" line="445" />
+      <location filename="../plugin.py" line="447" />
       <source>Elimina linea</source>
       <translation>Delete line</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="437" />
+      <location filename="../plugin.py" line="439" />
       <source>Elimina rotte selezionate</source>
       <translation>Delete selected routes</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="447" />
+      <location filename="../plugin.py" line="449" />
       <source>Eliminate {deleted_count} features.</source>
       <translation>Deleted {deleted_count} features.</translation>
     </message>
@@ -269,20 +269,20 @@ You can move, add or remove vertices.</translation>
       <translation>Error exporting the plan: {value}</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="862" />
-      <location filename="../plugin.py" line="863" />
+      <location filename="../plugin.py" line="864" />
+      <location filename="../plugin.py" line="865" />
       <source>Errore esportazione GeoJSON: {e}</source>
       <translation>GeoJSON export error: {e}</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="798" />
-      <location filename="../plugin.py" line="799" />
+      <location filename="../plugin.py" line="800" />
+      <location filename="../plugin.py" line="801" />
       <source>Errore esportazione piano: {e}</source>
       <translation>Plan export error: {e}</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="700" />
-      <location filename="../plugin.py" line="701" />
+      <location filename="../plugin.py" line="702" />
+      <location filename="../plugin.py" line="703" />
       <source>Errore esportazione: {e}</source>
       <translation>Export error: {e}</translation>
     </message>
@@ -328,7 +328,7 @@ You can move, add or remove vertices.</translation>
       <translation>Export .plan for RigiCloud</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="683" />
+      <location filename="../plugin.py" line="685" />
       <source>Esporta Buffer in GeoPackage</source>
       <translation>Export buffers to GeoPackage</translation>
     </message>
@@ -343,22 +343,22 @@ You can move, add or remove vertices.</translation>
       <translation>Export GeoPackage</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="837" />
+      <location filename="../plugin.py" line="839" />
       <source>Esporta in GeoJSON</source>
       <translation>Export to GeoJSON</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="767" />
+      <location filename="../plugin.py" line="769" />
       <source>Esporta piano per RigiCloud (.plan)</source>
       <translation>Export plan for RigiCloud (.plan)</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="698" />
+      <location filename="../plugin.py" line="700" />
       <source>Esportazione completata: {file_path}</source>
       <translation>Export completed: {file_path}</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="691" />
+      <location filename="../plugin.py" line="693" />
       <source>Esportazione in corso...</source>
       <translation>Exporting...</translation>
     </message>
@@ -378,28 +378,28 @@ You can move, add or remove vertices.</translation>
       <translation>EventHandler connected to '{value}'</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="775" />
+      <location filename="../plugin.py" line="777" />
       <source>Generazione file .plan in corso...</source>
       <translation>Generating .plan file...</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="845" />
+      <location filename="../plugin.py" line="847" />
       <source>Generazione file GeoJSON in corso...</source>
       <translation>Generating GeoJSON file...</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="839" />
+      <location filename="../plugin.py" line="841" />
       <source>GeoJSON Files (*.geojson)</source>
       <translation>GeoJSON files (*.geojson)</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="858" />
+      <location filename="../plugin.py" line="860" />
       <source>GeoJSON esportato in {value}</source>
       <translation>GeoJSON exported to {value}</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="685" />
-      <location filename="../plugin.py" line="883" />
+      <location filename="../plugin.py" line="687" />
+      <location filename="../plugin.py" line="885" />
       <source>GeoPackage (*.gpkg)</source>
       <translation>GeoPackage (*.gpkg)</translation>
     </message>
@@ -429,7 +429,7 @@ You can move, add or remove vertices.</translation>
       <translation>Ground Buffer</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="880" />
+      <location filename="../plugin.py" line="882" />
       <source>I layer sono già persistenti.</source>
       <translation>The layers are already persistent.</translation>
     </message>
@@ -514,7 +514,7 @@ You can move, add or remove vertices.</translation>
       <translation>Invalid layer: {value}</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="921" />
+      <location filename="../plugin.py" line="923" />
       <source>Layer persistenti salvati; le altre tabelle del GeoPackage sono state conservate.</source>
       <translation>Persistent layers saved; other GeoPackage tables were preserved.</translation>
     </message>
@@ -529,7 +529,7 @@ You can move, add or remove vertices.</translation>
       <translation>Invalid route layer.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="466" />
+      <location filename="../plugin.py" line="468" />
       <source>Layer segmenti mancante o ambiguo: ripristinarlo prima del ricalcolo.</source>
       <translation>Segments layer is missing or ambiguous: restore it before recalculating.</translation>
     </message>
@@ -539,7 +539,7 @@ You can move, add or remove vertices.</translation>
       <translation>Segments layer is not linear or is invalid.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="637" />
+      <location filename="../plugin.py" line="639" />
       <source>Layer segmenti non valido.</source>
       <translation>Invalid segments layer.</translation>
     </message>
@@ -583,12 +583,12 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Mission / files</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="585" />
+      <location filename="../plugin.py" line="587" />
       <source>Modalità buffer uniforme.</source>
       <translation>Uniform buffer mode.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="571" />
+      <location filename="../plugin.py" line="573" />
       <source>Modalità differenziata attivata: {seg_count} segmenti.</source>
       <translation>Per-segment mode enabled: {seg_count} segments.</translation>
     </message>
@@ -603,17 +603,17 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Edit mode: move/add/remove vertices. Click 'Save changes' to save.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="569" />
+      <location filename="../plugin.py" line="571" />
       <source>Modalità segmenti attiva: {seg_count} segmenti. Clicca su un segmento per modificarne le distanze.</source>
       <translation>Per-segment mode active: {seg_count} segments. Click a segment to edit its distances.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="547" />
+      <location filename="../plugin.py" line="549" />
       <source>Modalità segmenti: {error}</source>
       <translation>Per-segment mode: {error}</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="647" />
+      <location filename="../plugin.py" line="649" />
       <source>Modifica distanze dei segmenti</source>
       <translation>Edit segment distances</translation>
     </message>
@@ -624,29 +624,29 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Edit line</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="678" />
+      <location filename="../plugin.py" line="680" />
       <source>Nessun layer da esportare.</source>
       <translation>No layers to export.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="874" />
+      <location filename="../plugin.py" line="876" />
       <source>Nessun layer da salvare.</source>
       <translation>No layers to save.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="745" />
-      <location filename="../plugin.py" line="815" />
+      <location filename="../plugin.py" line="747" />
+      <location filename="../plugin.py" line="817" />
       <source>Nessun layer rotta trovato.</source>
       <translation>No route layer found.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="460" />
+      <location filename="../plugin.py" line="462" />
       <source>Nessun layer rotta valido.</source>
       <translation>No valid route layer.</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="203" />
-      <location filename="../plugin.py" line="641" />
+      <location filename="../plugin.py" line="643" />
       <source>Nessun segmento selezionato.</source>
       <translation>No segment selected.</translation>
     </message>
@@ -661,7 +661,7 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>No lines to delete.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="433" />
+      <location filename="../plugin.py" line="435" />
       <source>Nessuna linea selezionata. Seleziona prima.</source>
       <translation>No line selected. Select a line first.</translation>
     </message>
@@ -676,13 +676,13 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Pad</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="794" />
+      <location filename="../plugin.py" line="796" />
       <source>Piano esportato in {value}</source>
       <translation>Plan exported to {value}</translation>
     </message>
     <message>
       <location filename="../plan_exporter.py" line="144" />
-      <location filename="../plugin.py" line="713" />
+      <location filename="../plugin.py" line="715" />
       <source>Più rotte presenti: selezionare una sola rotta sulla mappa per esportare il .plan.</source>
       <translation>Multiple routes present: select a single route on the map to export the .plan.</translation>
     </message>
@@ -737,7 +737,7 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Align segments with the route</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="896" />
+      <location filename="../plugin.py" line="898" />
       <source>Riapertura non riuscita: {value}; i layer originali sono ancora nel progetto.</source>
       <translation>Could not reopen: {value}; the original layers are still in the project.</translation>
     </message>
@@ -752,12 +752,12 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Recalculating buffers: pre={value}m, geo={value2}m, gnd={value3}m</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="480" />
+      <location filename="../plugin.py" line="482" />
       <source>Ricalcolo interrotto: {error}</source>
       <translation>Recalculation stopped: {error}</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="769" />
+      <location filename="../plugin.py" line="771" />
       <source>RigiCloud Plan (*.plan)</source>
       <translation>RigiCloud Plan (*.plan)</translation>
     </message>
@@ -777,7 +777,7 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Segment restoration failed.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="697" />
+      <location filename="../plugin.py" line="699" />
       <source>Risultati esportati in {value} (rotta e buffer; per i segmenti usare Rendi Layer Persistenti).</source>
       <translation>Results exported to {value} (route and buffers; for segments, use Make layers persistent).</translation>
     </message>
@@ -802,7 +802,7 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Routes, buffers and missions</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="883" />
+      <location filename="../plugin.py" line="885" />
       <source>Salva Layer del Plugin in GeoPackage</source>
       <translation>Save plugin layers to GeoPackage</translation>
     </message>
@@ -822,7 +822,7 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Save changes</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="877" />
+      <location filename="../plugin.py" line="879" />
       <source>Salvare o annullare le modifiche dei layer prima di renderli persistenti.</source>
       <translation>Save or discard layer edits before making the layers persistent.</translation>
     </message>
@@ -832,12 +832,12 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Route could not be saved.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="662" />
+      <location filename="../plugin.py" line="664" />
       <source>Salvataggio distanze non riuscito: {error}</source>
       <translation>Could not save distances: {error}</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="923" />
+      <location filename="../plugin.py" line="925" />
       <source>Salvataggio interrotto: {error}</source>
       <translation>Saving stopped: {error}</translation>
     </message>
@@ -892,7 +892,7 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Segment could not be saved.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="626" />
+      <location filename="../plugin.py" line="628" />
       <source>Segmento {seg_id} selezionato: pre={value}m, geo={value2}m, gnd={value3}m</source>
       <translation>Selected segment {seg_id}: pre={value}m, geo={value2}m, gnd={value3}m</translation>
     </message>
@@ -907,7 +907,7 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Segment {segment_id}: unsaved changes.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="654" />
+      <location filename="../plugin.py" line="656" />
       <source>Segmento {value}</source>
       <translation>Segment {value}</translation>
     </message>
@@ -922,7 +922,7 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Select one or more lines on the map, then click again to delete them.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="606" />
+      <location filename="../plugin.py" line="608" />
       <source>Selezione segmenti cambiata: {value} selezionati, ids={value2}</source>
       <translation>Segment selection changed: {value} selected, ids={value2}</translation>
     </message>
@@ -957,12 +957,12 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Coordinate transformation failed.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="536" />
+      <location filename="../plugin.py" line="538" />
       <source>Trovato layer segmenti esistente nel progetto. Riuso.</source>
       <translation>Existing segments layer found in the project. Reusing it.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="654" />
+      <location filename="../plugin.py" line="656" />
       <source>Tutti i segmenti</source>
       <translation>All segments</translation>
     </message>
@@ -992,22 +992,22 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Flight</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="446" />
+      <location filename="../plugin.py" line="448" />
       <source>{deleted_count} linea/e eliminata/e.</source>
       <translation>Lines deleted: {deleted_count}.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="425" />
+      <location filename="../plugin.py" line="427" />
       <source>{feat_count} linee presenti. Seleziona quelle da eliminare, poi clicca 'Conferma Eliminazione'.</source>
       <translation>{feat_count} lines present. Select the ones to delete, then click 'Confirm deletion'.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="656" />
+      <location filename="../plugin.py" line="658" />
       <source>{target}: distanze salvate nel layer. Puoi selezionare un altro segmento.</source>
       <translation>{target}: distances saved in the layer. You can select another segment.</translation>
     </message>
     <message>
-      <location filename="../plugin.py" line="659" />
+      <location filename="../plugin.py" line="661" />
       <source>{target}: distanze salvate, ma {detail}</source>
       <translation>{target}: distances saved, but {detail}</translation>
     </message>
