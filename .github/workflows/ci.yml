@@ -1,0 +1,47 @@
+name: QGIS regression tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main, 'codex/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qgis-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      QT_QPA_PLATFORM: offscreen
+      PYTHONDONTWRITEBYTECODE: '1'
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install distribution QGIS and PyQGIS
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y python3-qgis qgis
+
+      - name: Report tested QGIS version
+        run: /usr/bin/python3 -c 'from qgis.core import Qgis; print(Qgis.QGIS_VERSION)'
+
+      - name: Check package reproducibility and release metadata
+        run: /usr/bin/python3 tests/test_package.py
+
+      - name: Run plugin regression tests
+        run: /usr/bin/python3 tests/test_plugin_regressions.py
+
+      - name: Check dock controls and workflow navigation
+        run: /usr/bin/python3 tests/test_dock_panel.py
+
+      - name: Run original exporter smoke tests
+        run: /usr/bin/python3 tests/test_plan_exporter.py
