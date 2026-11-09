@@ -764,9 +764,9 @@ class AutoBufferPlugin:
 
         file_path, _ = QFileDialog.getSaveFileName(
             self.dock_panel,
-            "Esporta Piano di Volo (.plan)",
+            "Esporta piano missione (.plan)",
             os.path.expanduser("~/abs_mission.plan"),
-            "mission planning software Plan (*.plan)",
+            "Mission plan (*.plan)",
         )
 
         if not file_path:

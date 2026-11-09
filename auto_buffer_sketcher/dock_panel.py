@@ -178,7 +178,7 @@ class BufferDockPanel(QDockWidget):
         mission.addLayout(grid)
         exports = self._card(files, "Esporta", "Scegli il formato per il passaggio successivo.")
         for attr, text, signal, description in (
-            ("btn_export_plan", "Esporta .plan", self.export_plan_requested, "Piano per mission planning software"),
+            ("btn_export_plan", "Esporta .plan", self.export_plan_requested, "Esporta rotta, quote e geofence"),
             ("btn_export_geojson", "Esporta GeoJSON", self.export_geojson_requested, "Dati geografici in formato JSON"),
             ("btn_export", "Esporta GeoPackage", self.export_requested, "Rotta e buffer in un file .gpkg"),
         ):

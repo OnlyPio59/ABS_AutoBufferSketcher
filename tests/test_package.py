@@ -50,7 +50,8 @@ class PackageTests(unittest.TestCase):
         (self.root/'auto_buffer_sketcher/resources/escape.svg').symlink_to(self.root/'LICENSE')
         with self.assertRaisesRegex(ValueError,'Symlinks'):build_plugin(self.root,Path(self.temp.name)/'out',True)
     def test_version_cannot_escape_output_path(self):
-        path=self.root/'auto_buffer_sketcher/metadata.txt';path.write_text(path.read_text().replace('version=0.2.0','version=../../escape'))
+        path=self.root/'auto_buffer_sketcher/metadata.txt'
+        path.write_text('\n'.join('version=../../escape' if line.startswith('version=') else line for line in path.read_text().splitlines())+'\n')
         with self.assertRaisesRegex(ValueError,'Version'):build_plugin(self.root,Path(self.temp.name)/'out',True)
 
 if __name__=='__main__':unittest.main(verbosity=2)
