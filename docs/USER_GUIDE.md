@@ -4,7 +4,7 @@
 
 ## Lingua dell’interfaccia
 
-Nel sorgente 0.2.1, ABS segue la lingua impostata in QGIS: italiano e inglese sono disponibili, con italiano come ripiego. Per cambiarla usa **Impostazioni → Opzioni → Generale**, scegli la lingua dell’interfaccia e riavvia QGIS. La release 0.2.0 mantiene l’interfaccia italiana. Nomi dei layer, campi e dati esportati restano invariati.
+Nel sorgente 0.2.2, ABS segue la lingua impostata in QGIS: italiano e inglese sono disponibili, con italiano come ripiego. Per cambiarla usa **Impostazioni → Opzioni → Generale**, scegli la lingua dell’interfaccia e riavvia QGIS. La release 0.2.0 mantiene l’interfaccia italiana. Nomi dei layer, campi e dati esportati restano invariati.
 
 ## Il pannello
 

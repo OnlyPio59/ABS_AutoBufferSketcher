@@ -406,6 +406,9 @@ class AutoBufferPlugin:
         if not self._delete_pending:
             # FASE 1: Attiva selezione sul layer
             self.iface.setActiveLayer(self._route_layer)
+            # Leaving the native vertex tool clears its cached edit rubber bands.
+            # This is required for a single route too, even without a map click.
+            self.iface.actionSelect().trigger()
 
             if feat_count == 1:
                 # Una sola feature → selezionala automaticamente
@@ -418,7 +421,6 @@ class AutoBufferPlugin:
                 )
             else:
                 # Più features → attiva il tool di selezione
-                self.iface.actionSelect().trigger()
                 self._delete_pending = True
                 self.dock_panel.btn_delete.setText(tr('Conferma eliminazione'))
                 self.dock_panel.set_status(
