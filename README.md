@@ -18,6 +18,12 @@ Con ABS voglio raccogliere nello stesso pannello il lavoro sulla rotta, il calco
 
 [Guida completa](docs/USER_GUIDE.md) · [Demo riproducibile](examples/README.md) · [Changelog](CHANGELOG.md) · [Contribuire](CONTRIBUTING.md)
 
+### Da dove nasce
+
+Ho creato ABS partendo da una difficoltà concreta nella pianificazione delle rotte: nel mio flusso di lavoro con RigiCloud, correggere un tratto poteva richiedere di riposizionare manualmente anche molti punti delle fasce associate. Volevo poter intervenire su singoli vertici e adattare le distanze lungo il percorso mantenendo il controllo della geometria complessiva.
+
+Ho quindi portato questo lavoro in QGIS: modifico la rotta, ricalcolo i buffer e posso impostare distanze diverse per segmento. Nel flusso che ho descritto nella mia tesina, esportavo poi il `.plan` e lo importavo in RigiCloud, dove rifinivo quote e geocage. È da questa esigenza che nasce l’esportazione dedicata: ABS si concentra sul lavoro geometrico e prepara il passaggio alla piattaforma di pianificazione.
+
 ### Cosa posso fare con ABS
 
 - Disegnare rotte sulla mappa, modificare i vertici ed eliminare linee con conferma.
@@ -84,6 +90,12 @@ With ABS, I want to bring route editing, buffer calculation and export preparati
 **Status:** I have published experimental version [0.2.0](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.0); the development branch is preparing 0.2.1. The plugin is not yet in the official QGIS plugin catalog. Its current interface is Italian: I have planned an English translation and support for further languages.
 
 [Detailed guide — Italian](docs/USER_GUIDE.md) · [Reproducible demo — Italian](examples/README.md) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
+
+### Where it started
+
+I created ABS to address a practical difficulty in route planning: in my RigiCloud workflow, correcting a section of a route could also require manually repositioning many points in the associated zones. I wanted to edit individual vertices and adjust distances along the route while keeping control of the overall geometry.
+
+I moved this work into QGIS, where I can edit the route, recalculate its buffers and set different distances for each segment. In the workflow I described in my thesis, I then exported the `.plan` and imported it into RigiCloud, where I refined altitudes and geocage settings. This is why the dedicated export exists: ABS focuses on geometry editing and prepares the handoff to the planning platform.
 
 ### What I can do with ABS
 
