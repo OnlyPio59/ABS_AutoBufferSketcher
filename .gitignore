@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+dist/
+build/
+
+# QGIS
+*.qgz
+*.qgs~
+*.qgs.bak
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# User Exports
+Exports/
+
+# Environment-owned mount points
+/.agents/
+/.aws/
+/.codex/
+
+# Local-only second brain: never publish these on GitHub
+/wiki/
+/raw/
+/verifiche/
+/second_brain/
+/AGENTS.md
+/FASI_LAVORO.md
+/LEGGIMI.md
+/tools/check_wiki_links.py
+
+# Internal material retained only in the local project workspace
+/ResourcesFiles/
+/QGISexport/
+/PROJECT_LOG.md
+/FUTURE_IMPLEMENTATIONS.md
+/TERMINAL_GUIDE.md
+/TODO.md

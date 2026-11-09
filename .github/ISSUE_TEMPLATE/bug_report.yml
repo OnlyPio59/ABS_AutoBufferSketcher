@@ -1,0 +1,43 @@
+name: Segnalazione di un problema
+description: Descrivi un errore riproducibile nel plugin.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: Usa dati sintetici. Evita di allegare credenziali, progetti aziendali o piani operativi riservati.
+  - type: input
+    id: versions
+    attributes:
+      label: Versioni del plugin e di QGIS
+      placeholder: "ABS 0.2.0, QGIS 3.44.15"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Sistema operativo, tema e scala dello schermo
+    validations:
+      required: true
+  - type: input
+    id: crs
+    attributes:
+      label: CRS della rotta e del progetto
+      placeholder: "EPSG:4326 / EPSG:32633"
+  - type: textarea
+    id: steps
+    attributes:
+      label: Passaggi per riprodurre il problema
+      description: Indica anche modalità uniforme/per segmento e aggiornamento automatico/manuale.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Risultato atteso e risultato osservato
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Messaggi, screenshot o esempio sintetico
+      description: Se riguarda un export, indica formato e momento del salvataggio. Rimuovi dati riservati.

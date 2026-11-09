@@ -1,0 +1,20 @@
+name: Proposta di miglioramento
+description: Proponi un miglioramento spiegando il caso d’uso.
+title: "[Proposta] "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Quale attività vuoi migliorare?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Comportamento desiderato
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative considerate ed esempio sintetico
