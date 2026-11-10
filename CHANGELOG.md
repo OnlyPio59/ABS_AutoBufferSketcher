@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.5 — In sviluppo
+
+- Rinominati cinque usi della variabile locale `l` in `layer` nei flussi GeoPackage e persistenza, eliminando i rilievi di leggibilità E741.
+- Logica, parametri, formati di esportazione e interfaccia invariati.
+
 ## 0.2.4 — Sperimentale
 
 - Testo del pulsante blu di salvataggio sempre bianco, anche alla prima apertura senza segmento selezionato e durante i cambi di tema.
