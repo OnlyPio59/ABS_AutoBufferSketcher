@@ -14,7 +14,7 @@ Sto sviluppando ABS come progetto personale per disegnare e modificare rotte in 
 
 Con ABS voglio raccogliere nello stesso pannello il lavoro sulla rotta, il calcolo dei buffer e la preparazione dei dati da esportare. Per lo scambio GIS metto a disposizione GeoPackage e GeoJSON; per il flusso missione ho un’esportazione `.plan` pensata appositamente per **RigiCloud**.
 
-**Stato:** ho pubblicato la versione sperimentale [0.2.0](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.0); nel ramo di sviluppo preparo la 0.2.3. Il plugin non è ancora nel catalogo ufficiale QGIS. Nel sorgente 0.2.3 ho completato l’interfaccia italiana e inglese: segue la lingua di QGIS, con italiano come ripiego. Lo ZIP della release 0.2.0 conserva l’interfaccia italiana; le altre lingue restano da valutare.
+**Stato:** ho pubblicato la versione sperimentale [0.2.0](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.0); il sorgente corrente è alla **0.2.4**, con versione visibile nel pannello. Il plugin non è ancora nel catalogo ufficiale QGIS. Nel sorgente corrente ho completato l’interfaccia italiana e inglese: segue la lingua di QGIS, con italiano come ripiego. Lo ZIP della release 0.2.0 conserva l’interfaccia italiana; le altre lingue restano da valutare.
 
 [Guida completa](docs/USER_GUIDE.md) · [Demo riproducibile](examples/README.md) · [Changelog](CHANGELOG.md) · [Contribuire](CONTRIBUTING.md)
 
@@ -59,7 +59,7 @@ Il pulsante del segmento salva nel layer corrente: per conservare layer temporan
 
 ### Perché specifico RigiCloud
 
-Il `.plan` che esporto contiene una missione VTOL, un profilo e parametri di sicurezza e i geofence. Lo considero un’esportazione dedicata al flusso **RigiCloud**, non un piano universale compatibile con qualunque applicazione. La compatibilità completa con **RigiCloud 1.19.9**, incluse quote, profilo e parametri, è ancora in validazione.
+Il `.plan` che esporto contiene una missione VTOL, un profilo e parametri di sicurezza e i geofence. Lo considero un’esportazione dedicata al flusso **RigiCloud**, non un piano universale compatibile con qualunque applicazione. Ho verificato il funzionamento del file esportato nel mio ambiente **RigiCloud 1.19.9**. Questa prova pratica riguarda il flusso che utilizzo e non estende la compatibilità ad altri formati o a ogni possibile configurazione di missione.
 
 Non ho ancora implementato un secondo esportatore missione generico. Per aggiungerlo dovrò prima scegliere l’applicazione destinataria e il suo schema: la stessa estensione `.plan` è usata anche da formati differenti. GeoJSON e GeoPackage rimangono le mie opzioni di scambio delle geometrie GIS.
 
@@ -67,9 +67,11 @@ Non ho ancora implementato un secondo esportatore missione generico. Per aggiung
 
 Calcolo i buffer in un CRS UTM locale: estensioni oltre 6° in longitudine o latitudine, attraversamenti dell’antimeridiano e latitudini fuori da 80° S–84° N sono segnalati come non supportati. Il profilo `.plan` attuale richiede una rotta continua con almeno tre vertici e rifiuta geometrie non rappresentabili, come parti separate o buchi. I valori iniziali sono parametri del software, non una validazione di una missione.
 
-Mantengo **39 regressioni funzionali, 8 prove dell’interfaccia, 7 prove di confezionamento, 9 prove del sistema di traduzione, 2 prove della versione caricata e 4 prove dei flussi bilingui (ripetute anche con scala 150%)**, oltre allo smoke test degli esportatori. Le eseguo anche su GitHub Actions. Ho verificato l’installazione ZIP in un profilo QGIS isolato; le prove offscreen non coprono ogni interazione desktop o piattaforma.
+Mantengo **39 regressioni funzionali, 9 prove dell’interfaccia, 7 prove di confezionamento, 9 prove del sistema di traduzione, 2 prove della versione caricata e 4 prove dei flussi bilingui (ripetute anche con scala 150%)**, oltre allo smoke test degli esportatori. Le eseguo anche su GitHub Actions. Ho verificato l’installazione ZIP in un profilo QGIS isolato; le prove offscreen non coprono ogni interazione desktop o piattaforma.
 
 Per le immagini e la [demo](examples/README.md) uso soltanto dati sintetici. La guida dettagliata è disponibile in [italiano](docs/USER_GUIDE.md) e [inglese](docs/USER_GUIDE.en.md). Per una segnalazione o una proposta, usa i modelli nella sezione Issues.
+
+Dopo aver eliminato una rotta modificata, può restare temporaneamente un tratteggio sulla mappa: uno zoom lo rimuove. Mantengo aperto questo difetto grafico.
 
 ### Licenza
 
@@ -87,7 +89,7 @@ I am developing ABS as a personal project to draw and edit routes in QGIS and ma
 
 With ABS, I want to bring route editing, buffer calculation and export preparation into the same panel. I provide GeoPackage and GeoJSON for GIS data exchange, and a `.plan` mission export designed specifically for the **RigiCloud** workflow.
 
-**Status:** I have published experimental version [0.2.0](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.0); the development branch is preparing 0.2.3. The plugin is not yet in the official QGIS plugin catalog. In the 0.2.3 source, I have completed the Italian and English interface: it follows the QGIS language, with Italian as fallback. The released 0.2.0 ZIP retains its Italian interface; further languages remain to be considered.
+**Status:** I have published experimental version [0.2.0](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.0); the current source is **0.2.4**, with a visible version badge. The plugin is not yet in the official QGIS plugin catalog. In the current source, I have completed the Italian and English interface: it follows the QGIS language, with Italian as fallback. The released 0.2.0 ZIP retains its Italian interface; further languages remain to be considered.
 
 [Detailed guide](docs/USER_GUIDE.en.md) · [Reproducible demo — Italian](examples/README.md) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
 
@@ -132,7 +134,7 @@ The segment button saves values in the current layer. To retain temporary layers
 
 ### Why I specify RigiCloud
 
-The `.plan` I export contains a VTOL mission, a safety profile and settings, and geofences. I treat it as a dedicated export for the **RigiCloud** workflow, not a universal mission plan compatible with every application. Full compatibility with **RigiCloud 1.19.9**, including altitudes, profile and parameters, is still under validation.
+The `.plan` I export contains a VTOL mission, a safety profile and settings, and geofences. I treat it as a dedicated export for the **RigiCloud** workflow, not a universal mission plan compatible with every application. I have verified that the exported file works in my **RigiCloud 1.19.9** environment. This practical check covers my workflow and does not extend compatibility to other formats or every possible mission configuration.
 
 I have not yet implemented a second generic mission exporter. Before adding one, I will need to choose its destination application and schema: the `.plan` extension is also used by different formats. GeoJSON and GeoPackage remain my options for exchanging GIS geometries.
 
@@ -140,9 +142,11 @@ I have not yet implemented a second generic mission exporter. Before adding one,
 
 I calculate buffers in a local UTM CRS. Extents greater than 6° in longitude or latitude, antimeridian crossings and latitudes outside 80° S–84° N are reported as unsupported. The current `.plan` profile requires a single continuous route with at least three vertices and rejects unrepresentable geometries such as separate parts or holes. Initial values are software parameters, not mission validation.
 
-I maintain **39 functional regressions, 8 interface checks, 7 packaging checks, 9 translation-system checks, 2 loaded-version checks and 4 bilingual workflow checks (also repeated at 150% scale)**, plus the exporter smoke tests, and run them through GitHub Actions. I have checked ZIP installation in an isolated QGIS profile; offscreen checks do not cover every desktop interaction or platform.
+I maintain **39 functional regressions, 9 interface checks, 7 packaging checks, 9 translation-system checks, 2 loaded-version checks and 4 bilingual workflow checks (also repeated at 150% scale)**, plus the exporter smoke tests, and run them through GitHub Actions. I have checked ZIP installation in an isolated QGIS profile; offscreen checks do not cover every desktop interaction or platform.
 
 I use only synthetic data for the screenshots and [demo](examples/README.md). The detailed guide is available in [English](docs/USER_GUIDE.en.md) and [Italian](docs/USER_GUIDE.md). For a bug report or proposal, use the repository’s issue templates.
+
+After deleting an edited route, a dashed overlay may remain on the map until a zoom refresh. I am tracking this remaining visual issue.
 
 ### License
 

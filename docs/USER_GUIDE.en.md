@@ -99,8 +99,9 @@ and `-shm` files accompanying an open GeoPackage are database service files.
 values are 120 and 40 metres respectively; fields accept 0–5000 metres with two
 decimals. These are not AGL heights automatically derived from terrain.
 
-The `.plan` format also contains inherited static exporter parameters. Their
-validation in RigiCloud 1.19.9 remains open; changing panel altitudes does not
+The `.plan` format also contains inherited static exporter parameters. The author has
+verified that the exported file works in their RigiCloud 1.19.9 environment. This
+does not cover every mission configuration; changing panel altitudes does not
 validate a mission.
 
 ## Choosing an export
@@ -110,7 +111,7 @@ validate a mission.
 | Export GeoPackage | Route and four buffers | Deliver a copy of the GIS results. |
 | Make layers persistent | Route, buffers and segments | Continue work while retaining per-segment parameters. |
 | GeoJSON | Routes, waypoints and buffers in WGS84 | Exchange with GIS tools; preserves separate parts and holes. |
-| .plan for RigiCloud | One selected route, buffers and dedicated profile parameters | RigiCloud workflow, within representable limits; compatibility still requires validation. |
+| .plan for RigiCloud | One selected route, buffers and dedicated profile parameters | RigiCloud workflow, within representable limits; a practical check in the author's workflow passed. |
 
 If several routes exist, `.plan` export requires explicitly selecting one route.
 The current profile needs at least three vertices and rejects separate parts,
@@ -134,8 +135,9 @@ QGIS/plugin versions, operating system, CRS, buffer mode and the steps performed
 ## Which application is the .plan intended for?
 
 **Export .plan for RigiCloud** generates the dedicated profile currently implemented
-for that workflow, including a VTOL mission, safety settings and geofences. Full
-RigiCloud 1.19.9 compatibility still needs validation.
+for that workflow, including a VTOL mission, safety settings and geofences. The author
+has verified that the exported file works in their RigiCloud 1.19.9 environment;
+this does not validate every possible configuration.
 
 The `.plan` extension alone does not identify a common schema across applications.
 For example, [QGroundControl documents its own format](https://docs.qgroundcontrol.com/master/en/qgc-dev-guide/file_formats/plan.html),
