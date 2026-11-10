@@ -18,6 +18,8 @@ Con ABS voglio raccogliere nello stesso pannello il lavoro sulla rotta, il calco
 
 [Guida completa](docs/USER_GUIDE.md) · [Demo riproducibile](examples/README.md) · [Presentazione breve](docs/DEMO.md#italiano) · [Changelog](CHANGELOG.md) · [Contribuire](CONTRIBUTING.md)
 
+**Demo video — 50 secondi:** [guarda o scarica la versione italiana](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/download/v0.2.4/ABS_demo_0.2.4_IT_r1.mp4). Mostro la modifica della rotta, il salvataggio indipendente delle distanze e gli export, con schermate QGIS e dati sintetici.
+
 ### Da dove nasce
 
 Ho creato ABS partendo da una difficoltà concreta nella pianificazione delle rotte: nel mio flusso di lavoro con RigiCloud, correggere un tratto poteva richiedere di riposizionare manualmente anche molti punti delle fasce associate. Volevo poter intervenire su singoli vertici e adattare le distanze lungo il percorso mantenendo il controllo della geometria complessiva.
@@ -92,6 +94,8 @@ With ABS, I want to bring route editing, buffer calculation and export preparati
 **Status:** I have published experimental version [0.2.4](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.4), with a visible version badge. The plugin is not yet in the official QGIS plugin catalog. In the current source, I have completed the Italian and English interface: it follows the QGIS language, with Italian as fallback. The 0.2.4 ZIP includes both languages; further languages remain to be considered.
 
 [Detailed guide](docs/USER_GUIDE.en.md) · [Reproducible demo — Italian](examples/README.md) · [Short presentation](docs/DEMO.md#english) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
+
+**Video demo — 50 seconds:** [watch or download the English version](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/download/v0.2.4/ABS_demo_0.2.4_EN_r1.mp4). I show route editing, independent segment-distance saving and exports using English QGIS screenshots and synthetic data.
 
 ### Where it started
 

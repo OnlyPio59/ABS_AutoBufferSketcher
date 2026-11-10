@@ -4,6 +4,11 @@
 
 ## Italiano
 
+[**Guarda o scarica il video italiano — 50 secondi**](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/download/v0.2.4/ABS_demo_0.2.4_IT_r1.mp4)
+
+[![Anteprima della demo italiana](assets/demo-it.png)](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/download/v0.2.4/ABS_demo_0.2.4_IT_r1.mp4)
+
+
 Uso una rotta inventata per mostrare il problema che risolve ABS: modificare la geometria e adattare le distanze dei buffer per tratto, nello stesso pannello QGIS. L’esempio non è una missione operativa.
 
 1. Apro la [rotta sintetica](../examples/synthetic_route.geojson) in un progetto vuoto e seguo la [procedura riproducibile](../examples/README.md). Mostro la versione 0.2.4 nel pannello.
@@ -17,6 +22,11 @@ Per un video di 45–60 secondi dedico circa 5 secondi all’introduzione, 10 al
 Ho verificato il `.plan` nel mio ambiente RigiCloud 1.19.9. Un’eventuale ripresa dell’importazione va fatta in un ambiente autorizzato, senza nomi di clienti, missioni reali o dettagli dell’account. La demo QGIS da sola non documenta l’importazione in RigiCloud.
 
 ## English
+
+[**Watch or download the English video — 50 seconds**](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/download/v0.2.4/ABS_demo_0.2.4_EN_r1.mp4)
+
+[![English demo preview](assets/demo-en.png)](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/download/v0.2.4/ABS_demo_0.2.4_EN_r1.mp4)
+
 
 I use a fictional route to show the problem ABS addresses: editing geometry and adapting buffer distances along individual sections in the same QGIS panel. This example is not an operational mission.
 
