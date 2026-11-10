@@ -325,6 +325,7 @@ class BufferDockPanel(QDockWidget):
             QWidget#absPanel QPushButton[primary="true"] {{background:#2563EB;color:white;border-color:#2563EB;font-weight:600;}}
             QWidget#absPanel QPushButton[danger="true"] {{color:{'#FDA4AF' if dark else '#B42338'};}}
             QWidget#absPanel QPushButton:disabled {{color:{muted};}}
+            QWidget#absPanel QPushButton[primary="true"]:disabled {{color:#FFFFFF;}}
             QDoubleSpinBox {{background:{field};border:1px solid {border};border-radius:5px;padding:2px 2px 2px 7px;}}
             QDoubleSpinBox:focus {{border:1px solid #3B82F6;}}
             QDoubleSpinBox::up-button {{subcontrol-origin:border;subcontrol-position:top right;width:28px;border:0;}}

@@ -1,6 +1,11 @@
 # Changelog
 
-## 0.2.3 — In sviluppo
+## 0.2.4 — In sviluppo
+
+- Testo del pulsante blu di salvataggio sempre bianco, anche alla prima apertura senza segmento selezionato e durante i cambi di tema.
+- Conservati abilitazione del pulsante e salvataggio esplicito delle distanze.
+
+## 0.2.3 — Pacchetto di sviluppo
 
 - Numero della versione caricata visibile nell’intestazione del pannello, con tooltip e nome accessibile in italiano/inglese.
 - Versione acquisita dai metadata al caricamento del modulo: aggiornare i file su disco non modifica l’indicazione della sessione già aperta.
