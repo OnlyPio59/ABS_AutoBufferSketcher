@@ -37,6 +37,9 @@ jobs:
       - name: Check package reproducibility and release metadata
         run: /usr/bin/python3 tests/test_package.py
 
+      - name: Check loaded version snapshots
+        run: /usr/bin/python3 tests/test_version.py
+
       - name: Run plugin regression tests
         run: /usr/bin/python3 tests/test_plugin_regressions.py
 

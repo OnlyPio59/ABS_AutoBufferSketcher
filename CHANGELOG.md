@@ -1,6 +1,12 @@
 # Changelog
 
-## 0.2.2 — In sviluppo
+## 0.2.3 — In sviluppo
+
+- Numero della versione caricata visibile nell’intestazione del pannello, con tooltip e nome accessibile in italiano/inglese.
+- Versione acquisita dai metadata al caricamento del modulo: aggiornare i file su disco non modifica l’indicazione della sessione già aperta.
+- Badge verificato nel pannello compatto e con scala 150%, mantenendo il nome del prodotto e il logo su sfondo scuro.
+
+## 0.2.2 — Pacchetto di sviluppo
 
 - Il comando di eliminazione attiva lo strumento di selezione anche con una sola rotta, disattivando lo strumento vertici e rimuovendone il tratteggio residuo.
 - Conservate conferma, selezione multipla e sessioni di editing aperte dall’utente; nessuna pulizia indiscriminata delle sovrapposizioni di altri strumenti.
