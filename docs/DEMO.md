@@ -1,8 +1,10 @@
-# Demo — ABS - AutoBufferSketcher 0.2.4
+# Demo — ABS - AutoBufferSketcher
 
 [Italiano](#italiano) · [English](#english)
 
 ## Italiano
+
+La demo usa la 0.2.4. È valida anche per la 0.2.5: questa versione rinomina soltanto cinque variabili locali, senza modifiche alle funzioni o all’interfaccia.
 
 [**Guarda o scarica il video italiano — 50 secondi**](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/download/v0.2.4/ABS_demo_0.2.4_IT_r1.mp4)
 
@@ -22,6 +24,8 @@ Per un video di 45–60 secondi dedico circa 5 secondi all’introduzione, 10 al
 Ho verificato il `.plan` nel mio ambiente RigiCloud 1.19.9. Un’eventuale ripresa dell’importazione va fatta in un ambiente autorizzato, senza nomi di clienti, missioni reali o dettagli dell’account. La demo QGIS da sola non documenta l’importazione in RigiCloud.
 
 ## English
+
+The demo uses 0.2.4 and also applies to 0.2.5: that version only renames five local variables, with no changes to functionality or the interface.
 
 [**Watch or download the English video — 50 seconds**](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/download/v0.2.4/ABS_demo_0.2.4_EN_r1.mp4)
 
