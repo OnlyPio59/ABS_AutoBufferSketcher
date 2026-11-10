@@ -694,7 +694,7 @@ class AutoBufferPlugin:
         try:
             if not self._on_recalc():
                 return
-            layers = [l for l in project.mapLayers().values() if layer_role(l) in export_names]
+            layers = [layer for layer in project.mapLayers().values() if layer_role(layer) in export_names]
             write_geopackage(layers, file_path, project)
             self.dock_panel.set_status(tr('Risultati esportati in {value} (rotta e buffer; per i segmenti usare Rendi Layer Persistenti).').format(value=os.path.basename(file_path)))
             log(tr('Esportazione completata: {file_path}').format(file_path=file_path))
@@ -871,14 +871,14 @@ class AutoBufferPlugin:
         project = QgsProject.instance()
         names = (LAYER_NAME_ROUTE,LAYER_NAME_SEGMENTS,LAYER_NAME_PREGEOCAGE,
             LAYER_NAME_GEOCAGE,LAYER_NAME_GROUND,LAYER_NAME_ADJACENT)
-        layers = [l for l in project.mapLayers().values() if layer_role(l) in names]
+        layers = [layer for layer in project.mapLayers().values() if layer_role(layer) in names]
         if not layers:
             self.dock_panel.set_status(tr('Nessun layer da salvare.'))
             return
-        if any(l.isEditable() for l in layers):
+        if any(layer.isEditable() for layer in layers):
             self.dock_panel.set_status(tr('Salvare o annullare le modifiche dei layer prima di renderli persistenti.'))
             return
-        if all(l.providerType() != 'memory' for l in layers):
+        if all(layer.providerType() != 'memory' for layer in layers):
             self.dock_panel.set_status(tr('I layer sono già persistenti.'))
             return
         file_path, _ = QFileDialog.getSaveFileName(self.dock_panel,
@@ -889,7 +889,7 @@ class AutoBufferPlugin:
             if not self._on_recalc():
                 return
             self._save_route_state()
-            layers = [l for l in project.mapLayers().values() if layer_role(l) in names]
+            layers = [layer for layer in project.mapLayers().values() if layer_role(layer) in names]
             write_geopackage(layers, file_path, project)
             replacements = []
             for old in layers:
