@@ -1,6 +1,6 @@
 # Translating ABS
 
-The 0.2.2 development source includes a complete Italian/English interface.
+The 0.2.3 development source includes a complete Italian/English interface.
 The published 0.2.0 release retains its Italian interface. Other languages are not yet available.
 
 ## Language policy
@@ -38,7 +38,7 @@ python3 scripts/update_translations.py
 This standard-library AST extractor updates the Italian and English Qt TS catalogs
 in `auto_buffer_sketcher/i18n`, using the single `AutoBufferSketcher` context.
 It preserves existing translations and message comments, marks new entries unfinished,
-and retains removed entries as vanished. The catalogs currently contain 198 completed source templates, covering UI text,
+and retains removed entries as vanished. The catalogs currently contain 199 completed source templates, covering UI text,
 accessibility, dialogs, statuses, errors, undo labels and plugin diagnostics.
 This counts unique templates, not every occurrence in the source.
 

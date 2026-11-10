@@ -17,6 +17,7 @@ from auto_buffer_sketcher.buffer_engine import (
 )
 from auto_buffer_sketcher.geojson_exporter import GeoJSONExporter
 from auto_buffer_sketcher.plan_exporter import PlanExporter
+from auto_buffer_sketcher.version import PLUGIN_VERSION
 from qgis.core import QgsFeature, QgsCoordinateReferenceSystem
 from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtWidgets import QStyle, QStyleOptionButton
@@ -150,6 +151,9 @@ class LocalizedWorkflowTests(unittest.TestCase):
             for index in (0, 1):
                 self.assertTrue(bar.rect().contains(bar.tabRect(index)))
             self.assertEqual(panel.tabs.widget(0).horizontalScrollBar().maximum(), 0)
+            self.assertEqual(panel.version_label.text(), f'v{PLUGIN_VERSION}')
+            self.assertIn(PLUGIN_VERSION, panel.version_label.accessibleName())
+            self.assertTrue(panel.rect().contains(panel.version_label.mapTo(panel, panel.version_label.rect().center())))
             for button in (panel.btn_apply_segment, panel.btn_sketcher, panel.btn_export_plan, panel.btn_make_persistent):
                 option = QStyleOptionButton()
                 option.initFrom(button)
