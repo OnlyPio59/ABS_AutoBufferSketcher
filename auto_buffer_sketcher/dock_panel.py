@@ -12,6 +12,7 @@ from qgis.PyQt.QtWidgets import (
     QTabWidget, QScrollArea, QStyle, QStyleOptionSpinBox, QAbstractSpinBox,
 )
 from .branding import PLUGIN_NAME
+from .version import PLUGIN_VERSION
 
 
 class MeterSpinBox(QDoubleSpinBox):
@@ -105,7 +106,17 @@ class BufferDockPanel(QDockWidget):
         words.addWidget(title)
         subtitle = QLabel(tr('Rotte, buffer e missioni'))
         subtitle.setObjectName("absSubtitle")
-        words.addWidget(subtitle)
+        subtitle.setWordWrap(True)
+        details = QHBoxLayout()
+        details.addWidget(subtitle, 1)
+        self.version_label = QLabel(f'v{PLUGIN_VERSION}')
+        self.version_label.setObjectName('absVersion')
+        self.version_label.setAlignment(Qt.AlignCenter)
+        hint = tr('Versione caricata: {version}').format(version=PLUGIN_VERSION)
+        self.version_label.setToolTip(hint)
+        self.version_label.setAccessibleName(hint)
+        details.addWidget(self.version_label, 0, Qt.AlignVCenter)
+        words.addLayout(details)
         row.addLayout(words, 1)
         layout.addWidget(header)
 
@@ -304,6 +315,7 @@ class BufferDockPanel(QDockWidget):
             QFrame#absBrand {{background:#18212F;border-radius:10px;}}
             QWidget#absPanel QLabel#absTitle {{color:#F8FAFC;font-size:12pt;font-weight:600;}}
             QWidget#absPanel QLabel#absSubtitle {{color:#CBD5E1;}}
+            QWidget#absPanel QLabel#absVersion {{color:#F8FAFC;background:#263449;border-radius:4px;padding:2px 5px;font-weight:600;}}
             QFrame#absCard {{background:{surface};border:1px solid {border};border-radius:9px;}}
             QLabel[heading="true"] {{font-weight:600;}}
             QWidget#absPanel QLabel[muted="true"] {{color:{muted};}}

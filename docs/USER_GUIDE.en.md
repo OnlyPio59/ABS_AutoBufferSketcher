@@ -4,10 +4,14 @@
 
 ## Interface language
 
-In the 0.2.2 source, ABS follows the QGIS interface language. Italian and English are
+In the 0.2.3 source, ABS follows the QGIS interface language. Italian and English are
 available, with Italian as fallback. To change it, open **Settings → Options → General**,
 choose the interface language and restart QGIS. The released 0.2.0 ZIP retains the
 Italian interface. Layer names, fields and exported data remain unchanged.
+
+## Loaded version
+
+The `v…` badge in the header shows the version of the code loaded in QGIS. If the plugin files are updated while QGIS is open, the badge keeps the current session’s version. Save the project and restart QGIS to load the new version. The tooltip explicitly identifies the loaded version.
 
 ## The panel
 

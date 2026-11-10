@@ -3,7 +3,7 @@ name=ABS - AutoBufferSketcher
 qgisMinimumVersion=3.34
 qgisMaximumVersion=3.99
 description=Draw a line and automatically generate pregeocage, geocage, ground buffer, and adjacent-area zones with real-time updates.
-version=0.2.2
+version=0.2.3
 author=Francesco Rosano
 email=rosano_francesco@hotmail.it
 about=Interactive route sketching with four metric buffer zones and independent per-segment distances. Includes GeoPackage persistence, GeoJSON, experimental RigiCloud .plan export, and Italian/English interface translations.
@@ -12,7 +12,8 @@ about=Interactive route sketching with four metric buffer zones and independent 
 tracker=https://github.com/OnlyPio59/ABS_AutoBufferSketcher/issues
 repository=https://github.com/OnlyPio59/ABS_AutoBufferSketcher
 homepage=https://github.com/OnlyPio59/ABS_AutoBufferSketcher#readme
-changelog=0.2.2 - Clear native vertex-tool overlays when deleting an edited route.
+changelog=0.2.3 - Visible loaded-version badge in the panel header.
+    0.2.2 - Clear native vertex-tool overlays when deleting an edited route.
     0.2.1 - Italian/English interface, bilingual guides and compact layout checks; dedicated RigiCloud export labels.
     0.2.0 - ABS identity; metric buffers and segment persistence; redesigned panel and export safeguards.
 category=Vector
