@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.4 — In sviluppo
+## 0.2.4 — Sperimentale
 
 - Testo del pulsante blu di salvataggio sempre bianco, anche alla prima apertura senza segmento selezionato e durante i cambi di tema.
 - Conservati abilitazione del pulsante e salvataggio esplicito delle distanze.
