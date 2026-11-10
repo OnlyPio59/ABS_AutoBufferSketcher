@@ -9,4 +9,8 @@
 5. Selezionare il segmento successivo, impostare Pregeocage a 70 metri e salvare. Tornare al precedente per verificare le distanze indipendenti.
 6. Usare **Missione e file** per provare gli export con nomi di destinazione nuovi. Per conservare i layer temporanei, usare **Rendi layer persistenti** e salvare anche il progetto QGIS.
 
-Il valore di Adjacent Area a 300 metri rende leggibili tutte le fasce nella demo; il valore iniziale del plugin resta 5000 metri. Le quote iniziali non sono parametri validati per una missione reale. La compatibilità completa del formato `.plan` con RigiCloud resta da verificare nell’ambiente target.
+Il valore di Adjacent Area a 300 metri rende leggibili tutte le fasce nella demo; il valore iniziale del plugin resta 5000 metri. Le quote iniziali non sono parametri validati per una missione reale. Il funzionamento del `.plan` è stato verificato dall’autore nel proprio ambiente RigiCloud 1.19.9; ogni esempio sintetico richiede comunque la verifica della missione nel destinatario.
+
+## Presentare il progetto
+
+Una sequenza breve in [italiano e inglese](../docs/DEMO.md) descrive come mostrare il flusso senza usare dati operativi.
