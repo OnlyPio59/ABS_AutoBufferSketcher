@@ -9,7 +9,7 @@
       <translation>1 linea selezionata. Clicca 'Conferma Eliminazione' per rimuoverla.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="141" />
+      <location filename="../dock_panel.py" line="152" />
       <source>Adjacent Area</source>
       <translation>Adjacent Area</translation>
     </message>
@@ -19,27 +19,27 @@
       <translation>Aggiorna buffer</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="154" />
+      <location filename="../dock_panel.py" line="165" />
       <source>Aggiornamento automatico</source>
       <translation>Aggiornamento automatico</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="174" />
+      <location filename="../dock_panel.py" line="185" />
       <source>Altitudine {name} (AMSL)</source>
       <translation>Altitudine {name} (AMSL)</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="164" />
+      <location filename="../dock_panel.py" line="175" />
       <source>Applica a tutti i segmenti</source>
       <translation>Applica a tutti i segmenti</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="159" />
+      <location filename="../dock_panel.py" line="170" />
       <source>Assegna distanze diverse ad ogni segmento della linea.</source>
       <translation>Assegna distanze diverse ad ogni segmento della linea.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="126" />
+      <location filename="../dock_panel.py" line="137" />
       <source>Attiva la modalità editing sul layer rotta.
 Puoi spostare, aggiungere o rimuovere vertici.</source>
       <translation>Attiva la modalità editing sul layer rotta.
@@ -143,12 +143,12 @@ Puoi spostare, aggiungere o rimuovere vertici.</translation>
       <translation>Conferma eliminazione</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="189" />
+      <location filename="../dock_panel.py" line="200" />
       <source>Conserva su disco i layer temporanei del plugin.</source>
       <translation>Conserva su disco i layer temporanei del plugin.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="191" />
+      <location filename="../dock_panel.py" line="202" />
       <source>Converte i layer temporanei del plugin in layer permanenti salvandoli su disco.</source>
       <translation>Converte i layer temporanei del plugin in layer permanenti salvandoli su disco.</translation>
     </message>
@@ -173,7 +173,7 @@ Puoi spostare, aggiungere o rimuovere vertici.</translation>
       <translation>Creato layer sorgente '{value}'</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="184" />
+      <location filename="../dock_panel.py" line="195" />
       <source>Dati geografici in formato JSON</source>
       <translation>Dati geografici in formato JSON</translation>
     </message>
@@ -183,12 +183,12 @@ Puoi spostare, aggiungere o rimuovere vertici.</translation>
       <translation>Delete: fase selezione ({feat_count} features).</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="121" />
+      <location filename="../dock_panel.py" line="132" />
       <source>Disegna la linea sulla mappa o modifica i suoi vertici.</source>
       <translation>Disegna la linea sulla mappa o modifica i suoi vertici.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="122" />
+      <location filename="../dock_panel.py" line="133" />
       <source>Disegna linea</source>
       <translation>Disegna linea</translation>
     </message>
@@ -213,7 +213,7 @@ Puoi spostare, aggiungere o rimuovere vertici.</translation>
       <translation>Distanza non salvata.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="132" />
+      <location filename="../dock_panel.py" line="143" />
       <source>Distanze dei buffer</source>
       <translation>Distanze dei buffer</translation>
     </message>
@@ -223,7 +223,7 @@ Puoi spostare, aggiungere o rimuovere vertici.</translation>
       <translation>Distanze dei segmenti non valide (intervallo 0–50000 m).</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="158" />
+      <location filename="../dock_panel.py" line="169" />
       <source>Distanze diverse per segmento</source>
       <translation>Distanze diverse per segmento</translation>
     </message>
@@ -248,7 +248,7 @@ Puoi spostare, aggiungere o rimuovere vertici.</translation>
       <translation>Editing terminato. Modifiche salvate.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="127" />
+      <location filename="../dock_panel.py" line="138" />
       <location filename="../plugin.py" line="447" />
       <source>Elimina linea</source>
       <translation>Elimina linea</translation>
@@ -318,12 +318,12 @@ Puoi spostare, aggiungere o rimuovere vertici.</translation>
       <translation>Errore: nessun layer rotta trovato.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="181" />
+      <location filename="../dock_panel.py" line="192" />
       <source>Esporta</source>
       <translation>Esporta</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="183" />
+      <location filename="../dock_panel.py" line="194" />
       <source>Esporta .plan per RigiCloud</source>
       <translation>Esporta .plan per RigiCloud</translation>
     </message>
@@ -333,12 +333,12 @@ Puoi spostare, aggiungere o rimuovere vertici.</translation>
       <translation>Esporta Buffer in GeoPackage</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="184" />
+      <location filename="../dock_panel.py" line="195" />
       <source>Esporta GeoJSON</source>
       <translation>Esporta GeoJSON</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="185" />
+      <location filename="../dock_panel.py" line="196" />
       <source>Esporta GeoPackage</source>
       <translation>Esporta GeoPackage</translation>
     </message>
@@ -409,7 +409,7 @@ Puoi spostare, aggiungere o rimuovere vertici.</translation>
       <translation>GeoPackage già aperto nel progetto: scegliere un altro file di destinazione.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="139" />
+      <location filename="../dock_panel.py" line="150" />
       <source>Geocage</source>
       <translation>Geocage</translation>
     </message>
@@ -424,7 +424,7 @@ Puoi spostare, aggiungere o rimuovere vertici.</translation>
       <translation>Geometria risultante non valida.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="140" />
+      <location filename="../dock_panel.py" line="151" />
       <source>Ground Buffer</source>
       <translation>Ground Buffer</translation>
     </message>
@@ -564,12 +564,12 @@ Puoi spostare, aggiungere o rimuovere vertici.</translation>
       <translation>Linea creata. Generazione buffer...</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="99" />
+      <location filename="../dock_panel.py" line="100" />
       <source>Logo ABS</source>
       <translation>Logo ABS</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="207" />
+      <location filename="../dock_panel.py" line="218" />
       <source>Memorizza i quattro valori solo nel segmento selezionato.
 Poi puoi selezionare un altro segmento. Per conservarli dopo la chiusura,
 rendi persistenti i layer e salva il progetto QGIS.</source>
@@ -578,7 +578,7 @@ Poi puoi selezionare un altro segmento. Per conservarli dopo la chiusura,
 rendi persistenti i layer e salva il progetto QGIS.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="169" />
+      <location filename="../dock_panel.py" line="180" />
       <source>Missione e file</source>
       <translation>Missione e file</translation>
     </message>
@@ -618,7 +618,7 @@ rendi persistenti i layer e salva il progetto QGIS.</translation>
       <translation>Modifica distanze dei segmenti</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="125" />
+      <location filename="../dock_panel.py" line="136" />
       <location filename="../plugin.py" line="375" />
       <source>Modifica linea</source>
       <translation>Modifica linea</translation>
@@ -645,7 +645,7 @@ rendi persistenti i layer e salva il progetto QGIS.</translation>
       <translation>Nessun layer rotta valido.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="203" />
+      <location filename="../dock_panel.py" line="214" />
       <location filename="../plugin.py" line="643" />
       <source>Nessun segmento selezionato.</source>
       <translation>Nessun segmento selezionato.</translation>
@@ -671,7 +671,7 @@ rendi persistenti i layer e salva il progetto QGIS.</translation>
       <translation>Nessuna rotta da esportare.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="173" />
+      <location filename="../dock_panel.py" line="184" />
       <source>Pad</source>
       <translation>Pad</translation>
     </message>
@@ -697,17 +697,17 @@ rendi persistenti i layer e salva il progetto QGIS.</translation>
       <translation>Plugin scaricato.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="138" />
+      <location filename="../dock_panel.py" line="149" />
       <source>Pregeocage</source>
       <translation>Pregeocage</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="183" />
+      <location filename="../dock_panel.py" line="194" />
       <source>Profilo missione dedicato a RigiCloud</source>
       <translation>Profilo missione dedicato a RigiCloud</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="212" />
+      <location filename="../dock_panel.py" line="223" />
       <source>Pronto.</source>
       <translation>Pronto.</translation>
     </message>
@@ -717,17 +717,17 @@ rendi persistenti i layer e salva il progetto QGIS.</translation>
       <translation>Pronto. Clicca 'Disegna Linea' per iniziare.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="171" />
+      <location filename="../dock_panel.py" line="182" />
       <source>Quote AMSL: altitudini rispetto al livello medio del mare.</source>
       <translation>Quote AMSL: altitudini rispetto al livello medio del mare.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="170" />
+      <location filename="../dock_panel.py" line="181" />
       <source>Quote della missione</source>
       <translation>Quote della missione</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="190" />
+      <location filename="../dock_panel.py" line="201" />
       <source>Rendi layer persistenti</source>
       <translation>Rendi layer persistenti</translation>
     </message>
@@ -742,7 +742,7 @@ rendi persistenti i layer e salva il progetto QGIS.</translation>
       <translation>Riapertura non riuscita: {value}; i layer originali sono ancora nel progetto.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="162" />
+      <location filename="../dock_panel.py" line="173" />
       <source>Ricalcola buffer</source>
       <translation>Ricalcola buffer</translation>
     </message>
@@ -782,22 +782,22 @@ rendi persistenti i layer e salva il progetto QGIS.</translation>
       <translation>Risultati esportati in {value} (rotta e buffer; per i segmenti usare Rendi Layer Persistenti).</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="121" />
+      <location filename="../dock_panel.py" line="132" />
       <source>Rotta</source>
       <translation>Rotta</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="120" />
+      <location filename="../dock_panel.py" line="131" />
       <source>Rotta e buffer</source>
       <translation>Rotta e buffer</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="185" />
+      <location filename="../dock_panel.py" line="196" />
       <source>Rotta e buffer in un file .gpkg</source>
       <translation>Rotta e buffer in un file .gpkg</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="106" />
+      <location filename="../dock_panel.py" line="107" />
       <source>Rotte, buffer e missioni</source>
       <translation>Rotte, buffer e missioni</translation>
     </message>
@@ -807,12 +807,12 @@ rendi persistenti i layer e salva il progetto QGIS.</translation>
       <translation>Salva Layer del Plugin in GeoPackage</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="206" />
+      <location filename="../dock_panel.py" line="217" />
       <source>Salva distanze del segmento</source>
       <translation>Salva distanze del segmento</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="189" />
+      <location filename="../dock_panel.py" line="200" />
       <source>Salva i layer</source>
       <translation>Salva i layer</translation>
     </message>
@@ -847,7 +847,7 @@ rendi persistenti i layer e salva il progetto QGIS.</translation>
       <translation>Salvataggio non riuscito: </translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="181" />
+      <location filename="../dock_panel.py" line="192" />
       <source>Scegli il formato per il passaggio successivo.</source>
       <translation>Scegli il formato per il passaggio successivo.</translation>
     </message>
@@ -897,12 +897,12 @@ rendi persistenti i layer e salva il progetto QGIS.</translation>
       <translation>Segmento {seg_id} selezionato: pre={value}m, geo={value2}m, gnd={value3}m</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="376" />
+      <location filename="../dock_panel.py" line="388" />
       <source>Segmento {segment_id}: distanze memorizzate nel layer.</source>
       <translation>Segmento {segment_id}: distanze memorizzate nel layer.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="374" />
+      <location filename="../dock_panel.py" line="386" />
       <source>Segmento {segment_id}: modifiche da salvare.</source>
       <translation>Segmento {segment_id}: modifiche da salvare.</translation>
     </message>
@@ -912,12 +912,12 @@ rendi persistenti i layer e salva il progetto QGIS.</translation>
       <translation>Segmento {value}</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="372" />
+      <location filename="../dock_panel.py" line="384" />
       <source>Seleziona un segmento sulla mappa.</source>
       <translation>Seleziona un segmento sulla mappa.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="128" />
+      <location filename="../dock_panel.py" line="139" />
       <source>Seleziona una o più linee sulla mappa e clicca di nuovo per eliminarle.</source>
       <translation>Seleziona una o più linee sulla mappa e clicca di nuovo per eliminarle.</translation>
     </message>
@@ -937,7 +937,7 @@ rendi persistenti i layer e salva il progetto QGIS.</translation>
       <translation>Sketcher tool attivato.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="165" />
+      <location filename="../dock_panel.py" line="176" />
       <source>Sostituisce le distanze di tutti i segmenti con i valori correnti.</source>
       <translation>Sostituisce le distanze di tutti i segmenti con i valori correnti.</translation>
     </message>
@@ -972,7 +972,7 @@ rendi persistenti i layer e salva il progetto QGIS.</translation>
       <translation>Unione di segmenti con distanze diverse: scegliere i valori e usare Applica a Tutti i Segmenti, oppure annullare la modifica.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="132" />
+      <location filename="../dock_panel.py" line="143" />
       <source>Valori in metri, applicati alla rotta.</source>
       <translation>Valori in metri, applicati alla rotta.</translation>
     </message>
@@ -982,12 +982,17 @@ rendi persistenti i layer e salva il progetto QGIS.</translation>
       <translation>Verifica del layer '{value}' non riuscita.</translation>
     </message>
     <message>
+      <location filename="../dock_panel.py" line="115" />
+      <source>Versione caricata: {version}</source>
+      <translation>Versione caricata: {version}</translation>
+    </message>
+    <message>
       <location filename="../sketcher_tool.py" line="111" />
       <source>Vertice aggiunto: ({value:.2f}, {value2:.2f}) — totale: {value3}</source>
       <translation>Vertice aggiunto: ({value:.2f}, {value2:.2f}) — totale: {value3}</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="173" />
+      <location filename="../dock_panel.py" line="184" />
       <source>Volo</source>
       <translation>Volo</translation>
     </message>

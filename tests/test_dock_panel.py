@@ -9,11 +9,22 @@ from qgis.PyQt.QtGui import QColor, QPalette
 from qgis.PyQt.QtTest import QTest, QSignalSpy
 from qgis.PyQt.QtWidgets import QStyle, QStyleOptionSpinBox, QMainWindow, QLabel
 from auto_buffer_sketcher.dock_panel import BufferDockPanel
+from auto_buffer_sketcher.version import PLUGIN_VERSION
 
 APP = QgsApplication([], False)
 APP.initQgis()
 
 class DockTests(unittest.TestCase):
+    def test_loaded_version_badge_is_visible_and_readable_in_compact_panel(self):
+        self.panel.resize(360, 560)
+        APP.processEvents()
+        badge = self.panel.version_label
+        self.assertEqual(badge.text(), f'v{PLUGIN_VERSION}')
+        self.assertTrue(badge.isVisible())
+        self.assertTrue(self.panel.rect().contains(badge.mapTo(self.panel, badge.rect().center())))
+        self.assertLessEqual(badge.fontMetrics().horizontalAdvance(badge.text()), badge.contentsRect().width())
+        self.assertIn(PLUGIN_VERSION, badge.accessibleName())
+
     def setUp(self):
         self.panel = BufferDockPanel()
         self.panel.resize(420, 830)
