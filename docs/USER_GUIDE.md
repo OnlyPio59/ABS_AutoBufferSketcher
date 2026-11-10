@@ -65,7 +65,7 @@ Le tabelle estranee del GeoPackage di destinazione vengono conservate. Un GeoPac
 
 **Volo** e **Pad** sono quote AMSL, riferite al livello medio del mare. I valori iniziali sono rispettivamente 120 e 40 metri; l’intervallo dei campi è 0–5000 metri con due decimali. Non sono altezze AGL automaticamente ricavate dal terreno.
 
-Il formato `.plan` contiene anche parametri statici ereditati dall’esportatore. La loro validazione nell’ambiente RigiCloud 1.19.9 è ancora aperta; modificare le quote nel pannello non convalida una missione.
+Il formato `.plan` contiene anche parametri statici ereditati dall’esportatore. Il funzionamento del file è stato verificato dall’autore nel proprio ambiente RigiCloud 1.19.9; la prova non copre ogni configurazione di missione e modificare le quote nel pannello non convalida una missione.
 
 ## Scegliere il formato
 
@@ -74,7 +74,7 @@ Il formato `.plan` contiene anche parametri statici ereditati dall’esportatore
 | Esporta GeoPackage | Rotta e quattro buffer | Consegnare una copia dei risultati GIS. |
 | Rendi layer persistenti | Rotta, buffer e segmenti | Continuare il lavoro conservando i parametri per segmento. |
 | GeoJSON | Rotte, waypoint e buffer in WGS84 | Scambio con altri strumenti GIS; conserva parti separate e buchi. |
-| .plan per RigiCloud | Una rotta selezionata, buffer e parametri del profilo dedicato | Flusso RigiCloud, nei limiti rappresentabili e con compatibilità ancora da verificare. |
+| .plan per RigiCloud | Una rotta selezionata, buffer e parametri del profilo dedicato | Flusso RigiCloud, nei limiti rappresentabili e con prova pratica positiva nel flusso dell’autore. |
 
 Se ci sono più rotte, l’esportazione `.plan` richiede la selezione esplicita di una sola rotta. Il profilo attuale richiede almeno tre vertici e rifiuta parti separate, anelli interni o altre geometrie non rappresentabili. Non tutti i file con estensione `.plan` usano lo stesso schema.
 
@@ -93,7 +93,7 @@ Per una segnalazione riproducibile usa il modello Issues e un esempio sintetico.
 
 ## A quale applicazione è destinato il .plan?
 
-Il comando **Esporta .plan per RigiCloud** produce il profilo specifico attualmente implementato per quel flusso, con missione VTOL, parametri di sicurezza e geofence. La compatibilità completa con RigiCloud 1.19.9 rimane da validare. Non è una dichiarazione di conformità a un formato universale.
+Il comando **Esporta .plan per RigiCloud** produce il profilo specifico attualmente implementato per quel flusso, con missione VTOL, parametri di sicurezza e geofence. L’autore ha verificato il funzionamento del file nel proprio ambiente RigiCloud 1.19.9; non è una verifica di ogni possibile configurazione. Non è una dichiarazione di conformità a un formato universale.
 
 L’estensione `.plan` non identifica da sola uno schema comune a tutte le applicazioni. Per esempio, [QGroundControl documenta un proprio formato](https://docs.qgroundcontrol.com/master/en/qgc-dev-guide/file_formats/plan.html), diverso da quello attuale di ABS. Un eventuale esportatore aggiuntivo dovrà essere identificato con il nome del destinatario, avere una specifica/versione e prove di importazione dedicate. Non è presente un secondo esportatore missione generico.
 
