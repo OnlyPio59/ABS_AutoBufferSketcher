@@ -125,8 +125,30 @@ class DockTests(unittest.TestCase):
         title = panel.findChild(QLabel, 'absTitle')
         self.assertEqual(title.palette().color(title.foregroundRole()).name(), '#f8fafc')
         self.assertEqual(panel.btn_sketcher.palette().color(QPalette.ButtonText).name(), '#ffffff')
+        panel.chk_diff_buffers.setChecked(True)
+        for segment in (None, 0):
+            panel.set_segment_info(segment)
+            APP.processEvents()
+            group = QPalette.Active if panel.btn_apply_segment.isEnabled() else QPalette.Disabled
+            self.assertEqual(panel.btn_apply_segment.palette().color(group, QPalette.ButtonText).name(), '#ffffff')
         host.close()
         host.deleteLater()
+
+    def test_segment_save_text_stays_white_from_first_open(self):
+        # A host stylesheet and the disabled state must not override the blue
+        # action's white label, including after changing the QGIS palette.
+        self.panel.chk_diff_buffers.setChecked(True)
+        button = self.panel.btn_apply_segment
+        for dark in (False, True):
+            palette = self.panel.palette()
+            palette.setColor(QPalette.Window, QColor('#111827' if dark else '#FFFFFF'))
+            self.panel.setPalette(palette)
+            for segment in (None, 0, None):
+                self.panel.set_segment_info(segment)
+                APP.processEvents()
+                with self.subTest(dark=dark, selected=segment is not None):
+                    group = QPalette.Active if button.isEnabled() else QPalette.Disabled
+                    self.assertEqual(button.palette().color(group, QPalette.ButtonText).name(), '#ffffff')
 
     def test_segment_save_stays_visible_without_scrolling(self):
         self.panel.resize(360, 560)
