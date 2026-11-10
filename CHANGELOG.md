@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.5 — In sviluppo
+## 0.2.5 — Sperimentale
 
 - Rinominati cinque usi della variabile locale `l` in `layer` nei flussi GeoPackage e persistenza, eliminando i rilievi di leggibilità E741.
 - Logica, parametri, formati di esportazione e interfaccia invariati.
