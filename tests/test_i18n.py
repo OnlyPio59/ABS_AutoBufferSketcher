@@ -25,7 +25,7 @@ class TranslationTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(prefix='abs-i18n-')
         self.folder = Path(self.temp.name)
-        self.settings = QSettings(str(self.folder / 'settings.ini'), QSettings.IniFormat)
+        self.settings = QSettings(str(self.folder / 'settings.ini'), QSettings.Format.IniFormat)
         self.manager = TranslationManager(self.folder, self.settings)
         self.locale = QLocale()
 

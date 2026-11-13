@@ -124,9 +124,9 @@ class PlanExporter:
 
         except Exception as e:
             self.last_error = str(e)
-            self._log(tr("Errore durante l'esportazione del piano: {value}").format(value=str(e)), Qgis.Critical)
+            self._log(tr("Errore durante l'esportazione del piano: {value}").format(value=str(e)), Qgis.MessageLevel.Critical)
             import traceback
-            self._log(traceback.format_exc(), Qgis.Critical)
+            self._log(traceback.format_exc(), Qgis.MessageLevel.Critical)
             return False
 
     def _build_mission_items(self, route_layer, config):
@@ -423,7 +423,7 @@ class PlanExporter:
             "missRpSegDist": 2000
         }
 
-    def _log(self, msg, level=Qgis.Info):
+    def _log(self, msg, level=Qgis.MessageLevel.Info):
         """Invia un messaggio al log di QGIS e stampa in console."""
         QgsMessageLog.logMessage(msg, TAG, level=level)
         print(f"[{TAG}] {msg}")

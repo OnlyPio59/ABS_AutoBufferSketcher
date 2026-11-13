@@ -1,18 +1,19 @@
 [general]
 name=ABS - AutoBufferSketcher
 qgisMinimumVersion=3.34
-qgisMaximumVersion=3.99
+qgisMaximumVersion=4.99
 description=Draw a line and automatically generate pregeocage, geocage, ground buffer, and adjacent-area zones with real-time updates.
-version=0.2.5
+version=0.3.0
 author=Francesco Rosano
 email=rosano_francesco@hotmail.it
 about=Interactive route sketching with four metric buffer zones and independent per-segment distances. Includes GeoPackage persistence, GeoJSON, experimental RigiCloud .plan export, and Italian/English interface translations.
-    Requires QGIS 3.34 or later in the 3.x series, using the Python/Qt shipped with QGIS and no external Python packages. Tested on Linux with QGIS 3.34.4 and 3.44.15; Windows, macOS and QGIS 4 are not validated.
+    Requires QGIS 3.34–4.99, using the Python/Qt shipped with QGIS and no external Python packages. Linux checks cover QGIS 3.34.4 and 3.44.15 with Qt5, and QGIS 4.2.3 with Qt6; Windows and macOS are not validated.
     Buffer calculation is regional (local UTM); broad extents and polar routes are not supported. Full RigiCloud 1.19.9 compatibility, including mission parameters and altitudes, is still under validation.
 tracker=https://github.com/OnlyPio59/ABS_AutoBufferSketcher/issues
 repository=https://github.com/OnlyPio59/ABS_AutoBufferSketcher
 homepage=https://github.com/OnlyPio59/ABS_AutoBufferSketcher#readme
-changelog=0.2.5 - Rename ambiguous local layer variables; no behavior changes.
+changelog=0.3.0 - QGIS 3/4 and Qt5/Qt6 compatibility; unchanged buffer calculations and export formats.
+    0.2.5 - Rename ambiguous local layer variables; no behavior changes.
     0.2.4 - Keep primary action labels white when disabled on first open.
     0.2.3 - Visible loaded-version badge in the panel header.
     0.2.2 - Clear native vertex-tool overlays when deleting an edited route.

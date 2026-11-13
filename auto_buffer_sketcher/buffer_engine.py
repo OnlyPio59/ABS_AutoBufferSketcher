@@ -10,6 +10,7 @@ Responsabilità:
 """
 
 from .i18n import tr
+from .qt_compat import field_type
 
 import math
 
@@ -29,7 +30,7 @@ from qgis.core import (
     QgsMessageLog,
     Qgis,
 )
-from qgis.PyQt.QtCore import QVariant
+from qgis.PyQt.QtCore import QMetaType
 from qgis.PyQt.QtGui import QColor
 from .branding import PLUGIN_NAME, layer_role, layer_title, adopt_layer
 from .geometry_utils import metric_crs, transformed
@@ -69,7 +70,7 @@ BUFFER_STYLES = {
 TAG = PLUGIN_NAME
 
 
-def log(msg, level=Qgis.Info):
+def log(msg, level=Qgis.MessageLevel.Info):
     """Logging centralizzato verso QGIS Log Messages."""
     QgsMessageLog.logMessage(msg, TAG, level=level)
     print(f"[{TAG}] {msg}")
@@ -271,11 +272,11 @@ class BufferEngine:
 
         # Aggiungi campi
         prov.addAttributes([
-            QgsField(SEG_FIELD_ID, QVariant.Int),
-            QgsField(SEG_FIELD_PRECAGE, QVariant.Double),
-            QgsField(SEG_FIELD_GEOCAGE, QVariant.Double),
-            QgsField(SEG_FIELD_GROUND, QVariant.Double),
-            QgsField(SEG_FIELD_ADJACENT, QVariant.Double),
+            QgsField(SEG_FIELD_ID, field_type(QMetaType.Type.Int)),
+            QgsField(SEG_FIELD_PRECAGE, field_type(QMetaType.Type.Double)),
+            QgsField(SEG_FIELD_GEOCAGE, field_type(QMetaType.Type.Double)),
+            QgsField(SEG_FIELD_GROUND, field_type(QMetaType.Type.Double)),
+            QgsField(SEG_FIELD_ADJACENT, field_type(QMetaType.Type.Double)),
         ])
         seg_layer.updateFields()
 
@@ -362,7 +363,7 @@ class BufferEngine:
         layer.setCrs(crs)
 
         if not layer.isValid():
-            log(tr("Errore: impossibile creare layer '{name}'").format(name=name), Qgis.Critical)
+            log(tr("Errore: impossibile creare layer '{name}'").format(name=name), Qgis.MessageLevel.Critical)
             return None
 
         adopt_layer(layer, name)
@@ -412,8 +413,8 @@ class BufferEngine:
         border_color.setAlpha(border_alpha)
 
         symbol = QgsFillSymbol.createSimple({
-            'color': fill_color.name(QColor.HexArgb),
-            'outline_color': border_color.name(QColor.HexArgb),
+            'color': fill_color.name(QColor.NameFormat.HexArgb),
+            'outline_color': border_color.name(QColor.NameFormat.HexArgb),
             'outline_width': '0.4',
             'outline_style': 'solid',
         })
@@ -487,7 +488,7 @@ class BufferEngine:
         layer.setCrs(crs)
 
         if not layer.isValid():
-            log(tr("Errore: impossibile creare layer '{LAYER_NAME_ROUTE}'").format(LAYER_NAME_ROUTE=LAYER_NAME_ROUTE), Qgis.Critical)
+            log(tr("Errore: impossibile creare layer '{LAYER_NAME_ROUTE}'").format(LAYER_NAME_ROUTE=LAYER_NAME_ROUTE), Qgis.MessageLevel.Critical)
             return None
 
         # Stile linea route: blu, spessore 2

@@ -7,8 +7,8 @@ L’interfaccia della versione 0.2.3 segue la lingua di QGIS: italiano e inglese
 con italiano come ripiego. Per cambiare lingua riavvia QGIS dopo la modifica
 in Impostazioni → Opzioni → Generale.
 
-Requisiti: QGIS 3.x a partire dalla versione 3.34. Verificato su Linux con
-QGIS 3.34.4 e 3.44.15; QGIS 4, Windows e macOS non ancora convalidati.
+Requisiti del candidato 0.3.0: QGIS 3.34–4.99. Verifiche su Linux con
+QGIS 3.34.4 e 3.44.15/Qt5 e QGIS 4.2.3/Qt6; Windows e macOS non convalidati.
 Non richiede pacchetti Python esterni a QGIS.
 
 Apri il pannello dalla toolbar. Nella scheda Rotta e buffer, disegna una
@@ -35,18 +35,19 @@ sono supportate. Consulta i messaggi nel fondo del pannello.
 Guida completa e sorgenti:
 https://github.com/OnlyPio59/ABS_AutoBufferSketcher
 
-Questa versione resta sperimentale e non è ancora pubblicata nel catalogo.
+Questo candidato resta sperimentale; la 0.2.5 approvata nel catalogo QGIS
+è distinta dal nuovo pacchetto 0.3.0.
 Per la licenza completa vedi LICENSE; attribuzione in NOTICE.
 
 ## English
 
 I develop ABS as a QGIS plugin and distribute it under GPL-3.0-only.
-Version 0.2.3 follows the QGIS interface language: Italian and English,
+ABS follows the QGIS interface language: Italian and English,
 with Italian as fallback. Restart QGIS after changing the language in
 Settings → Options → General.
 
-Requirements: QGIS 3.34–3.99, tested on Linux with 3.34.4 and 3.44.15.
-Windows, macOS and QGIS 4 have not been validated. No external Python packages
+Candidate 0.3.0 requirements: QGIS 3.34–4.99, with Linux checks on
+3.34.4 and 3.44.15/Qt5 and 4.2.3/Qt6. Windows and macOS are not validated. No external Python packages
 are required beyond the components provided by QGIS.
 
 Open the toolbar panel. In Route / buffers, draw a line and set Pregeocage,
@@ -60,7 +61,8 @@ and requires a single continuous route with at least three vertices. Full
 RigiCloud 1.19.9 compatibility still needs validation. Local UTM calculation is
 regional; extents beyond 6 degrees and polar regions are unsupported.
 
-This version remains experimental and is not yet published in the official catalog.
+This candidate remains experimental; approved catalog version 0.2.5
+is separate from the new 0.3.0 package.
 See the full English guide and source at:
 https://github.com/OnlyPio59/ABS_AutoBufferSketcher/blob/main/docs/USER_GUIDE.en.md
 

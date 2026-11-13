@@ -18,7 +18,7 @@ Con ABS voglio raccogliere nello stesso pannello il lavoro sulla rotta, il calco
 
 [Guida completa](docs/USER_GUIDE.md) · [Demo riproducibile](examples/README.md) · [Presentazione breve](docs/DEMO.md#italiano) · [Changelog](CHANGELOG.md) · [Contribuire](CONTRIBUTING.md)
 
-La 0.2.5 corregge soltanto cinque nomi di variabili locali; funzioni, interfaccia e formati restano invariati.
+Nel sorgente 0.3.0 ho aggiunto la compatibilità QGIS 4/Qt6 conservando QGIS 3/Qt5. Calcoli, interfaccia e formati restano invariati. La 0.2.5 è la versione attualmente approvata sul catalogo. [Compatibilità e verifiche](docs/COMPATIBILITY.md).
 
 **Demo video — 50 secondi:** [guarda o scarica la versione italiana](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/download/v0.2.4/ABS_demo_0.2.4_IT_r1.mp4). Mostro la modifica della rotta, il salvataggio indipendente delle distanze e gli export, con schermate QGIS e dati sintetici. La demo è realizzata con la 0.2.4 e mostra lo stesso flusso della 0.2.5.
 
@@ -38,7 +38,7 @@ Ho quindi portato questo lavoro in QGIS: modifico la rotta, ricalcolo i buffer e
 
 ### Installazione e primo utilizzo
 
-Uso Python, Qt e PyQGIS già forniti con QGIS, senza pacchetti Python esterni. Dichiaro QGIS **3.34–3.99**; le verifiche disponibili riguardano **3.34.4 e 3.44.15 su Linux**. Non ho ancora convalidato Windows, macOS o QGIS 4.
+Uso Python, Qt e PyQGIS già forniti con QGIS, senza pacchetti Python esterni. Il sorgente 0.3.0 dichiara QGIS **3.34–4.99**; le verifiche su Linux coprono **3.34.4 e 3.44.15/Qt5** e **4.2.3/Qt6**. Non ho ancora convalidato Windows o macOS. La 0.2.5 nel catalogo è limitata a QGIS 3. Per provare il candidato 0.3.0 su QGIS 4 uso il suo ZIP, quando disponibile tra le [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases).
 
 1. In QGIS apri **Plugin → Gestisci e installa plugin → Impostazioni** e abilita **Mostra anche plugin sperimentali**.
 2. Nella scheda **Tutti**, cerca **ABS - AutoBufferSketcher** e premi **Installa plugin**. In alternativa, scarica lo ZIP dagli asset della [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.5) e usa **Installa da ZIP**. Dopo un aggiornamento, riavvia QGIS.
@@ -97,7 +97,7 @@ With ABS, I want to bring route editing, buffer calculation and export preparati
 
 [Detailed guide](docs/USER_GUIDE.en.md) · [Reproducible demo — Italian](examples/README.md) · [Short presentation](docs/DEMO.md#english) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
 
-Version 0.2.5 only improves five local variable names; functionality, interface and formats remain unchanged.
+In the 0.3.0 source I have added QGIS 4/Qt6 compatibility while retaining QGIS 3/Qt5. Calculations, interface and formats remain unchanged. Version 0.2.5 is the version currently approved in the catalog. [Compatibility and checks](docs/COMPATIBILITY.md).
 
 **Video demo — 50 seconds:** [watch or download the English version](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/download/v0.2.4/ABS_demo_0.2.4_EN_r1.mp4). I show route editing, independent segment-distance saving and exports using English QGIS screenshots and synthetic data. The demo uses 0.2.4 and shows the same workflow as 0.2.5.
 
@@ -117,7 +117,7 @@ I moved this work into QGIS, where I can edit the route, recalculate its buffers
 
 ### Installation and first use
 
-I use the Python, Qt and PyQGIS components shipped with QGIS, without additional Python packages. I declare support for QGIS **3.34–3.99**; the available checks cover **3.34.4 and 3.44.15 on Linux**. I have not yet validated Windows, macOS or QGIS 4.
+I use the Python, Qt and PyQGIS components shipped with QGIS, without additional Python packages. The 0.3.0 source declares QGIS **3.34–4.99**; Linux checks cover **3.34.4 and 3.44.15/Qt5** and **4.2.3/Qt6**. I have not yet validated Windows or macOS. The catalog version 0.2.5 is limited to QGIS 3. To try the 0.3.0 candidate on QGIS 4, I use its ZIP when available in [releases](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases).
 
 1. In QGIS, open **Plugins → Manage and Install Plugins → Settings** and enable **Show also experimental plugins**.
 2. In **All**, search for **ABS - AutoBufferSketcher** and click **Install Plugin**. Alternatively, download the ZIP asset from the [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.5) and use **Install from ZIP**. Restart QGIS after an update.
