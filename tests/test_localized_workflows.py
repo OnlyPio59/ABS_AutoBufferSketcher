@@ -19,7 +19,7 @@ from auto_buffer_sketcher.geojson_exporter import GeoJSONExporter
 from auto_buffer_sketcher.plan_exporter import PlanExporter
 from auto_buffer_sketcher.version import PLUGIN_VERSION
 from qgis.core import QgsFeature, QgsCoordinateReferenceSystem
-from qgis.PyQt.QtCore import QSettings
+from qgis.PyQt.QtCore import QSettings, QCoreApplication, QEvent
 from qgis.PyQt.QtWidgets import QStyle, QStyleOptionButton
 
 
@@ -168,4 +168,12 @@ class LocalizedWorkflowTests(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
+    result = unittest.main(verbosity=2, exit=False)
+    PROJECT.clear()
+    for widget in APP.topLevelWidgets():
+        widget.close()
+        widget.deleteLater()
+    QCoreApplication.sendPostedEvents(None, QEvent.Type.DeferredDelete)
+    APP.processEvents()
+    APP.exitQgis()
+    sys.exit(not result.result.wasSuccessful())
