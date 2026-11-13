@@ -65,13 +65,18 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     container:
-      image: ghcr.io/qgis/pyqgis4-checker:main-ubuntu
+      image: ghcr.io/qgis/pyqgis4-checker:main-ubuntu@sha256:c96df111845eb0c86ad56364fb792d35fa6931e01d3d629d2b1bc6388ed43ece
     env:
       QT_QPA_PLATFORM: offscreen
       PYTHONDONTWRITEBYTECODE: '1'
       PYTHONOPTIMIZE: '0'
     steps:
       - uses: actions/checkout@v4
+      - name: Install Qt6 translation test tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y qt6-l10n-tools
+          echo "/usr/lib/qt6/bin" >> "$GITHUB_PATH"
       - name: Require QGIS 4 and Qt6
         run: |
           python3 - <<'PYTHON'
@@ -103,3 +108,16 @@ jobs:
         run: python3 tests/test_localized_workflows.py
       - name: Check original exporters
         run: python3 tests/test_plan_exporter.py
+      - name: Install packaged plugin in a clean native QGIS profile
+        run: |
+          export ABS_NATIVE_ROOT="$(mktemp -d /tmp/abs-native-XXXXXX)"
+          python3 scripts/build_plugin.py --output "$ABS_NATIVE_ROOT/package"
+          export ABS_NATIVE_ZIP="$ABS_NATIVE_ROOT/package/ABS_AutoBufferSketcher_0.3.0.zip"
+          export ABS_NATIVE_RESULT="$ABS_NATIVE_ROOT/result.json"
+          if ! timeout 90 qgis --profiles-path "$ABS_NATIVE_ROOT/profiles" --profile ABS-native --nologo --noplugins --noversioncheck --code "$GITHUB_WORKSPACE/tests/native_qgis_install.py" > "$ABS_NATIVE_ROOT/qgis.log" 2>&1; then
+            cat "$ABS_NATIVE_ROOT/qgis.log"
+            exit 1
+          fi
+          cat "$ABS_NATIVE_ROOT/qgis.log"
+          cat "$ABS_NATIVE_RESULT"
+          python3 -c 'import json,os; assert json.load(open(os.environ["ABS_NATIVE_RESULT"]))["passed"]'
