@@ -10,6 +10,7 @@ Responsabilità:
 """
 
 from .i18n import tr
+from .qt_compat import field_type
 
 import math
 
@@ -271,11 +272,11 @@ class BufferEngine:
 
         # Aggiungi campi
         prov.addAttributes([
-            QgsField(SEG_FIELD_ID, QMetaType.Type.Int),
-            QgsField(SEG_FIELD_PRECAGE, QMetaType.Type.Double),
-            QgsField(SEG_FIELD_GEOCAGE, QMetaType.Type.Double),
-            QgsField(SEG_FIELD_GROUND, QMetaType.Type.Double),
-            QgsField(SEG_FIELD_ADJACENT, QMetaType.Type.Double),
+            QgsField(SEG_FIELD_ID, field_type(QMetaType.Type.Int)),
+            QgsField(SEG_FIELD_PRECAGE, field_type(QMetaType.Type.Double)),
+            QgsField(SEG_FIELD_GEOCAGE, field_type(QMetaType.Type.Double)),
+            QgsField(SEG_FIELD_GROUND, field_type(QMetaType.Type.Double)),
+            QgsField(SEG_FIELD_ADJACENT, field_type(QMetaType.Type.Double)),
         ])
         seg_layer.updateFields()
 

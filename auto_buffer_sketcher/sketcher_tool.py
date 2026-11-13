@@ -13,7 +13,6 @@ from .i18n import tr
 from qgis.gui import QgsMapToolEmitPoint, QgsRubberBand
 from .branding import PLUGIN_NAME
 from qgis.core import (
-    QgsWkbTypes,
     QgsGeometry,
     QgsFeature,
     QgsPointXY,
