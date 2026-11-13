@@ -11,7 +11,7 @@ from qgis.PyQt.QtCore import QTimer, QObject
 TAG = PLUGIN_NAME
 
 
-def log(msg, level=Qgis.Info):
+def log(msg, level=Qgis.MessageLevel.Info):
     QgsMessageLog.logMessage(msg, TAG, level=level)
     print(f"[{TAG}] {msg}")
 
@@ -109,7 +109,7 @@ class EventHandler(QObject):
             self._engine.update_output_layers(project, dissolved, self._source_layer.crs())
             log(tr('Buffer aggiornati.'))
         except (RuntimeError, Exception) as e:
-            log(tr('Errore ricalcolo: {e}').format(e=e), Qgis.Critical)
+            log(tr('Errore ricalcolo: {e}').format(e=e), Qgis.MessageLevel.Critical)
 
     def force_update(self):
         self._timer.stop()

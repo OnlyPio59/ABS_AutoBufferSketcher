@@ -52,5 +52,5 @@ class GeoJSONExporter:
             return True
         except Exception as error:
             self.last_error = str(error)
-            QgsMessageLog.logMessage(self.last_error, PLUGIN_NAME, Qgis.Critical)
+            QgsMessageLog.logMessage(self.last_error, PLUGIN_NAME, Qgis.MessageLevel.Critical)
             return False

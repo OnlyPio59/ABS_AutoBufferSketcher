@@ -4,7 +4,10 @@ from .i18n import tr
 from pathlib import Path
 
 from qgis.PyQt.QtCore import Qt, QEvent, QPointF, pyqtSignal
-from qgis.PyQt.QtSvg import QSvgWidget
+try:
+    from qgis.PyQt.QtSvgWidgets import QSvgWidget
+except ImportError:  # Qt5 keeps SVG widgets in QtSvg.
+    from qgis.PyQt.QtSvg import QSvgWidget
 from qgis.PyQt.QtGui import QIcon, QPainter, QPalette, QPolygonF, QColor
 from qgis.PyQt.QtWidgets import (
     QDockWidget, QWidget, QVBoxLayout, QHBoxLayout, QGridLayout,
@@ -27,27 +30,27 @@ class MeterSpinBox(QDoubleSpinBox):
         option = QStyleOptionSpinBox()
         self.initStyleOption(option)
         painter = QPainter(self)
-        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         for control, enabled, direction in (
-            (QStyle.SC_SpinBoxUp, QAbstractSpinBox.StepUpEnabled, -1),
-            (QStyle.SC_SpinBoxDown, QAbstractSpinBox.StepDownEnabled, 1),
+            (QStyle.SubControl.SC_SpinBoxUp, QAbstractSpinBox.StepEnabledFlag.StepUpEnabled, -1),
+            (QStyle.SubControl.SC_SpinBoxDown, QAbstractSpinBox.StepEnabledFlag.StepDownEnabled, 1),
         ):
-            rect = self.style().subControlRect(QStyle.CC_SpinBox, option, control, self)
+            rect = self.style().subControlRect(QStyle.ComplexControl.CC_SpinBox, option, control, self)
             active = self.isEnabled() and bool(self.stepEnabled() & enabled)
-            group = QPalette.Active if active else QPalette.Disabled
-            background = self.palette().color(QPalette.Button)
-            if active and option.activeSubControls & control and option.state & QStyle.State_MouseOver:
-                background = self.palette().color(QPalette.Highlight)
-                foreground = self.palette().color(QPalette.HighlightedText)
+            group = QPalette.ColorGroup.Active if active else QPalette.ColorGroup.Disabled
+            background = self.palette().color(QPalette.ColorRole.Button)
+            if active and option.activeSubControls & control and option.state & QStyle.StateFlag.State_MouseOver:
+                background = self.palette().color(QPalette.ColorRole.Highlight)
+                foreground = self.palette().color(QPalette.ColorRole.HighlightedText)
             else:
-                foreground = self.palette().color(group, QPalette.ButtonText)
+                foreground = self.palette().color(group, QPalette.ColorRole.ButtonText)
             painter.fillRect(rect, background)
-            painter.setPen(self.palette().color(QPalette.Mid))
+            painter.setPen(self.palette().color(QPalette.ColorRole.Mid))
             painter.drawLine(rect.topLeft(), rect.bottomLeft())
             if direction == 1:
                 painter.drawLine(rect.topLeft(), rect.topRight())
             x, y = rect.center().x(), rect.center().y()
-            painter.setPen(Qt.NoPen)
+            painter.setPen(Qt.PenStyle.NoPen)
             painter.setBrush(foreground)
             painter.drawPolygon(QPolygonF([
                 QPointF(x - 4, y - direction * 2),
@@ -77,7 +80,7 @@ class BufferDockPanel(QDockWidget):
     def __init__(self, parent=None):
         super().__init__(PLUGIN_NAME, parent)
         self.setWindowIcon(QIcon(str(Path(__file__).parent / "resources/icon.svg")))
-        self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
+        self.setAllowedAreas(Qt.DockWidgetArea.LeftDockWidgetArea | Qt.DockWidgetArea.RightDockWidgetArea)
         self._segment_id = None
         self._segment_baseline = None
         self.setMinimumWidth(360)
@@ -111,11 +114,11 @@ class BufferDockPanel(QDockWidget):
         details.addWidget(subtitle, 1)
         self.version_label = QLabel(f'v{PLUGIN_VERSION}')
         self.version_label.setObjectName('absVersion')
-        self.version_label.setAlignment(Qt.AlignCenter)
+        self.version_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         hint = tr('Versione caricata: {version}').format(version=PLUGIN_VERSION)
         self.version_label.setToolTip(hint)
         self.version_label.setAccessibleName(hint)
-        details.addWidget(self.version_label, 0, Qt.AlignVCenter)
+        details.addWidget(self.version_label, 0, Qt.AlignmentFlag.AlignVCenter)
         words.addLayout(details)
         row.addLayout(words, 1)
         layout.addWidget(header)
@@ -222,7 +225,7 @@ class BufferDockPanel(QDockWidget):
         status_layout.addWidget(self.seg_group)
         self.status_label = QLabel(tr('Pronto.'))
         self.status_label.setWordWrap(True)
-        self.status_label.setTextFormat(Qt.PlainText)
+        self.status_label.setTextFormat(Qt.TextFormat.PlainText)
         status_layout.addWidget(self.status_label)
         layout.addWidget(footer)
         self.setWidget(self.container)
@@ -230,7 +233,7 @@ class BufferDockPanel(QDockWidget):
     def _page(self, title):
         area = QScrollArea()
         area.setWidgetResizable(True)
-        area.setFrameShape(QFrame.NoFrame)
+        area.setFrameShape(QFrame.Shape.NoFrame)
         page = QWidget()
         page.setObjectName("absPage")
         layout = QVBoxLayout(page)
@@ -285,13 +288,13 @@ class BufferDockPanel(QDockWidget):
 
     def changeEvent(self, event):
         super().changeEvent(event)
-        if event.type() in (QEvent.PaletteChange, QEvent.ApplicationPaletteChange):
+        if event.type() in (QEvent.Type.PaletteChange, QEvent.Type.ApplicationPaletteChange):
             if hasattr(self, "container"):
                 self._apply_theme()
 
     def _apply_theme(self):
         # Read the host palette; style only this panel, never the QGIS application.
-        dark = self.palette().color(QPalette.Window).lightness() < 128
+        dark = self.palette().color(QPalette.ColorRole.Window).lightness() < 128
         bg = "#111827" if dark else "#F3F5F8"
         surface = "#1E293B" if dark else "#FFFFFF"
         text = "#E5EAF2" if dark else "#172033"
@@ -299,13 +302,13 @@ class BufferDockPanel(QDockWidget):
         border = "#3B4A60" if dark else "#CFD7E3"
         field = "#111C2D" if dark else "#FFFFFF"
         palette = self.palette()
-        for role, color in ((QPalette.Window, bg), (QPalette.WindowText, text),
-            (QPalette.Base, field), (QPalette.Text, text), (QPalette.Button, surface),
-            (QPalette.ButtonText, text), (QPalette.Mid, border),
-            (QPalette.Highlight, "#2563EB"), (QPalette.HighlightedText, "#FFFFFF")):
+        for role, color in ((QPalette.ColorRole.Window, bg), (QPalette.ColorRole.WindowText, text),
+            (QPalette.ColorRole.Base, field), (QPalette.ColorRole.Text, text), (QPalette.ColorRole.Button, surface),
+            (QPalette.ColorRole.ButtonText, text), (QPalette.ColorRole.Mid, border),
+            (QPalette.ColorRole.Highlight, "#2563EB"), (QPalette.ColorRole.HighlightedText, "#FFFFFF")):
             palette.setColor(role, QColor(color))
-        palette.setColor(QPalette.Disabled, QPalette.ButtonText, QColor(muted))
-        palette.setColor(QPalette.Disabled, QPalette.Text, QColor(muted))
+        palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.ButtonText, QColor(muted))
+        palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Text, QColor(muted))
         self.container.setPalette(palette)
         self.container.setAutoFillBackground(True)
         self.container.setStyleSheet(f"""
