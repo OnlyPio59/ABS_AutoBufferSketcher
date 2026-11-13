@@ -14,8 +14,9 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from qgis.core import (QgsApplication,QgsProject,QgsVectorLayer,QgsFeature,QgsGeometry,QgsPointXY,
     QgsCoordinateReferenceSystem,QgsCoordinateTransform,QgsRectangle,QgsField,Qgis,QgsWkbTypes)
 from qgis.gui import QgsMapCanvas,QgsMapToolEmitPoint,QgsRubberBand
-from qgis.PyQt.QtCore import Qt,QPoint,QVariant
-from qgis.PyQt.QtWidgets import QMainWindow,QAction
+from qgis.PyQt.QtCore import Qt,QPoint,QMetaType
+from qgis.PyQt.QtWidgets import QMainWindow
+from qgis.PyQt.QtGui import QAction
 from qgis.PyQt.QtTest import QTest
 from auto_buffer_sketcher import classFactory
 from auto_buffer_sketcher.buffer_engine import *
@@ -167,7 +168,7 @@ class Tests(unittest.TestCase):
         tool=LineSketcherTool(self.iface.canvas,self.p._route_layer)
         class Click:
             def __init__(self,x):self.x=x
-            def button(self):return Qt.LeftButton
+            def button(self):return Qt.MouseButton.LeftButton
             def pos(self):return QPoint(self.x,200)
         tool.canvasPressEvent(Click(250));tool.canvasPressEvent(Click(350))
         expected=tool.toLayerCoordinates(self.p._route_layer,tool._vertices[0])
@@ -369,7 +370,7 @@ class Tests(unittest.TestCase):
             # additionally checked in the isolated QGIS application integration.
             def __init__(self):
                 super().__init__(canvas)
-                self.band = QgsRubberBand(canvas, QgsWkbTypes.LineGeometry)
+                self.band = QgsRubberBand(canvas, Qgis.GeometryType.Line)
                 self.band.setToGeometry(line(), route)
             def deactivate(self):
                 self.band.hide()
@@ -377,7 +378,7 @@ class Tests(unittest.TestCase):
 
         edit = EditTool()
         select = QgsMapToolEmitPoint(canvas)
-        other = QgsRubberBand(canvas, QgsWkbTypes.LineGeometry)
+        other = QgsRubberBand(canvas, Qgis.GeometryType.Line)
         other.setToGeometry(line(), self.p._route_layer)
         KEEP.extend((edit, select, other))
         self.iface.vertex.triggered.connect(lambda: canvas.setMapTool(edit))

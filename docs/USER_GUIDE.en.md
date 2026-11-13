@@ -4,7 +4,7 @@
 
 ## Interface language
 
-In the 0.2.3 source, ABS follows the QGIS interface language. Italian and English are
+ABS follows the QGIS interface language. Italian and English are
 available, with Italian as fallback. To change it, open **Settings → Options → General**,
 choose the interface language and restart QGIS. The released 0.2.0 ZIP retains the
 Italian interface. Layer names, fields and exported data remain unchanged.

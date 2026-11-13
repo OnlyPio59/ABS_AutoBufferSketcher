@@ -11,8 +11,8 @@ Responsabilità:
 import os
 import json
 
-from qgis.PyQt.QtWidgets import QAction, QFileDialog
-from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QFileDialog
+from qgis.PyQt.QtGui import QAction, QIcon
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt import sip
 from qgis.core import (
@@ -42,7 +42,7 @@ from .i18n import TranslationManager, tr
 TAG = PLUGIN_NAME
 
 
-def log(msg, level=Qgis.Info):
+def log(msg, level=Qgis.MessageLevel.Info):
     QgsMessageLog.logMessage(msg, TAG, level=level)
     print(f"[{TAG}] {msg}")
 
@@ -118,7 +118,7 @@ class AutoBufferPlugin:
         self.dock_panel.apply_to_all_segments.connect(self._on_apply_to_all_segments)
 
         # Aggiungi dock panel (nascosto inizialmente)
-        self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_panel)
+        self.iface.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.dock_panel)
         self.dock_panel.hide()
 
         project = QgsProject.instance()
@@ -259,7 +259,7 @@ class AutoBufferPlugin:
                         checked(self._segments_layer.addFeature(f), tr('Segmento non ripristinato.'))
             except Exception as error:
                 self.dock_panel.set_status(tr('Ripristino segmenti interrotto: {error}').format(error=error))
-                log(str(error), Qgis.Critical)
+                log(str(error), Qgis.MessageLevel.Critical)
 
     def _on_route_edit_stopped(self):
         self._segment_edit_snapshot = None
@@ -480,7 +480,7 @@ class AutoBufferPlugin:
             return True
         except Exception as error:
             self.dock_panel.set_status(tr('Ricalcolo interrotto: {error}').format(error=error))
-            log(str(error), Qgis.Critical)
+            log(str(error), Qgis.MessageLevel.Critical)
             return False
         finally:
             self._updating = False
@@ -700,7 +700,7 @@ class AutoBufferPlugin:
             log(tr('Esportazione completata: {file_path}').format(file_path=file_path))
         except Exception as e:
             self.dock_panel.set_status(tr('Errore esportazione: {e}').format(e=e))
-            log(tr('Errore esportazione: {e}').format(e=e), Qgis.Critical)
+            log(tr('Errore esportazione: {e}').format(e=e), Qgis.MessageLevel.Critical)
 
     def _buffer_layer_dict(self):
         from .buffer_engine import (LAYER_NAME_PREGEOCAGE,LAYER_NAME_GEOCAGE,LAYER_NAME_GROUND,LAYER_NAME_ADJACENT)
@@ -798,7 +798,7 @@ class AutoBufferPlugin:
                 self.dock_panel.set_status(exporter.last_error)
         except Exception as e:
             self.dock_panel.set_status(tr('Errore esportazione piano: {e}').format(e=e))
-            log(tr('Errore esportazione piano: {e}').format(e=e), Qgis.Critical)
+            log(tr('Errore esportazione piano: {e}').format(e=e), Qgis.MessageLevel.Critical)
 
     def _on_export_geojson(self):
         """Esporta la rotta, i waypoint e i buffer in un file GeoJSON."""
@@ -862,7 +862,7 @@ class AutoBufferPlugin:
                 self.dock_panel.set_status(exporter.last_error)
         except Exception as e:
             self.dock_panel.set_status(tr('Errore esportazione GeoJSON: {e}').format(e=e))
-            log(tr('Errore esportazione GeoJSON: {e}').format(e=e), Qgis.Critical)
+            log(tr('Errore esportazione GeoJSON: {e}').format(e=e), Qgis.MessageLevel.Critical)
 
     def _on_make_persistent(self):
         from qgis.core import QgsVectorLayer
@@ -923,4 +923,4 @@ class AutoBufferPlugin:
             self.dock_panel.set_status(tr('Layer persistenti salvati; le altre tabelle del GeoPackage sono state conservate.'))
         except Exception as error:
             self.dock_panel.set_status(tr('Salvataggio interrotto: {error}').format(error=error))
-            log(str(error), Qgis.Critical)
+            log(str(error), Qgis.MessageLevel.Critical)

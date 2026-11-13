@@ -13,7 +13,6 @@ from .i18n import tr
 from qgis.gui import QgsMapToolEmitPoint, QgsRubberBand
 from .branding import PLUGIN_NAME
 from qgis.core import (
-    QgsWkbTypes,
     QgsGeometry,
     QgsFeature,
     QgsPointXY,
@@ -49,24 +48,24 @@ class LineSketcherTool(QgsMapToolEmitPoint):
         self._vertices = []
 
         # Rubber band per la linea in costruzione
-        self._rubber_band = QgsRubberBand(canvas, QgsWkbTypes.LineGeometry)
+        self._rubber_band = QgsRubberBand(canvas, Qgis.GeometryType.Line)
         self._rubber_band.setColor(QColor("#2563EB"))
         self._rubber_band.setWidth(2)
-        self._rubber_band.setLineStyle(Qt.DashLine)
+        self._rubber_band.setLineStyle(Qt.PenStyle.DashLine)
 
         # Rubber band per i vertici (punti)
-        self._vertex_band = QgsRubberBand(canvas, QgsWkbTypes.PointGeometry)
+        self._vertex_band = QgsRubberBand(canvas, Qgis.GeometryType.Point)
         self._vertex_band.setColor(QColor("#2563EB"))
         self._vertex_band.setIconSize(8)
-        self._vertex_band.setIcon(QgsRubberBand.ICON_CIRCLE)
+        self._vertex_band.setIcon(QgsRubberBand.IconType.ICON_CIRCLE)
 
-        self.setCursor(Qt.CrossCursor)
+        self.setCursor(Qt.CursorShape.CrossCursor)
 
     def canvasPressEvent(self, event):
         """Gestisce i click sulla mappa."""
-        if event.button() == Qt.LeftButton:
+        if event.button() == Qt.MouseButton.LeftButton:
             self._add_vertex(event)
-        elif event.button() == Qt.RightButton:
+        elif event.button() == Qt.MouseButton.RightButton:
             self._finalize_line()
 
     def canvasMoveEvent(self, event):
@@ -76,7 +75,7 @@ class LineSketcherTool(QgsMapToolEmitPoint):
 
         # Mostra linea temporanea dall'ultimo vertice al cursore
         point = self.toMapCoordinates(event.pos())
-        self._rubber_band.reset(QgsWkbTypes.LineGeometry)
+        self._rubber_band.reset(Qgis.GeometryType.Line)
 
         for v in self._vertices:
             self._rubber_band.addPoint(v, False)
@@ -84,9 +83,9 @@ class LineSketcherTool(QgsMapToolEmitPoint):
 
     def keyPressEvent(self, event):
         """ESC per annullare il disegno corrente."""
-        if event.key() == Qt.Key_Escape:
+        if event.key() == Qt.Key.Key_Escape:
             self._cancel()
-        elif event.key() == Qt.Key_Backspace and self._vertices:
+        elif event.key() == Qt.Key.Key_Backspace and self._vertices:
             # Rimuovi ultimo vertice
             self._vertices.pop()
             self._refresh_rubber_bands()
@@ -115,13 +114,13 @@ class LineSketcherTool(QgsMapToolEmitPoint):
             self._store_line()
         except Exception as error:
             self.error_occurred.emit(str(error))
-            log(str(error), Qgis.Critical)
+            log(str(error), Qgis.MessageLevel.Critical)
             self._cancel()
 
     def _store_line(self):
         """Completa la linea e crea la feature nel layer sorgente."""
         if len(self._vertices) < 2:
-            log(tr('Servono almeno 2 vertici per creare una linea.'), Qgis.Warning)
+            log(tr('Servono almeno 2 vertici per creare una linea.'), Qgis.MessageLevel.Warning)
             self._cancel()
             return
 
@@ -130,7 +129,7 @@ class LineSketcherTool(QgsMapToolEmitPoint):
         geom = QgsGeometry.fromPolylineXY(layer_points)
 
         if geom.isNull() or geom.isEmpty():
-            log(tr('Geometria risultante non valida.'), Qgis.Warning)
+            log(tr('Geometria risultante non valida.'), Qgis.MessageLevel.Warning)
             self._cancel()
             return
 
@@ -165,8 +164,8 @@ class LineSketcherTool(QgsMapToolEmitPoint):
 
     def _refresh_rubber_bands(self):
         """Ridisegna le rubber bands dopo modifica ai vertici."""
-        self._rubber_band.reset(QgsWkbTypes.LineGeometry)
-        self._vertex_band.reset(QgsWkbTypes.PointGeometry)
+        self._rubber_band.reset(Qgis.GeometryType.Line)
+        self._vertex_band.reset(Qgis.GeometryType.Point)
 
         for v in self._vertices:
             self._rubber_band.addPoint(v, False)
@@ -177,11 +176,11 @@ class LineSketcherTool(QgsMapToolEmitPoint):
 
     def _cleanup_rubber_bands(self):
         """Pulisce tutte le rubber bands."""
-        self._rubber_band.reset(QgsWkbTypes.LineGeometry)
-        self._vertex_band.reset(QgsWkbTypes.PointGeometry)
+        self._rubber_band.reset(Qgis.GeometryType.Line)
+        self._vertex_band.reset(Qgis.GeometryType.Point)
 
 
-def log(msg, level=Qgis.Info):
+def log(msg, level=Qgis.MessageLevel.Info):
     """Logging centralizzato."""
     QgsMessageLog.logMessage(msg, TAG, level=level)
     print(f"[{TAG}] {msg}")

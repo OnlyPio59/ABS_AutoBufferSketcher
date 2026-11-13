@@ -19,7 +19,7 @@ from auto_buffer_sketcher.geojson_exporter import GeoJSONExporter
 from auto_buffer_sketcher.plan_exporter import PlanExporter
 from auto_buffer_sketcher.version import PLUGIN_VERSION
 from qgis.core import QgsFeature, QgsCoordinateReferenceSystem
-from qgis.PyQt.QtCore import QSettings
+from qgis.PyQt.QtCore import QSettings, QCoreApplication, QEvent
 from qgis.PyQt.QtWidgets import QStyle, QStyleOptionButton
 
 
@@ -49,7 +49,7 @@ class LocalizedWorkflowTests(unittest.TestCase):
         PROJECT.setCrs(QgsCoordinateReferenceSystem('EPSG:32634'))
         self.iface = Iface()
         self.plugin = classFactory(self.iface)
-        settings = QSettings(str(self.folder / 'locale.ini'), QSettings.IniFormat)
+        settings = QSettings(str(self.folder / 'locale.ini'), QSettings.Format.IniFormat)
         settings.setValue('locale/overrideFlag', True)
         settings.setValue('locale/userLocale', language)
         self.plugin._translations.settings = settings
@@ -157,7 +157,7 @@ class LocalizedWorkflowTests(unittest.TestCase):
             for button in (panel.btn_apply_segment, panel.btn_sketcher, panel.btn_export_plan, panel.btn_make_persistent):
                 option = QStyleOptionButton()
                 option.initFrom(button)
-                rect = button.style().subElementRect(QStyle.SE_PushButtonContents, option, button)
+                rect = button.style().subElementRect(QStyle.SubElement.SE_PushButtonContents, option, button)
                 self.assertLessEqual(button.fontMetrics().horizontalAdvance(button.text()), rect.width(), button.text())
             self.assertTrue(panel.rect().contains(panel.btn_apply_segment.mapTo(panel, panel.btn_apply_segment.rect().center())))
             panel.tabs.setCurrentIndex(1)
@@ -168,4 +168,12 @@ class LocalizedWorkflowTests(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
+    result = unittest.main(verbosity=2, exit=False)
+    PROJECT.clear()
+    for widget in APP.topLevelWidgets():
+        widget.close()
+        widget.deleteLater()
+    QCoreApplication.sendPostedEvents(None, QEvent.Type.DeferredDelete)
+    APP.processEvents()
+    APP.exitQgis()
+    sys.exit(not result.result.wasSuccessful())

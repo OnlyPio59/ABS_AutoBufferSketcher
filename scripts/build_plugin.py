@@ -27,8 +27,8 @@ def build_plugin(root, output, development=False):
         raise ValueError('Version must be a dotted numeric version')
     minimum = general['qgisMinimumVersion']
     maximum = general.get('qgisMaximumVersion', '')
-    if minimum != '3.34' or maximum != '3.99':
-        raise ValueError('Review tested compatibility before changing the QGIS 3.34–3.99 range')
+    if minimum != '3.34' or maximum != '4.99':
+        raise ValueError('Review tested compatibility before changing the QGIS 3.34–4.99 range')
     if general.get('license') != 'GPL-3.0-only':
         raise ValueError('Expected the approved GPL-3.0-only license')
     email = general.get('email', '').strip()

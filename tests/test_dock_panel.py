@@ -4,7 +4,7 @@ import sys
 import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from qgis.core import QgsApplication
-from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtCore import Qt, QCoreApplication, QEvent
 from qgis.PyQt.QtGui import QColor, QPalette
 from qgis.PyQt.QtTest import QTest, QSignalSpy
 from qgis.PyQt.QtWidgets import QStyle, QStyleOptionSpinBox, QMainWindow, QLabel
@@ -46,29 +46,29 @@ class DockTests(unittest.TestCase):
                 option = QStyleOptionSpinBox()
                 spin.initStyleOption(option)
                 before = spin.value()
-                up = spin.style().subControlRect(QStyle.CC_SpinBox, option, QStyle.SC_SpinBoxUp, spin)
-                down = spin.style().subControlRect(QStyle.CC_SpinBox, option, QStyle.SC_SpinBoxDown, spin)
+                up = spin.style().subControlRect(QStyle.ComplexControl.CC_SpinBox, option, QStyle.SubControl.SC_SpinBoxUp, spin)
+                down = spin.style().subControlRect(QStyle.ComplexControl.CC_SpinBox, option, QStyle.SubControl.SC_SpinBoxDown, spin)
                 for rect in (up, down):
                     self.assertGreaterEqual(rect.width(), 26)
                     self.assertGreaterEqual(rect.height(), 18)
-                QTest.mouseClick(spin, Qt.LeftButton, pos=up.center())
+                QTest.mouseClick(spin, Qt.MouseButton.LeftButton, pos=up.center())
                 self.assertEqual(spin.value(), before + spin.singleStep())
-                QTest.mouseClick(spin, Qt.LeftButton, pos=down.center())
+                QTest.mouseClick(spin, Qt.MouseButton.LeftButton, pos=down.center())
                 self.assertEqual(spin.value(), before)
                 spin.setValue(0)
-                QTest.mouseClick(spin, Qt.LeftButton, pos=down.center())
+                QTest.mouseClick(spin, Qt.MouseButton.LeftButton, pos=down.center())
                 self.assertEqual(spin.value(), 0)
                 spin.setValue(spin.maximum())
-                QTest.mouseClick(spin, Qt.LeftButton, pos=up.center())
+                QTest.mouseClick(spin, Qt.MouseButton.LeftButton, pos=up.center())
                 self.assertEqual(spin.value(), spin.maximum())
 
     def test_keyboard_values_and_silent_segment_loading(self):
         spin = self.panel.spin_pregeocage
         spy = QSignalSpy(self.panel.distances_changed)
         spin.setFocus()
-        QTest.keyClick(spin, Qt.Key_A, Qt.ControlModifier)
+        QTest.keyClick(spin, Qt.Key.Key_A, Qt.KeyboardModifier.ControlModifier)
         QTest.keyClicks(spin, '75.5')
-        QTest.keyClick(spin, Qt.Key_Return)
+        QTest.keyClick(spin, Qt.Key.Key_Return)
         self.assertEqual(spin.value(), 75.5)
         self.assertGreater(len(spy), 0)
         count = len(spy)
@@ -124,13 +124,13 @@ class DockTests(unittest.TestCase):
         APP.processEvents()
         title = panel.findChild(QLabel, 'absTitle')
         self.assertEqual(title.palette().color(title.foregroundRole()).name(), '#f8fafc')
-        self.assertEqual(panel.btn_sketcher.palette().color(QPalette.ButtonText).name(), '#ffffff')
+        self.assertEqual(panel.btn_sketcher.palette().color(QPalette.ColorRole.ButtonText).name(), '#ffffff')
         panel.chk_diff_buffers.setChecked(True)
         for segment in (None, 0):
             panel.set_segment_info(segment)
             APP.processEvents()
-            group = QPalette.Active if panel.btn_apply_segment.isEnabled() else QPalette.Disabled
-            self.assertEqual(panel.btn_apply_segment.palette().color(group, QPalette.ButtonText).name(), '#ffffff')
+            group = QPalette.ColorGroup.Active if panel.btn_apply_segment.isEnabled() else QPalette.ColorGroup.Disabled
+            self.assertEqual(panel.btn_apply_segment.palette().color(group, QPalette.ColorRole.ButtonText).name(), '#ffffff')
         host.close()
         host.deleteLater()
 
@@ -141,14 +141,14 @@ class DockTests(unittest.TestCase):
         button = self.panel.btn_apply_segment
         for dark in (False, True):
             palette = self.panel.palette()
-            palette.setColor(QPalette.Window, QColor('#111827' if dark else '#FFFFFF'))
+            palette.setColor(QPalette.ColorRole.Window, QColor('#111827' if dark else '#FFFFFF'))
             self.panel.setPalette(palette)
             for segment in (None, 0, None):
                 self.panel.set_segment_info(segment)
                 APP.processEvents()
                 with self.subTest(dark=dark, selected=segment is not None):
-                    group = QPalette.Active if button.isEnabled() else QPalette.Disabled
-                    self.assertEqual(button.palette().color(group, QPalette.ButtonText).name(), '#ffffff')
+                    group = QPalette.ColorGroup.Active if button.isEnabled() else QPalette.ColorGroup.Disabled
+                    self.assertEqual(button.palette().color(group, QPalette.ColorRole.ButtonText).name(), '#ffffff')
 
     def test_segment_save_stays_visible_without_scrolling(self):
         self.panel.resize(360, 560)
@@ -167,14 +167,21 @@ class DockTests(unittest.TestCase):
         self.assertTrue(self.panel.seg_group.isVisible())
 
     def test_palette_switch_is_local(self):
-        application_color = APP.palette().color(QPalette.Window)
+        application_color = APP.palette().color(QPalette.ColorRole.Window)
         for dark in (True, False):
             palette = self.panel.palette()
-            palette.setColor(QPalette.Window, QColor('#111827' if dark else '#FFFFFF'))
+            palette.setColor(QPalette.ColorRole.Window, QColor('#111827' if dark else '#FFFFFF'))
             self.panel.setPalette(palette)
             APP.processEvents()
-            self.assertEqual(self.panel.container.palette().color(QPalette.Window).name(), '#111827' if dark else '#f3f5f8')
-            self.assertEqual(APP.palette().color(QPalette.Window), application_color)
+            self.assertEqual(self.panel.container.palette().color(QPalette.ColorRole.Window).name(), '#111827' if dark else '#f3f5f8')
+            self.assertEqual(APP.palette().color(QPalette.ColorRole.Window), application_color)
 
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
+    result = unittest.main(verbosity=2, exit=False)
+    for widget in APP.topLevelWidgets():
+        widget.close()
+        widget.deleteLater()
+    QCoreApplication.sendPostedEvents(None, QEvent.Type.DeferredDelete)
+    APP.processEvents()
+    APP.exitQgis()
+    sys.exit(not result.result.wasSuccessful())
