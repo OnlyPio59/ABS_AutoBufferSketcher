@@ -45,10 +45,10 @@ def write_geopackage(layers, path, project):
             options.driverName = 'GPKG'
             options.layerName = layer.name()
             options.forceMulti = layer.geometryType() == 2
-            options.actionOnExistingFile = (QgsVectorFileWriter.CreateOrOverwriteLayer
-                if os.path.exists(temporary) else QgsVectorFileWriter.CreateOrOverwriteFile)
+            options.actionOnExistingFile = (QgsVectorFileWriter.ActionOnExistingFile.CreateOrOverwriteLayer
+                if os.path.exists(temporary) else QgsVectorFileWriter.ActionOnExistingFile.CreateOrOverwriteFile)
             result = QgsVectorFileWriter.writeAsVectorFormatV3(layer, temporary, project.transformContext(), options)
-            if result[0] != QgsVectorFileWriter.NoError:
+            if result[0] != QgsVectorFileWriter.WriterError.NoError:
                 raise ValueError(tr("Errore scrittura '{value}': {value2}").format(value=layer.name(), value2=result[1]))
             check = QgsVectorLayer(f'{temporary}|layername={layer.name()}', layer.name(), 'ogr')
             if not check.isValid() or check.featureCount() != layer.featureCount():

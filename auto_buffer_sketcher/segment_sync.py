@@ -4,7 +4,7 @@ from .i18n import tr
 import uuid
 import math
 from qgis.core import QgsField, QgsFeature, QgsGeometry
-from qgis.PyQt.QtCore import QVariant, QSignalBlocker
+from qgis.PyQt.QtCore import QMetaType, QSignalBlocker
 from .layer_edits import edit_layer, checked
 
 ROUTE_KEY = 'abs_route'
@@ -52,7 +52,7 @@ def synchronize(source, segments, defaults):
         raise ValueError(tr('CRS rotta/segmenti differenti: ripristinare il layer segmenti originale.'))
     if ROUTE_KEY not in source.fields().names():
         with edit_layer(source, tr('Identificatori stabili delle rotte')):
-            checked(source.addAttribute(QgsField(ROUTE_KEY, QVariant.String, len=36)), tr('Campo identificatore non creato.'))
+            checked(source.addAttribute(QgsField(ROUTE_KEY, QMetaType.Type.QString, len=36)), tr('Campo identificatore non creato.'))
     seen = set()
     needs = []
     for feature in source.getFeatures():
@@ -130,7 +130,7 @@ def synchronize(source, segments, defaults):
     blocker = QSignalBlocker(segments)
     try:
         with edit_layer(segments, tr('Riallinea segmenti alla rotta')):
-            for name, typ in ((ROUTE_KEY,QVariant.String),(PART,QVariant.Int),(POSITION,QVariant.Int)):
+            for name, typ in ((ROUTE_KEY,QMetaType.Type.QString),(PART,QMetaType.Type.Int),(POSITION,QMetaType.Type.Int)):
                 if name not in segments.fields().names():
                     checked(segments.addAttribute(QgsField(name,typ)), tr('Schema segmenti non aggiornato.'))
             checked(segments.deleteFeatures([f.id() for f in old]), tr('Segmenti precedenti non sostituiti.'))

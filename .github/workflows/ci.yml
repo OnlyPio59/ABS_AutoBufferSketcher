@@ -59,3 +59,47 @@ jobs:
 
       - name: Run original exporter smoke tests
         run: /usr/bin/python3 tests/test_plan_exporter.py
+
+  qgis4:
+    name: QGIS 4 / Qt6
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    container:
+      image: ghcr.io/qgis/pyqgis4-checker:main-ubuntu
+    env:
+      QT_QPA_PLATFORM: offscreen
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONOPTIMIZE: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require QGIS 4 and Qt6
+        run: |
+          python3 - <<'PYTHON'
+          from qgis.core import Qgis
+          from qgis.PyQt.QtCore import QT_VERSION_STR
+          print('QGIS', Qgis.QGIS_VERSION, 'Qt', QT_VERSION_STR, flush=True)
+          assert Qgis.QGIS_VERSION_INT >= 40000
+          assert QT_VERSION_STR.startswith('6.')
+          PYTHON
+      - name: Check Qt6 migration
+        run: |
+          pyqt5_to_pyqt6.py --dry_run --logfile /tmp/abs-qt6-check.log auto_buffer_sketcher
+          cat /tmp/abs-qt6-check.log
+          pyqt5_to_pyqt6.py auto_buffer_sketcher
+      - name: Check package and loaded version
+        run: |
+          python3 tests/test_package.py
+          python3 tests/test_version.py
+      - name: Check route, buffer, persistence and export regressions
+        run: python3 tests/test_plugin_regressions.py
+      - name: Check dock, translations and bilingual workflows
+        run: |
+          python3 tests/test_dock_panel.py
+          python3 tests/test_i18n.py
+          python3 tests/test_localized_workflows.py
+      - name: Check bilingual workflows at 150 percent scale
+        env:
+          QT_SCALE_FACTOR: '1.5'
+        run: python3 tests/test_localized_workflows.py
+      - name: Check original exporters
+        run: python3 tests/test_plan_exporter.py

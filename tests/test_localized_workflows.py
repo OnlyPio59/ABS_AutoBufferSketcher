@@ -49,7 +49,7 @@ class LocalizedWorkflowTests(unittest.TestCase):
         PROJECT.setCrs(QgsCoordinateReferenceSystem('EPSG:32634'))
         self.iface = Iface()
         self.plugin = classFactory(self.iface)
-        settings = QSettings(str(self.folder / 'locale.ini'), QSettings.IniFormat)
+        settings = QSettings(str(self.folder / 'locale.ini'), QSettings.Format.IniFormat)
         settings.setValue('locale/overrideFlag', True)
         settings.setValue('locale/userLocale', language)
         self.plugin._translations.settings = settings
@@ -157,7 +157,7 @@ class LocalizedWorkflowTests(unittest.TestCase):
             for button in (panel.btn_apply_segment, panel.btn_sketcher, panel.btn_export_plan, panel.btn_make_persistent):
                 option = QStyleOptionButton()
                 option.initFrom(button)
-                rect = button.style().subElementRect(QStyle.SE_PushButtonContents, option, button)
+                rect = button.style().subElementRect(QStyle.SubElement.SE_PushButtonContents, option, button)
                 self.assertLessEqual(button.fontMetrics().horizontalAdvance(button.text()), rect.width(), button.text())
             self.assertTrue(panel.rect().contains(panel.btn_apply_segment.mapTo(panel, panel.btn_apply_segment.rect().center())))
             panel.tabs.setCurrentIndex(1)
