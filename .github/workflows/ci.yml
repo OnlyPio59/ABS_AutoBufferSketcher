@@ -76,7 +76,7 @@ jobs:
       - name: Install Qt6 translation test tools
         run: |
           apt-get update
-          apt-get install --no-install-recommends -y qt6-l10n-tools
+          apt-get install --no-install-recommends -y qt6-l10n-tools xvfb xauth
           echo "/usr/lib/qt6/bin" >> "$GITHUB_PATH"
       - name: Require QGIS 4 and Qt6
         run: |
@@ -115,7 +115,7 @@ jobs:
           python3 scripts/build_plugin.py --output "$ABS_NATIVE_ROOT/package"
           export ABS_NATIVE_ZIP="$ABS_NATIVE_ROOT/package/ABS_AutoBufferSketcher_0.3.0.zip"
           export ABS_NATIVE_RESULT="$ABS_NATIVE_ROOT/result.json"
-          if ! timeout 90 qgis --profiles-path "$ABS_NATIVE_ROOT/profiles" --profile ABS-native --nologo --noplugins --noversioncheck --code "$GITHUB_WORKSPACE/tests/native_qgis_install.py" > "$ABS_NATIVE_ROOT/qgis.log" 2>&1; then
+          if ! timeout 90 xvfb-run -a qgis --profiles-path "$ABS_NATIVE_ROOT/profiles" --profile ABS-native --nologo --noplugins --noversioncheck --code "$GITHUB_WORKSPACE/tests/native_qgis_install.py" > "$ABS_NATIVE_ROOT/qgis.log" 2>&1; then
             cat "$ABS_NATIVE_ROOT/qgis.log"
             exit 1
           fi
