@@ -1,6 +1,7 @@
 """Stable route ownership and explicit distance inheritance during topology edits."""
 
 from .i18n import tr
+from .qt_compat import field_type
 import uuid
 import math
 from qgis.core import QgsField, QgsFeature, QgsGeometry
@@ -52,7 +53,7 @@ def synchronize(source, segments, defaults):
         raise ValueError(tr('CRS rotta/segmenti differenti: ripristinare il layer segmenti originale.'))
     if ROUTE_KEY not in source.fields().names():
         with edit_layer(source, tr('Identificatori stabili delle rotte')):
-            checked(source.addAttribute(QgsField(ROUTE_KEY, QMetaType.Type.QString, len=36)), tr('Campo identificatore non creato.'))
+            checked(source.addAttribute(QgsField(ROUTE_KEY, field_type(QMetaType.Type.QString), len=36)), tr('Campo identificatore non creato.'))
     seen = set()
     needs = []
     for feature in source.getFeatures():
@@ -132,7 +133,7 @@ def synchronize(source, segments, defaults):
         with edit_layer(segments, tr('Riallinea segmenti alla rotta')):
             for name, typ in ((ROUTE_KEY,QMetaType.Type.QString),(PART,QMetaType.Type.Int),(POSITION,QMetaType.Type.Int)):
                 if name not in segments.fields().names():
-                    checked(segments.addAttribute(QgsField(name,typ)), tr('Schema segmenti non aggiornato.'))
+                    checked(segments.addAttribute(QgsField(name,field_type(typ))), tr('Schema segmenti non aggiornato.'))
             checked(segments.deleteFeatures([f.id() for f in old]), tr('Segmenti precedenti non sostituiti.'))
             for index,(key,pi,pos,g,values) in enumerate(rows):
                 f=QgsFeature(segments.fields());f.setGeometry(g)

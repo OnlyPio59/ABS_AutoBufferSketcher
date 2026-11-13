@@ -4,7 +4,7 @@ import sys
 import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from qgis.core import QgsApplication
-from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtCore import Qt, QCoreApplication, QEvent
 from qgis.PyQt.QtGui import QColor, QPalette
 from qgis.PyQt.QtTest import QTest, QSignalSpy
 from qgis.PyQt.QtWidgets import QStyle, QStyleOptionSpinBox, QMainWindow, QLabel
@@ -177,4 +177,11 @@ class DockTests(unittest.TestCase):
             self.assertEqual(APP.palette().color(QPalette.ColorRole.Window), application_color)
 
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
+    result = unittest.main(verbosity=2, exit=False)
+    for widget in APP.topLevelWidgets():
+        widget.close()
+        widget.deleteLater()
+    QCoreApplication.sendPostedEvents(None, QEvent.Type.DeferredDelete)
+    APP.processEvents()
+    APP.exitQgis()
+    sys.exit(not result.result.wasSuccessful())
