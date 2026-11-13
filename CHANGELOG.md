@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0 — Candidato sperimentale
+
+- Compatibilità condivisa QGIS 3/4 e Qt5/Qt6: enum con scope, import QAction/SVG e tipi dei campi compatibili anche con QGIS 3.34.
+- Aggiunte verifiche su QGIS 4.2.3/Qt6 nell’immagine ufficiale e installazione ZIP in un profilo nativo pulito.
+- Calcolo dei buffer, salvataggio indipendente dei segmenti e formati di export conservati.
+- La 0.2.5 approvata sul catalogo rimane disponibile; la distribuzione del nuovo candidato è distinta.
+
 ## 0.2.5 — Sperimentale
 
 - Rinominati cinque usi della variabile locale `l` in `layer` nei flussi GeoPackage e persistenza, eliminando i rilievi di leggibilità E741.

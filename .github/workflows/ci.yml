@@ -65,6 +65,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     container:
+      options: --user 0
       image: ghcr.io/qgis/pyqgis4-checker:main-ubuntu@sha256:c96df111845eb0c86ad56364fb792d35fa6931e01d3d629d2b1bc6388ed43ece
     env:
       QT_QPA_PLATFORM: offscreen
@@ -74,8 +75,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Qt6 translation test tools
         run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y qt6-l10n-tools
+          apt-get update
+          apt-get install --no-install-recommends -y qt6-l10n-tools
           echo "/usr/lib/qt6/bin" >> "$GITHUB_PATH"
       - name: Require QGIS 4 and Qt6
         run: |
