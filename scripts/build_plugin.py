@@ -60,7 +60,7 @@ def build_plugin(root, output, development=False):
     for name in ('__init__.py', 'metadata.txt', 'LICENSE', 'NOTICE', 'README.md'):
         if f'{PACKAGE}/{name}' not in names:
             raise ValueError(f'Missing package file: {name}')
-    for language in ('it', 'en'):
+    for language in ('it', 'en', 'es', 'pt_BR', 'fr', 'de'):
         for suffix in ('ts', 'qm'):
             name = f'i18n/auto_buffer_sketcher_{language}.{suffix}'
             if f'{PACKAGE}/{name}' not in names:
