@@ -1,9 +1,9 @@
 """Dock UI for ABS - AutoBufferSketcher; calculation and export stay in plugin.py."""
 
-from .i18n import tr
+from .i18n import tr, CONTEXT, LANGUAGE_NAMES
 from pathlib import Path
 
-from qgis.PyQt.QtCore import Qt, QEvent, QPointF, pyqtSignal
+from qgis.PyQt.QtCore import Qt, QEvent, QPointF, QCoreApplication, pyqtSignal
 try:
     from qgis.PyQt.QtSvgWidgets import QSvgWidget
 except ImportError:  # Qt5 keeps SVG widgets in QtSvg.
@@ -11,8 +11,8 @@ except ImportError:  # Qt5 keeps SVG widgets in QtSvg.
 from qgis.PyQt.QtGui import QIcon, QPainter, QPalette, QPolygonF, QColor
 from qgis.PyQt.QtWidgets import (
     QDockWidget, QWidget, QVBoxLayout, QHBoxLayout, QGridLayout,
-    QLabel, QDoubleSpinBox, QPushButton, QCheckBox, QFrame,
-    QTabWidget, QScrollArea, QStyle, QStyleOptionSpinBox, QAbstractSpinBox,
+    QLabel, QDoubleSpinBox, QPushButton, QCheckBox, QFrame, QComboBox,
+    QTabWidget, QScrollArea, QStyle, QStyleOptionSpinBox, QAbstractSpinBox, QBoxLayout,
 )
 from .branding import PLUGIN_NAME
 from .version import PLUGIN_VERSION
@@ -63,6 +63,7 @@ class MeterSpinBox(QDoubleSpinBox):
 class BufferDockPanel(QDockWidget):
     """Two scrollable workflow pages; public controls/signals remain compatible."""
 
+    language_changed = pyqtSignal(str)
     sketcher_requested = pyqtSignal()
     edit_requested = pyqtSignal()
     delete_requested = pyqtSignal()
@@ -84,7 +85,9 @@ class BufferDockPanel(QDockWidget):
         self._segment_id = None
         self._segment_baseline = None
         self.setMinimumWidth(360)
+        self._ui_sources = {}
         self._setup_ui()
+        self._capture_translation_bindings()
         self._apply_theme()
 
     def _setup_ui(self):
@@ -100,14 +103,14 @@ class BufferDockPanel(QDockWidget):
         row.setContentsMargins(10, 10, 10, 10)
         mark = QSvgWidget(str(Path(__file__).parent / "resources/icon.svg"))
         mark.setFixedSize(44, 44)
-        mark.setAccessibleName(tr('Logo ABS'))
+        mark.setAccessibleName(self._ui_tr('Logo ABS'))
         row.addWidget(mark)
         words = QVBoxLayout()
         title = QLabel(PLUGIN_NAME)
         title.setWordWrap(True)
         title.setObjectName("absTitle")
         words.addWidget(title)
-        subtitle = QLabel(tr('Rotte, buffer e missioni'))
+        subtitle = QLabel(self._ui_tr('Rotte, buffer e missioni'))
         subtitle.setObjectName("absSubtitle")
         subtitle.setWordWrap(True)
         details = QHBoxLayout()
@@ -115,7 +118,7 @@ class BufferDockPanel(QDockWidget):
         self.version_label = QLabel(f'v{PLUGIN_VERSION}')
         self.version_label.setObjectName('absVersion')
         self.version_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        hint = tr('Versione caricata: {version}').format(version=PLUGIN_VERSION)
+        hint = self._ui_tr('Versione caricata: {version}').format(version=PLUGIN_VERSION)
         self.version_label.setToolTip(hint)
         self.version_label.setAccessibleName(hint)
         details.addWidget(self.version_label, 0, Qt.AlignmentFlag.AlignVCenter)
@@ -123,7 +126,25 @@ class BufferDockPanel(QDockWidget):
         row.addLayout(words, 1)
         layout.addWidget(header)
 
+        language_row = QHBoxLayout()
+        language_label = QLabel(self._ui_tr('Lingua'))
+        self.language_combo = QComboBox()
+        self.language_combo.setObjectName('absLanguage')
+        self.language_combo.setMinimumWidth(0)
+        self.language_combo.addItem(self._ui_tr('Automatica (QGIS)'), 'auto')
+        for code, name in LANGUAGE_NAMES:
+            self.language_combo.addItem(name, code)
+        self.language_combo.setToolTip(self._ui_tr('Scegli la lingua di ABS oppure segui la lingua di QGIS.'))
+        self.language_combo.setAccessibleName(self._ui_tr('Lingua di ABS'))
+        language_label.setBuddy(self.language_combo)
+        language_row.addWidget(language_label)
+        language_row.addWidget(self.language_combo, 1)
+        self.language_combo.currentIndexChanged.connect(
+            lambda: self.language_changed.emit(self.language_combo.currentData()))
+        layout.addLayout(language_row)
+
         self.tabs = QTabWidget()
+        self.tabs.installEventFilter(self)
         self.tabs.setDocumentMode(True)
         self.tabs.currentChanged.connect(self._refresh_segment_actions)
         tab_font = self.tabs.tabBar().font()
@@ -131,28 +152,31 @@ class BufferDockPanel(QDockWidget):
         self.tabs.tabBar().setFont(tab_font)
         self.tabs.tabBar().setDrawBase(False)
         layout.addWidget(self.tabs, 1)
-        route = self._page(tr('Rotta e buffer'))
-        tools = self._card(route, tr('Rotta'), tr('Disegna la linea sulla mappa o modifica i suoi vertici.'))
-        self.btn_sketcher = self._button(tr('Disegna linea'), self.sketcher_requested, tools)
+        route = self._page(self._ui_tr('Rotta e buffer'))
+        tools = self._card(route, self._ui_tr('Rotta'), self._ui_tr('Disegna la linea sulla mappa o modifica i suoi vertici.'))
+        self.btn_sketcher = self._button(self._ui_tr('Disegna linea'), self.sketcher_requested, tools)
         self.btn_sketcher.setProperty("primary", True)
         row = QHBoxLayout()
-        self.btn_edit = self._button(tr('Modifica linea'), self.edit_requested, row,
-            tr('Attiva la modalità editing sul layer rotta.\nPuoi spostare, aggiungere o rimuovere vertici.'))
-        self.btn_delete = self._button(tr('Elimina linea'), self.delete_requested, row,
-            tr('Seleziona una o più linee sulla mappa e clicca di nuovo per eliminarle.'))
+        self.btn_edit = self._button(self._ui_tr('Modifica linea'), self.edit_requested, row,
+            self._ui_tr('Attiva la modalità editing sul layer rotta.\nPuoi spostare, aggiungere o rimuovere vertici.'))
+        self.btn_delete = self._button(self._ui_tr('Elimina linea'), self.delete_requested, row,
+            self._ui_tr('Seleziona una o più linee sulla mappa e clicca di nuovo per eliminarle.'))
         self.btn_delete.setProperty("danger", True)
         tools.addLayout(row)
+        self._route_actions_layout = row
+        self._route_actions_frame = tools.parentWidget()
+        self._route_actions_frame.installEventFilter(self)
 
-        distances = self._card(route, tr('Distanze dei buffer'), tr('Valori in metri, applicati alla rotta.'))
+        distances = self._card(route, self._ui_tr('Distanze dei buffer'), self._ui_tr('Valori in metri, applicati alla rotta.'))
         grid = QGridLayout()
         grid.setHorizontalSpacing(8)
         grid.setVerticalSpacing(8)
         grid.setColumnStretch(1, 1)
         for index, (key, name, value, color) in enumerate((
-            ("pregeocage", tr('Pregeocage'), 50.0, "#22C55E"),
-            ("geocage", tr('Geocage'), 100.0, "#FFD700"),
-            ("ground", tr('Ground Buffer'), 150.0, "#DC143C"),
-            ("adjacent", tr('Adjacent Area'), 5000.0, "#6f63c2"),
+            ("pregeocage", self._ui_tr('Pregeocage'), 50.0, "#22C55E"),
+            ("geocage", self._ui_tr('Geocage'), 100.0, "#FFD700"),
+            ("ground", self._ui_tr('Ground Buffer'), 150.0, "#DC143C"),
+            ("adjacent", self._ui_tr('Adjacent Area'), 5000.0, "#6f63c2"),
         )):
             swatch = QLabel("●")
             swatch.setStyleSheet(f"color: {color};")
@@ -165,44 +189,44 @@ class BufferDockPanel(QDockWidget):
             grid.addWidget(label, index, 1)
             grid.addWidget(spin, index, 2)
         distances.addLayout(grid)
-        self.chk_auto_update = QCheckBox(tr('Aggiornamento automatico'))
+        self.chk_auto_update = QCheckBox(self._ui_tr('Aggiornamento automatico'))
         self.chk_auto_update.setChecked(True)
         self.chk_auto_update.toggled.connect(self.auto_update_toggled.emit)
         distances.addWidget(self.chk_auto_update)
-        self.chk_diff_buffers = QCheckBox(tr('Distanze diverse per segmento'))
-        self.chk_diff_buffers.setToolTip(tr('Assegna distanze diverse ad ogni segmento della linea.'))
+        self.chk_diff_buffers = QCheckBox(self._ui_tr('Distanze diverse per segmento'))
+        self.chk_diff_buffers.setToolTip(self._ui_tr('Assegna distanze diverse ad ogni segmento della linea.'))
         self.chk_diff_buffers.toggled.connect(self._on_diff_toggled)
         distances.addWidget(self.chk_diff_buffers)
-        self.btn_recalc = self._button(tr('Ricalcola buffer'), self.recalc_requested, distances)
+        self.btn_recalc = self._button(self._ui_tr('Ricalcola buffer'), self.recalc_requested, distances)
 
-        self.btn_apply_all = self._button(tr('Applica a tutti i segmenti'), self.apply_to_all_segments,
-            distances, tr('Sostituisce le distanze di tutti i segmenti con i valori correnti.'))
+        self.btn_apply_all = self._button(self._ui_tr('Applica a tutti i segmenti'), self.apply_to_all_segments,
+            distances, self._ui_tr('Sostituisce le distanze di tutti i segmenti con i valori correnti.'))
         self.btn_apply_all.hide()
         route.addStretch()
 
-        files = self._page(tr('Missione e file'))
-        mission = self._card(files, tr('Quote della missione'),
-            tr('Quote AMSL: altitudini rispetto al livello medio del mare.'))
+        files = self._page(self._ui_tr('Missione e file'))
+        mission = self._card(files, self._ui_tr('Quote della missione'),
+            self._ui_tr('Quote AMSL: altitudini rispetto al livello medio del mare.'))
         grid = QGridLayout()
-        for index, (key, name, value) in enumerate((("flight", tr('Volo'), 120.0), ("pad", tr('Pad'), 40.0))):
-            spin = self._spinbox(tr('Altitudine {name} (AMSL)').format(name=name), value, 5000.0)
+        for index, (key, name, value) in enumerate((("flight", self._ui_tr('Volo'), 120.0), ("pad", self._ui_tr('Pad'), 40.0))):
+            spin = self._spinbox(self._ui_tr('Altitudine {name} (AMSL)').format(name=name), value, 5000.0)
             setattr(self, f"spin_alt_{key}", spin)
             label = QLabel(name)
             label.setBuddy(spin)
             grid.addWidget(label, index, 0)
             grid.addWidget(spin, index, 1)
         mission.addLayout(grid)
-        exports = self._card(files, tr('Esporta'), tr('Scegli il formato per il passaggio successivo.'))
+        exports = self._card(files, self._ui_tr('Esporta'), self._ui_tr('Scegli il formato per il passaggio successivo.'))
         for attr, text, signal, description in (
-            ("btn_export_plan", tr('Esporta .plan per RigiCloud'), self.export_plan_requested, tr('Profilo missione dedicato a RigiCloud')),
-            ("btn_export_geojson", tr('Esporta GeoJSON'), self.export_geojson_requested, tr('Dati geografici in formato JSON')),
-            ("btn_export", tr('Esporta GeoPackage'), self.export_requested, tr('Rotta e buffer in un file .gpkg')),
+            ("btn_export_plan", self._ui_tr('Esporta .plan per RigiCloud'), self.export_plan_requested, self._ui_tr('Profilo missione dedicato a RigiCloud')),
+            ("btn_export_geojson", self._ui_tr('Esporta GeoJSON'), self.export_geojson_requested, self._ui_tr('Dati geografici in formato JSON')),
+            ("btn_export", self._ui_tr('Esporta GeoPackage'), self.export_requested, self._ui_tr('Rotta e buffer in un file .gpkg')),
         ):
             setattr(self, attr, self._button(text, signal, exports))
             self._description(exports, description)
-        persistence = self._card(files, tr('Salva i layer'), tr('Conserva su disco i layer temporanei del plugin.'))
-        self.btn_make_persistent = self._button(tr('Rendi layer persistenti'), self.make_persistent_requested,
-            persistence, tr('Converte i layer temporanei del plugin in layer permanenti salvandoli su disco.'))
+        persistence = self._card(files, self._ui_tr('Salva i layer'), self._ui_tr('Conserva su disco i layer temporanei del plugin.'))
+        self.btn_make_persistent = self._button(self._ui_tr('Rendi layer persistenti'), self.make_persistent_requested,
+            persistence, self._ui_tr('Converte i layer temporanei del plugin in layer permanenti salvandoli su disco.'))
         files.addStretch()
 
         footer = QFrame()
@@ -214,21 +238,109 @@ class BufferDockPanel(QDockWidget):
         segment = QVBoxLayout(self.seg_group)
         segment.setContentsMargins(0, 0, 0, 6)
         segment.setSpacing(6)
-        self.seg_info_label = QLabel(tr('Nessun segmento selezionato.'))
+        self.seg_info_label = QLabel(self._ui_tr('Nessun segmento selezionato.'))
         self.seg_info_label.setWordWrap(True)
         segment.addWidget(self.seg_info_label)
-        self.btn_apply_segment = self._button(tr('Salva distanze del segmento'), self.apply_to_segment,
-            segment, tr('Memorizza i quattro valori solo nel segmento selezionato.\nPoi puoi selezionare un altro segmento. Per conservarli dopo la chiusura,\nrendi persistenti i layer e salva il progetto QGIS.'))
+        self.btn_apply_segment = self._button(self._ui_tr('Salva distanze del segmento'), self.apply_to_segment,
+            segment, self._ui_tr('Memorizza i quattro valori solo nel segmento selezionato.\nPoi puoi selezionare un altro segmento. Per conservarli dopo la chiusura,\nrendi persistenti i layer e salva il progetto QGIS.'))
         self.btn_apply_segment.setProperty("primary", True)
         self.btn_apply_segment.setEnabled(False)
         self.seg_group.hide()
         status_layout.addWidget(self.seg_group)
-        self.status_label = QLabel(tr('Pronto.'))
+        self.status_label = QLabel(self._ui_tr('Pronto.'))
         self.status_label.setWordWrap(True)
         self.status_label.setTextFormat(Qt.TextFormat.PlainText)
         status_layout.addWidget(self.status_label)
         layout.addWidget(footer)
         self.setWidget(self.container)
+
+    def _ui_tr(self, source):
+        text = QCoreApplication.translate(CONTEXT, source)
+        self._ui_sources[text] = source
+        return text
+
+    def _capture_translation_bindings(self):
+        self._translation_bindings = []
+        for widget in self.findChildren(QWidget):
+            properties = [('toolTip', 'setToolTip'), ('accessibleName', 'setAccessibleName')]
+            if isinstance(widget, (QLabel, QPushButton, QCheckBox)):
+                properties.append(('text', 'setText'))
+            for getter, setter in properties:
+                source = self._ui_sources.get(getattr(widget, getter)())
+                if source is not None:
+                    self._translation_bindings.append((widget, setter, source))
+        self._tab_sources = [self._ui_sources[self.tabs.tabText(i)] for i in range(self.tabs.count())]
+        self.tabs.widget(0).viewport().installEventFilter(self)
+
+    def set_language_preference(self, language):
+        index = self.language_combo.findData(language)
+        self.language_combo.blockSignals(True)
+        self.language_combo.setCurrentIndex(max(0, index))
+        self.language_combo.blockSignals(False)
+
+    def _fit_tab_labels(self):
+        if not hasattr(self, '_tab_sources'):
+            return
+        texts = [QCoreApplication.translate(CONTEXT, source) for source in self._tab_sources]
+        metrics = self.tabs.tabBar().fontMetrics()
+        if sum(metrics.horizontalAdvance(text) + 24 for text in texts) > self.tabs.width():
+            wrapped = []
+            for text in texts:
+                words = text.split()
+                if len(words) > 1:
+                    splits = [(' '.join(words[:i]), ' '.join(words[i:])) for i in range(1, len(words))]
+                    left, right = min(splits, key=lambda parts: max(metrics.horizontalAdvance(p) for p in parts))
+                    text = left + '\n' + right
+                wrapped.append(text)
+            texts = wrapped
+        for index, text in enumerate(texts):
+            if self.tabs.tabText(index) != text:
+                self.tabs.setTabText(index, text)
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        self._fit_tab_labels()
+        self._fit_route_actions()
+
+    def _fit_route_actions(self):
+        if not hasattr(self, '_route_actions_layout'):
+            return
+        page = self.tabs.widget(0)
+        page_margins = page.widget().layout().contentsMargins()
+        card_margins = self._route_actions_frame.layout().contentsMargins()
+        available = (page.viewport().width() - page_margins.left() - page_margins.right()
+                     - card_margins.left() - card_margins.right() - 2)
+        needed = self.btn_edit.minimumSizeHint().width() + self.btn_delete.minimumSizeHint().width()
+        needed += self._route_actions_layout.spacing()
+        direction = QBoxLayout.Direction.TopToBottom if needed > available else QBoxLayout.Direction.LeftToRight
+        if self._route_actions_layout.direction() != direction:
+            self._route_actions_layout.setDirection(direction)
+
+    def eventFilter(self, watched, event):
+        if watched is getattr(self, 'tabs', None) and event.type() == QEvent.Type.Resize:
+            self._fit_tab_labels()
+        if event.type() in (QEvent.Type.Resize, QEvent.Type.LayoutRequest):
+            self._fit_route_actions()
+        return super().eventFilter(watched, event)
+
+    def retranslate(self, editing=False, delete_pending=False):
+        # Change captions in place: widgets, unsaved values and layer state survive.
+        for widget, setter, source in self._translation_bindings:
+            getattr(widget, setter)(QCoreApplication.translate(CONTEXT, source))
+        for index, source in enumerate(self._tab_sources):
+            self.tabs.setTabText(index, QCoreApplication.translate(CONTEXT, source))
+        self.language_combo.setItemText(0, tr('Automatica (QGIS)'))
+        self.btn_edit.setText(tr('Salva modifiche') if editing else tr('Modifica linea'))
+        self.btn_delete.setText(tr('Conferma eliminazione') if delete_pending else tr('Elimina linea'))
+        hint = tr('Versione caricata: {version}').format(version=PLUGIN_VERSION)
+        self.version_label.setToolTip(hint)
+        self.version_label.setAccessibleName(hint)
+        for spin, name in ((self.spin_alt_flight, tr('Volo')), (self.spin_alt_pad, tr('Pad'))):
+            spin.setAccessibleName(tr('Altitudine {name} (AMSL)').format(name=name))
+        self._refresh_segment_caption()
+        self.set_status(tr('Lingua aggiornata.'))
+        self._fit_tab_labels()
+        self._fit_route_actions()
 
     def _page(self, title):
         area = QScrollArea()

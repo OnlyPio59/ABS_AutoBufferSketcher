@@ -14,11 +14,11 @@ Sto sviluppando ABS come progetto personale per disegnare e modificare rotte in 
 
 Con ABS voglio raccogliere nello stesso pannello il lavoro sulla rotta, il calcolo dei buffer e la preparazione dei dati da esportare. Per lo scambio GIS metto a disposizione GeoPackage e GeoJSON; per il flusso missione ho un’esportazione `.plan` pensata appositamente per **RigiCloud**.
 
-**Stato:** ho pubblicato la versione sperimentale [0.2.5](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.5), con versione visibile nel pannello. ABS è approvato e disponibile nel [catalogo ufficiale QGIS](https://plugins.qgis.org/plugins/auto_buffer_sketcher/), come plugin sperimentale. Nel sorgente corrente ho completato l’interfaccia italiana e inglese: segue la lingua di QGIS, con italiano come ripiego. Lo ZIP 0.2.5 include entrambe le lingue; le altre lingue restano da valutare.
+**Stato:** ho pubblicato la versione sperimentale [0.2.5](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.5), con versione visibile nel pannello. ABS è approvato e disponibile nel [catalogo ufficiale QGIS](https://plugins.qgis.org/plugins/auto_buffer_sketcher/), come plugin sperimentale. Lo ZIP 0.2.5 pubblicato include italiano e inglese; il candidato 0.4.0 descritto sotto porta l’interfaccia a sei lingue.
 
 [Guida completa](docs/USER_GUIDE.md) · [Demo riproducibile](examples/README.md) · [Presentazione breve](docs/DEMO.md#italiano) · [Changelog](CHANGELOG.md) · [Contribuire](CONTRIBUTING.md)
 
-Nel sorgente 0.3.0 ho aggiunto la compatibilità QGIS 4/Qt6 conservando QGIS 3/Qt5. Calcoli, interfaccia e formati restano invariati. La 0.2.5 è la versione attualmente approvata sul catalogo. [Compatibilità e verifiche](docs/COMPATIBILITY.md).
+Nel candidato 0.4.0 mantengo la compatibilità QGIS 3/4 e Qt5/Qt6 e aggiungo sei lingue: italiano, inglese, spagnolo, portoghese brasiliano, francese e tedesco. Dal selettore sotto il logo posso seguire automaticamente la lingua di QGIS oppure scegliere una lingua, salvata tra le preferenze di ABS e applicata subito. Calcoli, interfaccia e formati restano invariati. La 0.2.5 è la versione attualmente approvata sul catalogo. [Compatibilità e verifiche](docs/COMPATIBILITY.md).
 
 **Demo video — 50 secondi:** [guarda o scarica la versione italiana](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/download/v0.2.4/ABS_demo_0.2.4_IT_r1.mp4). Mostro la modifica della rotta, il salvataggio indipendente delle distanze e gli export, con schermate QGIS e dati sintetici. La demo è realizzata con la 0.2.4 e mostra lo stesso flusso della 0.2.5.
 
@@ -38,7 +38,7 @@ Ho quindi portato questo lavoro in QGIS: modifico la rotta, ricalcolo i buffer e
 
 ### Installazione e primo utilizzo
 
-Uso Python, Qt e PyQGIS già forniti con QGIS, senza pacchetti Python esterni. Il sorgente 0.3.0 dichiara QGIS **3.34–4.99**; le verifiche su Linux coprono **3.34.4 e 3.44.15/Qt5** e **4.2.3/Qt6**. Non ho ancora convalidato Windows o macOS. La 0.2.5 nel catalogo è limitata a QGIS 3. Per provare il candidato 0.3.0 su QGIS 4 uso il suo ZIP, quando disponibile tra le [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases).
+Uso Python, Qt e PyQGIS già forniti con QGIS, senza pacchetti Python esterni. Il sorgente 0.4.0 dichiara QGIS **3.34–4.99**; le verifiche su Linux coprono **3.34.4 e 3.44.15/Qt5** e **4.2.3/Qt6**. Non ho ancora convalidato Windows o macOS. La 0.2.5 nel catalogo è limitata a QGIS 3. Per provare il candidato 0.4.0 su QGIS 4 uso il suo ZIP, quando disponibile tra le [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases).
 
 1. In QGIS apri **Plugin → Gestisci e installa plugin → Impostazioni** e abilita **Mostra anche plugin sperimentali**.
 2. Nella scheda **Tutti**, cerca **ABS - AutoBufferSketcher** e premi **Installa plugin**. In alternativa, scarica lo ZIP dagli asset della [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.5) e usa **Installa da ZIP**. Dopo un aggiornamento, riavvia QGIS.
@@ -71,7 +71,7 @@ Non ho ancora implementato un secondo esportatore missione generico. Per aggiung
 
 Calcolo i buffer in un CRS UTM locale: estensioni oltre 6° in longitudine o latitudine, attraversamenti dell’antimeridiano e latitudini fuori da 80° S–84° N sono segnalati come non supportati. Il profilo `.plan` attuale richiede una rotta continua con almeno tre vertici e rifiuta geometrie non rappresentabili, come parti separate o buchi. I valori iniziali sono parametri del software, non una validazione di una missione.
 
-Mantengo **39 regressioni funzionali, 9 prove dell’interfaccia, 7 prove di confezionamento, 9 prove del sistema di traduzione, 2 prove della versione caricata e 4 prove dei flussi bilingui (ripetute anche con scala 150%)**, oltre allo smoke test degli esportatori. Le eseguo anche su GitHub Actions. Ho verificato l’installazione ZIP in un profilo QGIS isolato; le prove offscreen non coprono ogni interazione desktop o piattaforma.
+Mantengo **39 regressioni funzionali, 9 prove dell’interfaccia, 7 prove di confezionamento, 11 prove del sistema di traduzione, 2 prove della versione caricata e 5 prove dei flussi multilingue (ripetute anche con scala 150%)**, oltre allo smoke test degli esportatori. Le eseguo anche su GitHub Actions. Ho verificato l’installazione ZIP in un profilo QGIS isolato; le prove offscreen non coprono ogni interazione desktop o piattaforma.
 
 Per le immagini e la [demo](examples/README.md) uso soltanto dati sintetici. La guida dettagliata è disponibile in [italiano](docs/USER_GUIDE.md) e [inglese](docs/USER_GUIDE.en.md). Per una segnalazione o una proposta, usa i modelli nella sezione Issues.
 
@@ -93,11 +93,11 @@ I am developing ABS as a personal project to draw and edit routes in QGIS and ma
 
 With ABS, I want to bring route editing, buffer calculation and export preparation into the same panel. I provide GeoPackage and GeoJSON for GIS data exchange, and a `.plan` mission export designed specifically for the **RigiCloud** workflow.
 
-**Status:** I have published experimental version [0.2.5](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.5), with a visible version badge. ABS is approved and available in the [official QGIS plugin catalog](https://plugins.qgis.org/plugins/auto_buffer_sketcher/), as an experimental plugin. In the current source, I have completed the Italian and English interface: it follows the QGIS language, with Italian as fallback. The 0.2.5 ZIP includes both languages; further languages remain to be considered.
+**Status:** I have published experimental version [0.2.5](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.5), with a visible version badge. ABS is approved and available in the [official QGIS plugin catalog](https://plugins.qgis.org/plugins/auto_buffer_sketcher/), as an experimental plugin. The published 0.2.5 ZIP includes Italian and English; candidate 0.4.0 described below expands the interface to six languages.
 
 [Detailed guide](docs/USER_GUIDE.en.md) · [Reproducible demo — Italian](examples/README.md) · [Short presentation](docs/DEMO.md#english) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
 
-In the 0.3.0 source I have added QGIS 4/Qt6 compatibility while retaining QGIS 3/Qt5. Calculations, interface and formats remain unchanged. Version 0.2.5 is the version currently approved in the catalog. [Compatibility and checks](docs/COMPATIBILITY.md).
+In candidate 0.4.0 I retain QGIS 3/4 and Qt5/Qt6 compatibility and provide six languages: Italian, English, Spanish, Brazilian Portuguese, French and German. From the selector below the logo I can follow the QGIS language automatically or choose a language, saved in ABS preferences and applied immediately. Calculations, interface and formats remain unchanged. Version 0.2.5 is the version currently approved in the catalog. [Compatibility and checks](docs/COMPATIBILITY.md).
 
 **Video demo — 50 seconds:** [watch or download the English version](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/download/v0.2.4/ABS_demo_0.2.4_EN_r1.mp4). I show route editing, independent segment-distance saving and exports using English QGIS screenshots and synthetic data. The demo uses 0.2.4 and shows the same workflow as 0.2.5.
 
@@ -117,7 +117,7 @@ I moved this work into QGIS, where I can edit the route, recalculate its buffers
 
 ### Installation and first use
 
-I use the Python, Qt and PyQGIS components shipped with QGIS, without additional Python packages. The 0.3.0 source declares QGIS **3.34–4.99**; Linux checks cover **3.34.4 and 3.44.15/Qt5** and **4.2.3/Qt6**. I have not yet validated Windows or macOS. The catalog version 0.2.5 is limited to QGIS 3. To try the 0.3.0 candidate on QGIS 4, I use its ZIP when available in [releases](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases).
+I use the Python, Qt and PyQGIS components shipped with QGIS, without additional Python packages. The 0.4.0 source declares QGIS **3.34–4.99**; Linux checks cover **3.34.4 and 3.44.15/Qt5** and **4.2.3/Qt6**. I have not yet validated Windows or macOS. The catalog version 0.2.5 is limited to QGIS 3. To try the 0.4.0 candidate on QGIS 4, I use its ZIP when available in [releases](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases).
 
 1. In QGIS, open **Plugins → Manage and Install Plugins → Settings** and enable **Show also experimental plugins**.
 2. In **All**, search for **ABS - AutoBufferSketcher** and click **Install Plugin**. Alternatively, download the ZIP asset from the [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.5) and use **Install from ZIP**. Restart QGIS after an update.
@@ -150,7 +150,7 @@ I have not yet implemented a second generic mission exporter. Before adding one,
 
 I calculate buffers in a local UTM CRS. Extents greater than 6° in longitude or latitude, antimeridian crossings and latitudes outside 80° S–84° N are reported as unsupported. The current `.plan` profile requires a single continuous route with at least three vertices and rejects unrepresentable geometries such as separate parts or holes. Initial values are software parameters, not mission validation.
 
-I maintain **39 functional regressions, 9 interface checks, 7 packaging checks, 9 translation-system checks, 2 loaded-version checks and 4 bilingual workflow checks (also repeated at 150% scale)**, plus the exporter smoke tests, and run them through GitHub Actions. I have checked ZIP installation in an isolated QGIS profile; offscreen checks do not cover every desktop interaction or platform.
+I maintain **39 functional regressions, 9 interface checks, 7 packaging checks, 11 translation-system checks, 2 loaded-version checks and 5 multilingual workflow checks (also repeated at 150% scale)**, plus the exporter smoke tests, and run them through GitHub Actions. I have checked ZIP installation in an isolated QGIS profile; offscreen checks do not cover every desktop interaction or platform.
 
 I use only synthetic data for the screenshots and [demo](examples/README.md). The detailed guide is available in [English](docs/USER_GUIDE.en.md) and [Italian](docs/USER_GUIDE.md). For a bug report or proposal, use the repository’s issue templates.
 

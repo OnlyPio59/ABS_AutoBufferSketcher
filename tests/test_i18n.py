@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / 'scripts'))
 from qgis.PyQt.QtCore import QCoreApplication, QLocale, QSettings
-from auto_buffer_sketcher.i18n import TranslationManager, tr
+from auto_buffer_sketcher.i18n import TranslationManager, tr, LANGUAGE_SETTING
 from update_translations import messages, update
 
 APP = QCoreApplication.instance() or QCoreApplication([])
@@ -22,6 +22,49 @@ SOURCE = 'Disegna linea e genera buffer automatici'
 
 
 class TranslationTests(unittest.TestCase):
+    def test_manual_preference_persists_and_auto_restores_qgis_language(self):
+        self.settings.setValue('locale/overrideFlag', True)
+        self.settings.setValue('locale/userLocale', 'es_MX')
+        manager = TranslationManager(settings=self.settings)
+        try:
+            manager.load()
+            self.assertEqual(tr('Disegna linea'), 'Dibujar línea')
+            manager.set_preference('de')
+            self.assertEqual(tr('Disegna linea'), 'Linie zeichnen')
+            self.assertEqual(self.settings.value('locale/userLocale'), 'es_MX')
+            manager.unload()
+            reopened = TranslationManager(settings=self.settings)
+            try:
+                self.assertEqual(reopened.preference, 'de')
+                reopened.load()
+                self.assertEqual(tr('Disegna linea'), 'Linie zeichnen')
+                reopened.set_preference('auto')
+                self.assertEqual(tr('Disegna linea'), 'Dibujar línea')
+                with self.assertRaises(ValueError):
+                    reopened.set_preference('../../invalid')
+                self.settings.setValue(LANGUAGE_SETTING, 'invalid')
+                self.assertEqual(reopened.preference, 'auto')
+            finally:
+                reopened.unload()
+        finally:
+            manager.unload()
+
+    def test_supported_regional_locales_resolve_without_changing_host_locale(self):
+        manager = TranslationManager(settings=self.settings)
+        before = QLocale().name()
+        try:
+            for locale, expected in (
+                ('es_MX', 'Dibujar línea'), ('pt-br', 'Desenhar linha'),
+                ('pt_PT', 'Desenhar linha'), ('fr_CA', 'Dessiner une ligne'),
+                ('de_AT', 'Linie zeichnen'), ('en_AU', 'Draw line'),
+                ('it_IT', 'Disegna linea'),
+            ):
+                manager.load(locale)
+                self.assertEqual(tr('Disegna linea'), expected)
+                self.assertEqual(QLocale().name(), before)
+        finally:
+            manager.unload()
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(prefix='abs-i18n-')
         self.folder = Path(self.temp.name)
@@ -125,7 +168,7 @@ class TranslationTests(unittest.TestCase):
         sources = messages(ROOT / 'auto_buffer_sketcher')
         manager = TranslationManager(ROOT / 'auto_buffer_sketcher/i18n', self.settings)
         try:
-            for language in ('it', 'en'):
+            for language in ('it', 'en', 'es', 'pt_BR', 'fr', 'de'):
                 tree = ET.parse(ROOT / f'auto_buffer_sketcher/i18n/auto_buffer_sketcher_{language}.ts')
                 entries = {m.findtext('source'): m.find('translation') for m in tree.findall('context/message')
                            if m.find('translation').get('type') != 'vanished'}

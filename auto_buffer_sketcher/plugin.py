@@ -94,6 +94,8 @@ class AutoBufferPlugin:
         # Inizializza componenti
         self.buffer_engine = BufferEngine()
         self.dock_panel = BufferDockPanel(self.iface.mainWindow())
+        self.dock_panel.set_language_preference(self._translations.preference)
+        self.dock_panel.language_changed.connect(self._on_language_changed)
 
         # Event handler con callback alle distanze correnti dalla UI
         self.event_handler = EventHandler(
@@ -127,6 +129,13 @@ class AutoBufferPlugin:
         self.dock_panel.spin_alt_flight.valueChanged.connect(self._save_route_state)
         self.dock_panel.spin_alt_pad.valueChanged.connect(self._save_route_state)
         log(tr('Plugin inizializzato.'))
+
+    def _on_language_changed(self, language):
+        editing = self.dock_panel.btn_edit.text() == tr('Salva modifiche')
+        self._translations.set_preference(language)
+        self.dock_panel.retranslate(editing=editing, delete_pending=self._delete_pending)
+        for action in self.actions:
+            action.setStatusTip(tr('Disegna linea e genera buffer automatici'))
 
     def unload(self):
         """Rimuove il plugin dall'interfaccia QGIS."""

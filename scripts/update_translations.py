@@ -7,13 +7,18 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / 'auto_buffer_sketcher'
 CONTEXT = 'AutoBufferSketcher'
+LANGUAGES = ('it', 'en', 'es', 'pt_BR', 'fr', 'de')
 
 
 def messages(package):
     result = {}
     for path in sorted(package.glob('*.py')):
         for node in ast.walk(ast.parse(path.read_text(encoding='utf-8'))):
-            if not isinstance(node, ast.Call) or not isinstance(node.func, ast.Name) or node.func.id != 'tr':
+            if not isinstance(node, ast.Call):
+                continue
+            marked = (isinstance(node.func, ast.Name) and node.func.id == 'tr') or (
+                isinstance(node.func, ast.Attribute) and node.func.attr == '_ui_tr')
+            if not marked:
                 continue
             if len(node.args) != 1 or node.keywords or not isinstance(node.args[0], ast.Constant) or not isinstance(node.args[0].value, str):
                 raise ValueError(f'{path.name}:{node.lineno}: tr() requires one literal string; format after translation')
@@ -63,9 +68,9 @@ def update(path, language, sources):
 
 def main():
     sources = messages(PACKAGE)
-    for language in ('it', 'en'):
+    for language in LANGUAGES:
         update(PACKAGE / 'i18n' / f'auto_buffer_sketcher_{language}.ts', language, sources)
-    print(f'Updated Italian and English catalogs: {len(sources)} source templates. Unfinished translations remain unfinished.')
+    print(f'Updated six language catalogs: {len(sources)} source templates. Unfinished translations remain unfinished.')
 
 
 if __name__ == '__main__':

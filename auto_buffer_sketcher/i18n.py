@@ -5,6 +5,12 @@ import re
 from qgis.PyQt.QtCore import QCoreApplication, QLocale, QSettings, QTranslator
 
 CONTEXT = 'AutoBufferSketcher'
+LANGUAGE_SETTING = 'ABS/language'
+SUPPORTED_LANGUAGES = ('it', 'en', 'es', 'pt_BR', 'fr', 'de')
+LANGUAGE_NAMES = (
+    ('it', 'Italiano'), ('en', 'English'), ('es', 'Español'),
+    ('pt_BR', 'Português (Brasil)'), ('fr', 'Français'), ('de', 'Deutsch'),
+)
 
 
 def tr(text):
@@ -25,12 +31,26 @@ class TranslationManager:
         self.translator = None
         self.loaded_locale = None
 
+    @property
+    def preference(self):
+        value = self.settings.value(LANGUAGE_SETTING, 'auto', type=str)
+        return value if value in ('auto', *SUPPORTED_LANGUAGES) else 'auto'
+
+    def set_preference(self, language):
+        if language not in ('auto', *SUPPORTED_LANGUAGES):
+            raise ValueError('Unsupported ABS language')
+        self.settings.setValue(LANGUAGE_SETTING, language)
+        self.settings.sync()
+        return self.load()
+
     def load(self, locale=None):
         self.unload()
         if QCoreApplication.instance() is None:
             return False
         if locale is None:
-            if self.settings.value('locale/overrideFlag', False, type=bool):
+            if self.preference != 'auto':
+                locale = self.preference
+            elif self.settings.value('locale/overrideFlag', False, type=bool):
                 locale = self.settings.value('locale/userLocale', '', type=str)
             else:
                 locale = QLocale().name()
@@ -40,9 +60,13 @@ class TranslationManager:
             return False
         parts = locale.split('_')
         parts[0] = parts[0].lower()
+        if len(parts) > 1 and len(parts[1]) == 2:
+            parts[1] = parts[1].upper()
         if parts[0] == 'it':
             return False
         candidates = ['_'.join(parts), parts[0]]
+        if parts[0] == 'pt':
+            candidates.append('pt_BR')
         for candidate in dict.fromkeys(candidates):
             translator = QTranslator()
             path = self.catalog_dir / f'auto_buffer_sketcher_{candidate}.qm'

@@ -74,6 +74,13 @@ def run():
         check('independent_segment_values',
               segments.getFeature(first.id())['pregeocage_m'] == 35 and
               segments.getFeature(second.id())['pregeocage_m'] == 70)
+        for language in ('es', 'pt_BR', 'fr', 'de', 'en', 'it', 'auto'):
+            panel.language_combo.setCurrentIndex(panel.language_combo.findData(language))
+            check('native_language_' + language, plugin._translations.preference == language)
+        check('language_changes_keep_segment_values',
+              segments.getFeature(first.id())['pregeocage_m'] == 35 and
+              segments.getFeature(second.id())['pregeocage_m'] == 70)
+
 
         def export(action, path):
             with patch('auto_buffer_sketcher.plugin.QFileDialog.getSaveFileName',
