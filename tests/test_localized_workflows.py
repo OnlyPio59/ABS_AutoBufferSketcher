@@ -21,7 +21,7 @@ from auto_buffer_sketcher.version import PLUGIN_VERSION
 from qgis.core import QgsFeature, QgsCoordinateReferenceSystem
 from qgis.PyQt.QtCore import QSettings, QCoreApplication, QEvent
 from qgis.PyQt.QtWidgets import QStyle, QStyleOptionButton
-from qgis.PyQt.QtTest import QSignalSpy
+from qgis.PyQt.QtTest import QSignalSpy, QTest
 from auto_buffer_sketcher.i18n import tr
 
 
@@ -210,9 +210,12 @@ class LocalizedWorkflowTests(unittest.TestCase):
             panel.chk_diff_buffers.setChecked(True)
             panel.set_segment_info(123)
             APP.processEvents()
+            QTest.qWait(50)
             bar = panel.tabs.tabBar()
             for index in (0, 1):
                 self.assertTrue(bar.rect().contains(bar.tabRect(index)), language)
+                lines = panel.tabs.tabText(index).count("\n") + 1
+                self.assertGreaterEqual(bar.tabRect(index).height(), bar.fontMetrics().height() * lines, language)
             self.assertEqual(panel.width(), 360, language)
             self.assertEqual(panel.tabs.widget(0).horizontalScrollBar().maximum(), 0)
             self.assertEqual(panel.version_label.text(), f'v{PLUGIN_VERSION}')
@@ -229,7 +232,9 @@ class LocalizedWorkflowTests(unittest.TestCase):
                 self.assertLessEqual(button.fontMetrics().horizontalAdvance(button.text()), rect.width(), button.text())
             panel.tabs.setCurrentIndex(0)
             APP.processEvents()
+            QTest.qWait(50)
             self.assertTrue(panel.rect().contains(panel.btn_apply_segment.mapTo(panel, panel.btn_apply_segment.rect().center())))
+            self.assertTrue(panel.btn_apply_segment.visibleRegion().contains(panel.btn_apply_segment.rect()), language)
             panel.tabs.setCurrentIndex(1)
             page = panel.tabs.currentWidget()
             page.ensureWidgetVisible(panel.btn_make_persistent)

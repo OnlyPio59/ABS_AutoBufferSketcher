@@ -25,7 +25,7 @@
     </message>
     <message>
       <location filename="../dock_panel.py" line="212" />
-      <location filename="../dock_panel.py" line="339" />
+      <location filename="../dock_panel.py" line="343" />
       <source>Altitudine {name} (AMSL)</source>
       <translation>Altitud de {name} (AMSL)</translation>
     </message>
@@ -63,7 +63,7 @@ Puedes mover, añadir o eliminar vértices.</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="134" />
-      <location filename="../dock_panel.py" line="332" />
+      <location filename="../dock_panel.py" line="336" />
       <source>Automatica (QGIS)</source>
       <translation>Automático (QGIS)</translation>
     </message>
@@ -144,7 +144,7 @@ Puedes mover, añadir o eliminar vértices.</translation>
       <translation>No se pudo eliminar.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="334" />
+      <location filename="../dock_panel.py" line="338" />
       <location filename="../plugin.py" line="427" />
       <location filename="../plugin.py" line="434" />
       <source>Conferma eliminazione</source>
@@ -258,7 +258,7 @@ Puedes mover, añadir o eliminar vértices.</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="162" />
-      <location filename="../dock_panel.py" line="334" />
+      <location filename="../dock_panel.py" line="338" />
       <location filename="../plugin.py" line="456" />
       <source>Elimina linea</source>
       <translation>Eliminar línea</translation>
@@ -579,7 +579,7 @@ Puedes mover, añadir o eliminar vértices.</translation>
       <translation>Idioma</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="341" />
+      <location filename="../dock_panel.py" line="345" />
       <source>Lingua aggiornata.</source>
       <translation>Idioma actualizado.</translation>
     </message>
@@ -644,7 +644,7 @@ haz persistentes las capas y guarda el proyecto QGIS.</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="160" />
-      <location filename="../dock_panel.py" line="333" />
+      <location filename="../dock_panel.py" line="337" />
       <location filename="../plugin.py" line="384" />
       <source>Modifica linea</source>
       <translation>Editar línea</translation>
@@ -697,7 +697,7 @@ haz persistentes las capas y guarda el proyecto QGIS.</translation>
       <translation>No hay ninguna ruta para exportar.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="338" />
+      <location filename="../dock_panel.py" line="342" />
       <location filename="../dock_panel.py" line="211" />
       <source>Pad</source>
       <translation>Pad</translation>
@@ -844,7 +844,7 @@ haz persistentes las capas y guarda el proyecto QGIS.</translation>
       <translation>Guardar capas</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="333" />
+      <location filename="../dock_panel.py" line="337" />
       <location filename="../plugin.py" line="134" />
       <location filename="../plugin.py" line="398" />
       <source>Salva modifiche</source>
@@ -931,12 +931,12 @@ haz persistentes las capas y guarda el proyecto QGIS.</translation>
       <translation>Segmento {seg_id} seleccionado: pre={value}m, geo={value2}m, gnd={value3}m</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="504" />
+      <location filename="../dock_panel.py" line="508" />
       <source>Segmento {segment_id}: distanze memorizzate nel layer.</source>
       <translation>Segmento {segment_id}: distancias guardadas en la capa.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="502" />
+      <location filename="../dock_panel.py" line="506" />
       <source>Segmento {segment_id}: modifiche da salvare.</source>
       <translation>Segmento {segment_id}: cambios sin guardar.</translation>
     </message>
@@ -946,7 +946,7 @@ haz persistentes las capas y guarda el proyecto QGIS.</translation>
       <translation>Segmento {value}</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="500" />
+      <location filename="../dock_panel.py" line="504" />
       <source>Seleziona un segmento sulla mappa.</source>
       <translation>Selecciona un segmento en el mapa.</translation>
     </message>
@@ -1017,7 +1017,7 @@ haz persistentes las capas y guarda el proyecto QGIS.</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="121" />
-      <location filename="../dock_panel.py" line="335" />
+      <location filename="../dock_panel.py" line="339" />
       <source>Versione caricata: {version}</source>
       <translation>Versión cargada: {version}</translation>
     </message>
@@ -1027,7 +1027,7 @@ haz persistentes las capas y guarda el proyecto QGIS.</translation>
       <translation>Vértice añadido: ({value:.2f}, {value2:.2f}) — total: {value3}</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="338" />
+      <location filename="../dock_panel.py" line="342" />
       <location filename="../dock_panel.py" line="211" />
       <source>Volo</source>
       <translation>Vuelo</translation>

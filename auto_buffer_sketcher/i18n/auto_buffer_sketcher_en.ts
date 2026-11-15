@@ -25,7 +25,7 @@
     </message>
     <message>
       <location filename="../dock_panel.py" line="212" />
-      <location filename="../dock_panel.py" line="339" />
+      <location filename="../dock_panel.py" line="343" />
       <source>Altitudine {name} (AMSL)</source>
       <translation>{name} altitude (AMSL)</translation>
     </message>
@@ -63,7 +63,7 @@ You can move, add or remove vertices.</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="134" />
-      <location filename="../dock_panel.py" line="332" />
+      <location filename="../dock_panel.py" line="336" />
       <source>Automatica (QGIS)</source>
       <translation>Automatic (QGIS)</translation>
     </message>
@@ -144,7 +144,7 @@ You can move, add or remove vertices.</translation>
       <translation>Deletion failed.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="334" />
+      <location filename="../dock_panel.py" line="338" />
       <location filename="../plugin.py" line="427" />
       <location filename="../plugin.py" line="434" />
       <source>Conferma eliminazione</source>
@@ -258,7 +258,7 @@ You can move, add or remove vertices.</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="162" />
-      <location filename="../dock_panel.py" line="334" />
+      <location filename="../dock_panel.py" line="338" />
       <location filename="../plugin.py" line="456" />
       <source>Elimina linea</source>
       <translation>Delete line</translation>
@@ -579,7 +579,7 @@ You can move, add or remove vertices.</translation>
       <translation>Language</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="341" />
+      <location filename="../dock_panel.py" line="345" />
       <source>Lingua aggiornata.</source>
       <translation>Language updated.</translation>
     </message>
@@ -644,7 +644,7 @@ make the layers persistent and save the QGIS project.</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="160" />
-      <location filename="../dock_panel.py" line="333" />
+      <location filename="../dock_panel.py" line="337" />
       <location filename="../plugin.py" line="384" />
       <source>Modifica linea</source>
       <translation>Edit line</translation>
@@ -697,7 +697,7 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>No route to export.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="338" />
+      <location filename="../dock_panel.py" line="342" />
       <location filename="../dock_panel.py" line="211" />
       <source>Pad</source>
       <translation>Pad</translation>
@@ -844,7 +844,7 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Save layers</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="333" />
+      <location filename="../dock_panel.py" line="337" />
       <location filename="../plugin.py" line="134" />
       <location filename="../plugin.py" line="398" />
       <source>Salva modifiche</source>
@@ -931,12 +931,12 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Selected segment {seg_id}: pre={value}m, geo={value2}m, gnd={value3}m</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="504" />
+      <location filename="../dock_panel.py" line="508" />
       <source>Segmento {segment_id}: distanze memorizzate nel layer.</source>
       <translation>Segment {segment_id}: distances stored in the layer.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="502" />
+      <location filename="../dock_panel.py" line="506" />
       <source>Segmento {segment_id}: modifiche da salvare.</source>
       <translation>Segment {segment_id}: unsaved changes.</translation>
     </message>
@@ -946,7 +946,7 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Segment {value}</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="500" />
+      <location filename="../dock_panel.py" line="504" />
       <source>Seleziona un segmento sulla mappa.</source>
       <translation>Select a segment on the map.</translation>
     </message>
@@ -1017,7 +1017,7 @@ make the layers persistent and save the QGIS project.</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="121" />
-      <location filename="../dock_panel.py" line="335" />
+      <location filename="../dock_panel.py" line="339" />
       <source>Versione caricata: {version}</source>
       <translation>Loaded version: {version}</translation>
     </message>
@@ -1027,7 +1027,7 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Vertex added: ({value:.2f}, {value2:.2f}) — total: {value3}</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="338" />
+      <location filename="../dock_panel.py" line="342" />
       <location filename="../dock_panel.py" line="211" />
       <source>Volo</source>
       <translation>Flight</translation>

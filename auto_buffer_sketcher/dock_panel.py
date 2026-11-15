@@ -283,7 +283,8 @@ class BufferDockPanel(QDockWidget):
             return
         texts = [QCoreApplication.translate(CONTEXT, source) for source in self._tab_sources]
         metrics = self.tabs.tabBar().fontMetrics()
-        if sum(metrics.horizontalAdvance(text) + 24 for text in texts) > self.tabs.width():
+        multiline = sum(metrics.horizontalAdvance(text) + 24 for text in texts) > self.tabs.width()
+        if multiline:
             wrapped = []
             for text in texts:
                 words = text.split()
@@ -293,6 +294,9 @@ class BufferDockPanel(QDockWidget):
                     text = left + '\n' + right
                 wrapped.append(text)
             texts = wrapped
+        tab_style = 'QTabBar::tab { min-height: %dpx; }' % (metrics.height() * (2 if multiline else 1))
+        if self.tabs.tabBar().styleSheet() != tab_style:
+            self.tabs.tabBar().setStyleSheet(tab_style)
         for index, text in enumerate(texts):
             if self.tabs.tabText(index) != text:
                 self.tabs.setTabText(index, text)
