@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.0 — Candidato sperimentale
+
+- Aggiunti spagnolo, portoghese brasiliano, francese e tedesco a italiano e inglese: 204 template completi per lingua, con cataloghi TS/QM.
+- Selettore persistente con modalità Automatica (QGIS) predefinita e cambio manuale immediato; impostazioni di QGIS e dati del progetto conservati.
+- Schede e azioni di modifica si adattano alle traduzioni lunghe nei pannelli compatti; nessuna riduzione dei caratteri.
+- Conservata compatibilità QGIS3/4 e Qt5/Qt6; export e valori dei segmenti verificati nelle sei lingue.
+
 ## 0.3.0 — Candidato sperimentale
 
 - Compatibilità condivisa QGIS 3/4 e Qt5/Qt6: enum con scope, import QAction/SVG e tipi dei campi compatibili anche con QGIS 3.34.

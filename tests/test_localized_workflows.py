@@ -21,6 +21,8 @@ from auto_buffer_sketcher.version import PLUGIN_VERSION
 from qgis.core import QgsFeature, QgsCoordinateReferenceSystem
 from qgis.PyQt.QtCore import QSettings, QCoreApplication, QEvent
 from qgis.PyQt.QtWidgets import QStyle, QStyleOptionButton
+from qgis.PyQt.QtTest import QSignalSpy, QTest
+from auto_buffer_sketcher.i18n import tr
 
 
 class LocalizedWorkflowTests(unittest.TestCase):
@@ -120,7 +122,7 @@ class LocalizedWorkflowTests(unittest.TestCase):
 
     def test_exports_geometry_fields_and_parameters_are_identical_in_both_languages(self):
         snapshots = []
-        for language in ('it_IT', 'en_US'):
+        for language in ('it_IT', 'en_US', 'es_ES', 'pt_BR', 'fr_FR', 'de_DE'):
             p, panel = self.create(language)
             self.seed()
             route, buffers = p._plan_export_layers()
@@ -135,11 +137,72 @@ class LocalizedWorkflowTests(unittest.TestCase):
             self.assertTrue(exporter.export(route, buffers, str(geojson)), exporter.last_error)
             snapshots.append((plan, json.loads(geojson.read_text()), panel.get_distances(), panel.get_mission_config(),
                 p._route_layer.fields().names(), [(layer.name(), layer.customProperty('abs/role')) for layer in managed(LAYER_NAME_PREGEOCAGE)]))
-        self.assertEqual(snapshots[0], snapshots[1])
+        for snapshot in snapshots[1:]:
+            self.assertEqual(snapshots[0], snapshot)
+
+    def test_live_language_selection_preserves_unsaved_values_editing_and_layers(self):
+        p, panel = self.create('it_IT')
+        self.seed()
+        panel.chk_diff_buffers.setChecked(True)
+        segments = p._segments_layer
+        first = next(segments.getFeatures())
+        segments.selectByIds([first.id()])
+        panel.spin_pregeocage.setValue(37.5)
+        panel.spin_alt_flight.setValue(135)
+        p._on_edit_requested()
+        self.assertTrue(panel.has_unsaved_segment_changes)
+        identity = id(panel)
+        spin_identity = id(panel.spin_pregeocage)
+        before = [(layer.id(), [(f.id(), f.geometry().asWkb(), f.attributes())
+                  for f in layer.getFeatures()]) for layer in PROJECT.mapLayers().values()]
+        spy = QSignalSpy(panel.distances_changed)
+        for language, draw, save in (
+            ('es', 'Dibujar línea', 'Guardar cambios'),
+            ('pt_BR', 'Desenhar linha', 'Salvar alterações'),
+            ('fr', 'Dessiner une ligne', 'Enregistrer les modifications'),
+            ('de', 'Linie zeichnen', 'Änderungen speichern'),
+            ('en', 'Draw line', 'Save changes'),
+            ('it', 'Disegna linea', 'Salva modifiche'),
+        ):
+            panel.language_combo.setCurrentIndex(panel.language_combo.findData(language))
+            APP.processEvents()
+            self.assertEqual(id(p.dock_panel), identity)
+            self.assertEqual(id(panel.spin_pregeocage), spin_identity)
+            self.assertEqual(panel.btn_sketcher.text(), draw)
+            self.assertEqual(panel.btn_edit.text(), save)
+            self.assertEqual(panel.get_distances()['pregeocage'], 37.5)
+            self.assertEqual(panel.get_mission_config()['alt_flight'], 135)
+            self.assertTrue(panel.has_unsaved_segment_changes)
+            self.assertEqual(segments.selectedFeatureIds(), [first.id()])
+            self.assertEqual(p._translations.preference, language)
+            self.assertEqual(panel.spin_alt_flight.accessibleName(),
+                             tr('Altitudine {name} (AMSL)').format(name=tr('Volo')))
+            after = [(layer.id(), [(f.id(), f.geometry().asWkb(), f.attributes())
+                     for f in layer.getFeatures()]) for layer in PROJECT.mapLayers().values()]
+            self.assertEqual(before, after)
+        self.assertEqual(len(spy), 0)
+        panel.language_combo.setCurrentIndex(0)
+        self.assertEqual(p._translations.preference, 'auto')
+        self.assertEqual(panel.btn_sketcher.text(), 'Disegna linea')
+        p._on_edit_requested()
+        panel.btn_apply_segment.click()
+        self.assertEqual(segments.getFeature(first.id())['pregeocage_m'], 37.5)
+        p._on_delete_requested()
+        panel.language_combo.setCurrentIndex(panel.language_combo.findData('de'))
+        self.assertTrue(p._delete_pending)
+        self.assertEqual(panel.btn_delete.text(), 'Löschen bestätigen')
+        self.assertGreater(p._route_layer.featureCount(), 0)
+        panel.language_combo.setCurrentIndex(panel.language_combo.findData('fr'))
+        reopened, restored_panel = self.create('en_US')
+        self.assertEqual(restored_panel.language_combo.currentData(), 'fr')
+        self.assertEqual(restored_panel.btn_sketcher.text(), 'Dessiner une ligne')
+        self.assertEqual(reopened._translations.settings.value('locale/userLocale'), 'en_US')
+
 
     def test_compact_panel_actions_remain_readable_and_reachable(self):
-        for language in ('it_IT', 'en_US'):
+        for language in ('it_IT', 'en_US', 'es_ES', 'pt_BR', 'fr_FR', 'de_DE'):
             _, panel = self.create(language)
+            self.seed()
             # Detach from the host adapter to test a fixed compact dock size.
             panel.setParent(None)
             panel.resize(360, 560)
@@ -147,19 +210,31 @@ class LocalizedWorkflowTests(unittest.TestCase):
             panel.chk_diff_buffers.setChecked(True)
             panel.set_segment_info(123)
             APP.processEvents()
+            QTest.qWait(50)
             bar = panel.tabs.tabBar()
             for index in (0, 1):
-                self.assertTrue(bar.rect().contains(bar.tabRect(index)))
+                self.assertTrue(bar.rect().contains(bar.tabRect(index)), language)
+                lines = panel.tabs.tabText(index).count("\n") + 1
+                self.assertGreaterEqual(bar.tabRect(index).height(), bar.fontMetrics().height() * lines, language)
+            self.assertEqual(panel.width(), 360, language)
             self.assertEqual(panel.tabs.widget(0).horizontalScrollBar().maximum(), 0)
             self.assertEqual(panel.version_label.text(), f'v{PLUGIN_VERSION}')
             self.assertIn(PLUGIN_VERSION, panel.version_label.accessibleName())
             self.assertTrue(panel.rect().contains(panel.version_label.mapTo(panel, panel.version_label.rect().center())))
             for button in (panel.btn_apply_segment, panel.btn_sketcher, panel.btn_export_plan, panel.btn_make_persistent):
+                panel.tabs.setCurrentIndex(1 if button in (panel.btn_export_plan, panel.btn_make_persistent) else 0)
+                if panel.tabs.currentWidget().isAncestorOf(button):
+                    panel.tabs.currentWidget().ensureWidgetVisible(button)
+                APP.processEvents()
                 option = QStyleOptionButton()
                 option.initFrom(button)
                 rect = button.style().subElementRect(QStyle.SubElement.SE_PushButtonContents, option, button)
                 self.assertLessEqual(button.fontMetrics().horizontalAdvance(button.text()), rect.width(), button.text())
+            panel.tabs.setCurrentIndex(0)
+            APP.processEvents()
+            QTest.qWait(50)
             self.assertTrue(panel.rect().contains(panel.btn_apply_segment.mapTo(panel, panel.btn_apply_segment.rect().center())))
+            self.assertTrue(panel.btn_apply_segment.visibleRegion().contains(panel.btn_apply_segment.rect()), language)
             panel.tabs.setCurrentIndex(1)
             page = panel.tabs.currentWidget()
             page.ensureWidgetVisible(panel.btn_make_persistent)

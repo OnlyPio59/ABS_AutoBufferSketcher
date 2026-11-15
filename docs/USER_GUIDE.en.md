@@ -4,10 +4,7 @@
 
 ## Interface language
 
-ABS follows the QGIS interface language. Italian and English are
-available, with Italian as fallback. To change it, open **Settings → Options → General**,
-choose the interface language and restart QGIS. The released 0.2.0 ZIP retains the
-Italian interface. Layer names, fields and exported data remain unchanged.
+From candidate 0.4.0, the **Language** selector below the logo offers **Automatic (QGIS)**, Italiano, English, Español, Português (Brasil), Français and Deutsch. Automatic mode follows QGIS; a manual choice updates the existing panel immediately and persists across sessions without changing QGIS’s own language settings. Unsaved distances, selected segments and project data are retained. Changing the language of QGIS itself uses its settings and requires a QGIS restart. Missing catalogs fall back to Italian; Portuguese locales use the available Brazilian Portuguese translation. Public catalog version 0.2.5 retains IT/EN.
 
 ## Loaded version
 

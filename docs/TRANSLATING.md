@@ -1,86 +1,55 @@
 # Translating ABS
 
-The 0.2.3 development source includes a complete Italian/English interface.
-The published 0.2.0 release retains its Italian interface. Other languages are not yet available.
+Candidate 0.4.0 includes Italian (`it`), English (`en`), Spanish (`es`), Brazilian Portuguese (`pt_BR`), French (`fr`) and German (`de`). Public catalog version 0.2.5 remains separate from this candidate.
 
-## Language policy
+## Language selection
 
-Italian is the source and fallback language. ABS reads QGIS's `locale/userLocale`
-when `locale/overrideFlag` is enabled; otherwise it uses Qt's effective locale.
-It tries a regional catalog before the base language (for example, `en_GB`, then
-`en`). A missing, invalid or incomplete translation leaves the Italian source text
-visible. Italian requires no translator. Changing the QGIS language requires
-restarting QGIS; live retranslation of an open panel is not implemented.
+The selector below the panel header defaults to **Automatic (QGIS)**. In that mode ABS reads QGIS’s `locale/userLocale` when `locale/overrideFlag` is enabled, otherwise Qt’s effective locale. Users may select one of the six languages explicitly. The selection is stored under `ABS/language` in the current QGIS profile; it does not change QGIS’s own locale settings.
 
-The plugin installs its translator before creating widgets, retains it while loaded,
-and removes it on unload. It does not change QGIS settings, the global locale,
-number formats or other plugins' translators.
+Manual changes update the existing panel immediately, preserving widget identities, unsaved segment distances, altitude values, selections, layer IDs and geometries. Dialogs, statuses and subsequent messages use the selected language too. The selector lists language names in their own language so it remains usable after any choice.
 
-## Mark and update source text
+Regional catalogs are tried before base catalogs. Portuguese locales fall back to the available Brazilian Portuguese catalog. Unsupported or missing catalogs fall back to the Italian source; choosing Italian removes the translator. The global numeric locale is unchanged. The plugin retains its translator while loaded and removes it on unload, without removing translators owned by QGIS or other plugins.
 
-Import `tr` from `auto_buffer_sketcher.i18n` (or `.i18n` inside the package).
-Use literal templates with named placeholders, and substitute values afterwards:
+## Source templates
+
+Use a literal template and apply named placeholders after translation:
 
 ```python
 tr('Segmento {segment_id}: distanze memorizzate nel layer.').format(segment_id=segment_id)
 ```
 
-Do not pass an f-string, concatenation or variable to `tr`. The updater rejects
-these calls rather than silently omitting their translations. Preserve placeholder
-names, units, number formatting and the meaning of altitude references such as AMSL.
-
-From the repository root:
+The dock uses `self._ui_tr('literal')` for initial static captions. This records source bindings for live retranslation in place. Formatted accessibility labels and active editing/deletion captions are refreshed explicitly. `scripts/update_translations.py` recognizes both markers and rejects variable or formatted inputs. All messages use the `AutoBufferSketcher` context.
 
 ```bash
 python3 scripts/update_translations.py
+lrelease -nounfinished auto_buffer_sketcher/i18n/auto_buffer_sketcher_*.ts
 ```
 
-This standard-library AST extractor updates the Italian and English Qt TS catalogs
-in `auto_buffer_sketcher/i18n`, using the single `AutoBufferSketcher` context.
-It preserves existing translations and message comments, marks new entries unfinished,
-and retains removed entries as vanished. The catalogs currently contain 199 completed source templates, covering UI text,
-accessibility, dialogs, statuses, errors, undo labels and plugin diagnostics.
-This counts unique templates, not every occurrence in the source.
+The updater preserves translations and comments, marks new strings unfinished and keeps removed messages as vanished. All six catalogs contain **204 completed active source templates**. Compile TS to QM with Qt Linguist; it is a development tool, not a runtime dependency. The builder requires TS/QM for all six languages and excludes unrelated files.
 
-## Edit, compile and verify
+## Verification
 
-Edit TS files with Qt Linguist. For a completed language, compile with Qt Linguist's
-`lrelease` (a development tool, not a plugin runtime dependency):
-
-```bash
-lrelease -nounfinished auto_buffer_sketcher/i18n/auto_buffer_sketcher_en.ts
-```
-
-Compile both `it` and `en` catalogs after updating source text or translations.
-Do not publish an incomplete catalog as a completed feature.
-Before releasing, verify placeholders, dynamic messages, narrow panels,
-accessibility text and existing-project/export regressions.
-`tests/test_i18n.py` checks every shipped translation against the TS sources and
-compiled QM catalog; `tests/test_localized_workflows.py` checks bilingual workflows.
-The builder includes correctly named TS/QM catalogs; unrelated files in `i18n` are
-excluded. It does not compile catalogs or install development tools.
-
-Run the catalog lifecycle checks with the Python environment supplied by QGIS:
+Run with the Python environment shipped with QGIS:
 
 ```bash
 QT_QPA_PLATFORM=offscreen PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 tests/test_i18n.py
+QT_QPA_PLATFORM=offscreen PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 tests/test_localized_workflows.py
+QT_QPA_PLATFORM=offscreen QT_SCALE_FACTOR=1.5 PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 tests/test_localized_workflows.py
 ```
 
-On Debian/Ubuntu, `lrelease` is supplied by `qttools5-dev-tools`. The tests compile
-synthetic catalogs in temporary directories, without changing QGIS user preferences.
+Tests verify every TS source, completed translation, placeholder/format specification and compiled QM result in all six languages; automatic/manual selection, persistence and regional fallback; live switching with unsaved edits; export equality; and readable controls in compact layouts. Native installation checks repeat the language choices in the real QGIS application. QGIS3/Qt5 and QGIS4/Qt6 are tested separately in CI. Synthetic locale settings are isolated from personal profiles.
 
-## Keep data stable
+On Debian/Ubuntu, Qt5 `lrelease` is supplied by `qttools5-dev-tools`; the Qt6 CI job uses `qt6-l10n-tools` and adds `/usr/lib/qt6/bin` to PATH.
 
-Translate UI text, tooltips, dialogs, accessibility labels, statuses, errors and
-human-readable undo labels. Keep the following stable:
+## Data stability
 
-- Product identity, Python identifiers, object names and signal names.
-- Stored `abs/` properties, layer roles, legacy/default layer names and GIS fields.
-- JSON keys and values, mission commands, safety profiles and exported feature names.
-- File extensions and patterns, CRS identifiers, SQL, units and numeric parameters.
-- User-supplied names, paths and errors originating from external libraries.
+Translate interface text, accessibility labels, tooltips, dialogs, statuses, errors and readable undo labels. Preserve:
 
-For other languages, add a reviewed catalog and extend the updater's language list.
-No additional languages are currently declared available.
+- Product identity, Python identifiers, object names and signals.
+- Stored `abs/` properties, layer roles/names, GIS fields and JSON keys/values.
+- Mission commands/profiles, exported names, file patterns and extensions.
+- CRS identifiers, SQL, units, numeric parameters and user-provided names/paths.
+
+Buffer-zone names such as Pregeocage, Geocage, Ground Buffer and Adjacent Area remain consistent with the existing workflow. The public presentation and guides remain Italian/English.
 
 Reference: [QGIS plugin translation workflow](https://docs.qgis.org/3.44/en/docs/pyqgis_developer_cookbook/plugins/plugins.html#translating-plugins).
