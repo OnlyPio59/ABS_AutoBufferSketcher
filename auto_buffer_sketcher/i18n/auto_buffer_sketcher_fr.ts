@@ -25,7 +25,7 @@
     </message>
     <message>
       <location filename="../dock_panel.py" line="212" />
-      <location filename="../dock_panel.py" line="339" />
+      <location filename="../dock_panel.py" line="343" />
       <source>Altitudine {name} (AMSL)</source>
       <translation>Altitude de {name} (AMSL)</translation>
     </message>
@@ -63,7 +63,7 @@ Vous pouvez déplacer, ajouter ou supprimer des sommets.</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="134" />
-      <location filename="../dock_panel.py" line="332" />
+      <location filename="../dock_panel.py" line="336" />
       <source>Automatica (QGIS)</source>
       <translation>Automatique (QGIS)</translation>
     </message>
@@ -144,7 +144,7 @@ Vous pouvez déplacer, ajouter ou supprimer des sommets.</translation>
       <translation>Échec de la suppression.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="334" />
+      <location filename="../dock_panel.py" line="338" />
       <location filename="../plugin.py" line="427" />
       <location filename="../plugin.py" line="434" />
       <source>Conferma eliminazione</source>
@@ -258,7 +258,7 @@ Vous pouvez déplacer, ajouter ou supprimer des sommets.</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="162" />
-      <location filename="../dock_panel.py" line="334" />
+      <location filename="../dock_panel.py" line="338" />
       <location filename="../plugin.py" line="456" />
       <source>Elimina linea</source>
       <translation>Supprimer la ligne</translation>
@@ -579,7 +579,7 @@ Vous pouvez déplacer, ajouter ou supprimer des sommets.</translation>
       <translation>Langue</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="341" />
+      <location filename="../dock_panel.py" line="345" />
       <source>Lingua aggiornata.</source>
       <translation>Langue mise à jour.</translation>
     </message>
@@ -644,7 +644,7 @@ rendez les couches persistantes et enregistrez le projet QGIS.</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="160" />
-      <location filename="../dock_panel.py" line="333" />
+      <location filename="../dock_panel.py" line="337" />
       <location filename="../plugin.py" line="384" />
       <source>Modifica linea</source>
       <translation>Modifier la ligne</translation>
@@ -697,7 +697,7 @@ rendez les couches persistantes et enregistrez le projet QGIS.</translation>
       <translation>Aucun itinéraire à exporter.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="338" />
+      <location filename="../dock_panel.py" line="342" />
       <location filename="../dock_panel.py" line="211" />
       <source>Pad</source>
       <translation>Pad</translation>
@@ -844,7 +844,7 @@ rendez les couches persistantes et enregistrez le projet QGIS.</translation>
       <translation>Enregistrer les couches</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="333" />
+      <location filename="../dock_panel.py" line="337" />
       <location filename="../plugin.py" line="134" />
       <location filename="../plugin.py" line="398" />
       <source>Salva modifiche</source>
@@ -931,12 +931,12 @@ rendez les couches persistantes et enregistrez le projet QGIS.</translation>
       <translation>Segment {seg_id} sélectionné : pre={value}m, geo={value2}m, gnd={value3}m</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="504" />
+      <location filename="../dock_panel.py" line="508" />
       <source>Segmento {segment_id}: distanze memorizzate nel layer.</source>
       <translation>Segment {segment_id} : distances enregistrées dans la couche.</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="502" />
+      <location filename="../dock_panel.py" line="506" />
       <source>Segmento {segment_id}: modifiche da salvare.</source>
       <translation>Segment {segment_id} : modifications non enregistrées.</translation>
     </message>
@@ -946,7 +946,7 @@ rendez les couches persistantes et enregistrez le projet QGIS.</translation>
       <translation>Segment {value}</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="500" />
+      <location filename="../dock_panel.py" line="504" />
       <source>Seleziona un segmento sulla mappa.</source>
       <translation>Sélectionnez un segment sur la carte.</translation>
     </message>
@@ -1017,7 +1017,7 @@ rendez les couches persistantes et enregistrez le projet QGIS.</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="121" />
-      <location filename="../dock_panel.py" line="335" />
+      <location filename="../dock_panel.py" line="339" />
       <source>Versione caricata: {version}</source>
       <translation>Version chargée : {version}</translation>
     </message>
@@ -1027,7 +1027,7 @@ rendez les couches persistantes et enregistrez le projet QGIS.</translation>
       <translation>Sommet ajouté : ({value:.2f}, {value2:.2f}) — total : {value3}</translation>
     </message>
     <message>
-      <location filename="../dock_panel.py" line="338" />
+      <location filename="../dock_panel.py" line="342" />
       <location filename="../dock_panel.py" line="211" />
       <source>Volo</source>
       <translation>Vol</translation>
