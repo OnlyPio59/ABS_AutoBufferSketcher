@@ -53,3 +53,9 @@ Translate interface text, accessibility labels, tooltips, dialogs, statuses, err
 Buffer-zone names such as Pregeocage, Geocage, Ground Buffer and Adjacent Area remain consistent with the existing workflow. The public presentation and guides remain Italian/English.
 
 Reference: [QGIS plugin translation workflow](https://docs.qgis.org/3.44/en/docs/pyqgis_developer_cookbook/plugins/plugins.html#translating-plugins).
+
+## Translation feedback / Segnalazioni
+
+I welcome corrections through [GitHub Issues](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/issues) or rosano_francesco@hotmail.it. Please include the ABS version, language, current wording and suggested replacement; a screenshot with private data removed is helpful. The six catalogs have technical coverage, but I do not claim an independent native-speaker review.
+
+Accolgo correzioni tramite Issues o email: indica versione, lingua, testo attuale e proposta. I controlli tecnici coprono i sei cataloghi; non dichiaro una revisione indipendente da parte di madrelingua.
