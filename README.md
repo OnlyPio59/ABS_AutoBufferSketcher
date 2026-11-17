@@ -14,13 +14,21 @@ Sto sviluppando ABS come progetto personale per disegnare e modificare rotte in 
 
 Con ABS voglio raccogliere nello stesso pannello il lavoro sulla rotta, il calcolo dei buffer e la preparazione dei dati da esportare. Per lo scambio GIS metto a disposizione GeoPackage e GeoJSON; per il flusso missione ho un’esportazione `.plan` pensata appositamente per **RigiCloud**.
 
-**Stato:** ho pubblicato la versione sperimentale [0.2.5](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.5), con versione visibile nel pannello. ABS è approvato e disponibile nel [catalogo ufficiale QGIS](https://plugins.qgis.org/plugins/auto_buffer_sketcher/), come plugin sperimentale. Lo ZIP 0.2.5 pubblicato include italiano e inglese; il candidato 0.4.0 descritto sotto porta l’interfaccia a sei lingue.
+**Stato:** pubblico la versione sperimentale [0.4.0](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.4.0), con sei lingue e compatibilità QGIS 3/4. Ho inviato questa versione al catalogo QGIS: la scansione sicurezza/qualità è passata 5/5; l’approvazione è ancora in attesa. Nel [catalogo ufficiale](https://plugins.qgis.org/plugins/auto_buffer_sketcher/) resta disponibile la 0.2.5 fino all’approvazione dell’aggiornamento.
 
 [Guida completa](docs/USER_GUIDE.md) · [Demo riproducibile](examples/README.md) · [Presentazione breve](docs/DEMO.md#italiano) · [Changelog](CHANGELOG.md) · [Contribuire](CONTRIBUTING.md)
 
-Nel candidato 0.4.0 mantengo la compatibilità QGIS 3/4 e Qt5/Qt6 e aggiungo sei lingue: italiano, inglese, spagnolo, portoghese brasiliano, francese e tedesco. Dal selettore sotto il logo posso seguire automaticamente la lingua di QGIS oppure scegliere una lingua, salvata tra le preferenze di ABS e applicata subito. Calcoli, interfaccia e formati restano invariati. La 0.2.5 è la versione attualmente approvata sul catalogo. [Compatibilità e verifiche](docs/COMPATIBILITY.md).
+Nella 0.4.0 mantengo la compatibilità QGIS 3/4 e Qt5/Qt6 e aggiungo sei lingue: italiano, inglese, spagnolo, portoghese brasiliano, francese e tedesco. Dal selettore sotto il logo posso seguire automaticamente la lingua di QGIS oppure scegliere una lingua, salvata tra le preferenze di ABS e applicata subito. Calcoli, interfaccia e formati restano invariati. La 0.2.5 è la versione attualmente approvata sul catalogo. [Compatibilità e verifiche](docs/COMPATIBILITY.md).
 
-**Demo video — 50 secondi:** [guarda o scarica la versione italiana](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/download/v0.2.4/ABS_demo_0.2.4_IT_r1.mp4). Mostro la modifica della rotta, il salvataggio indipendente delle distanze e gli export, con schermate QGIS e dati sintetici. La demo è realizzata con la 0.2.4 e mostra lo stesso flusso della 0.2.5.
+**Demo video 0.4.0 — 58 secondi:** [guarda o scarica la versione italiana](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/download/v0.4.0/ABS_demo_0.4.0_IT.mp4). Mostro la modifica della rotta, il salvataggio indipendente delle distanze e gli export, con schermate QGIS e dati sintetici. Mostro anche i temi chiaro/scuro e le sei lingue; uso schermate QGIS reali con dati sintetici.
+
+### Tema chiaro e scuro
+
+Il pannello segue il tema di QGIS; mantengo il logo sul suo fondo scuro in entrambi i casi.
+
+| Chiaro | Scuro |
+| --- | --- |
+| <img src="docs/assets/theme-light-it.png" alt="ABS 0.4.0 light" width="340"> | <img src="docs/assets/theme-dark-it.png" alt="ABS 0.4.0 dark" width="340"> |
 
 ### Da dove nasce
 
@@ -38,10 +46,10 @@ Ho quindi portato questo lavoro in QGIS: modifico la rotta, ricalcolo i buffer e
 
 ### Installazione e primo utilizzo
 
-Uso Python, Qt e PyQGIS già forniti con QGIS, senza pacchetti Python esterni. Il sorgente 0.4.0 dichiara QGIS **3.34–4.99**; le verifiche su Linux coprono **3.34.4 e 3.44.15/Qt5** e **4.2.3/Qt6**. Non ho ancora convalidato Windows o macOS. La 0.2.5 nel catalogo è limitata a QGIS 3. Per provare il candidato 0.4.0 su QGIS 4 uso il suo ZIP, quando disponibile tra le [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases).
+Uso Python, Qt e PyQGIS già forniti con QGIS, senza pacchetti Python esterni. Il sorgente 0.4.0 dichiara QGIS **3.34–4.99**; le verifiche su Linux coprono **3.34.4 e 3.44.15/Qt5** e **4.2.3/Qt6**. Non ho ancora convalidato Windows o macOS. La 0.2.5 nel catalogo è limitata a QGIS 3. Per installare subito la 0.4.0 uso lo ZIP della [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.4.0), anche su QGIS 4, in attesa dell’approvazione nel catalogo.
 
 1. In QGIS apri **Plugin → Gestisci e installa plugin → Impostazioni** e abilita **Mostra anche plugin sperimentali**.
-2. Nella scheda **Tutti**, cerca **ABS - AutoBufferSketcher** e premi **Installa plugin**. In alternativa, scarica lo ZIP dagli asset della [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.5) e usa **Installa da ZIP**. Dopo un aggiornamento, riavvia QGIS.
+2. Nella scheda **Tutti**, cerca **ABS - AutoBufferSketcher** e premi **Installa plugin**. In alternativa, scarica lo ZIP dagli asset della [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.4.0) e usa **Installa da ZIP**. Dopo un aggiornamento, riavvia QGIS.
 3. Apri ABS dalla toolbar. In **Rotta e buffer** imposta le distanze e premi **Disegna linea**: clic sinistro per i vertici, clic destro per completare, Backspace per rimuovere l’ultimo vertice, Esc per annullare.
 4. Usa **Modifica linea** e **Salva modifiche** per intervenire sui vertici. Puoi disattivare l’aggiornamento automatico e usare **Ricalcola buffer**.
 5. Per valori locali, attiva **Distanze diverse per segmento**, seleziona un segmento, modifica i campi e premi **Salva distanze del segmento** prima di selezionare il successivo.
@@ -93,13 +101,21 @@ I am developing ABS as a personal project to draw and edit routes in QGIS and ma
 
 With ABS, I want to bring route editing, buffer calculation and export preparation into the same panel. I provide GeoPackage and GeoJSON for GIS data exchange, and a `.plan` mission export designed specifically for the **RigiCloud** workflow.
 
-**Status:** I have published experimental version [0.2.5](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.5), with a visible version badge. ABS is approved and available in the [official QGIS plugin catalog](https://plugins.qgis.org/plugins/auto_buffer_sketcher/), as an experimental plugin. The published 0.2.5 ZIP includes Italian and English; candidate 0.4.0 described below expands the interface to six languages.
+**Status:** I am releasing experimental version [0.4.0](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.4.0), with six languages and QGIS 3/4 compatibility. I have submitted it to the QGIS catalog: security/quality scanning passed 5/5; approval is still pending. The [official catalog](https://plugins.qgis.org/plugins/auto_buffer_sketcher/) continues to provide 0.2.5 until the update is approved.
 
 [Detailed guide](docs/USER_GUIDE.en.md) · [Reproducible demo — Italian](examples/README.md) · [Short presentation](docs/DEMO.md#english) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
 
-In candidate 0.4.0 I retain QGIS 3/4 and Qt5/Qt6 compatibility and provide six languages: Italian, English, Spanish, Brazilian Portuguese, French and German. From the selector below the logo I can follow the QGIS language automatically or choose a language, saved in ABS preferences and applied immediately. Calculations, interface and formats remain unchanged. Version 0.2.5 is the version currently approved in the catalog. [Compatibility and checks](docs/COMPATIBILITY.md).
+In 0.4.0 I retain QGIS 3/4 and Qt5/Qt6 compatibility and provide six languages: Italian, English, Spanish, Brazilian Portuguese, French and German. From the selector below the logo I can follow the QGIS language automatically or choose a language, saved in ABS preferences and applied immediately. Calculations, interface and formats remain unchanged. Version 0.2.5 is the version currently approved in the catalog. [Compatibility and checks](docs/COMPATIBILITY.md).
 
-**Video demo — 50 seconds:** [watch or download the English version](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/download/v0.2.4/ABS_demo_0.2.4_EN_r1.mp4). I show route editing, independent segment-distance saving and exports using English QGIS screenshots and synthetic data. The demo uses 0.2.4 and shows the same workflow as 0.2.5.
+**Video demo 0.4.0 — 58 seconds:** [watch or download the English version](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/download/v0.4.0/ABS_demo_0.4.0_EN.mp4). I show route editing, independent segment-distance saving and exports using English QGIS screenshots and synthetic data. I also show light/dark themes and all six languages, using real QGIS screenshots and synthetic data.
+
+### Light and dark themes
+
+The panel follows the QGIS theme; I keep the logo on its dark background in both cases.
+
+| Light | Dark |
+| --- | --- |
+| <img src="docs/assets/theme-light-en.png" alt="ABS 0.4.0 light" width="340"> | <img src="docs/assets/theme-dark-en.png" alt="ABS 0.4.0 dark" width="340"> |
 
 ### Where it started
 
@@ -117,10 +133,10 @@ I moved this work into QGIS, where I can edit the route, recalculate its buffers
 
 ### Installation and first use
 
-I use the Python, Qt and PyQGIS components shipped with QGIS, without additional Python packages. The 0.4.0 source declares QGIS **3.34–4.99**; Linux checks cover **3.34.4 and 3.44.15/Qt5** and **4.2.3/Qt6**. I have not yet validated Windows or macOS. The catalog version 0.2.5 is limited to QGIS 3. To try the 0.4.0 candidate on QGIS 4, I use its ZIP when available in [releases](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases).
+I use the Python, Qt and PyQGIS components shipped with QGIS, without additional Python packages. The 0.4.0 source declares QGIS **3.34–4.99**; Linux checks cover **3.34.4 and 3.44.15/Qt5** and **4.2.3/Qt6**. I have not yet validated Windows or macOS. The catalog version 0.2.5 is limited to QGIS 3. To install 0.4.0 now, including on QGIS 4, I use the [release ZIP](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.4.0) while catalog approval is pending.
 
 1. In QGIS, open **Plugins → Manage and Install Plugins → Settings** and enable **Show also experimental plugins**.
-2. In **All**, search for **ABS - AutoBufferSketcher** and click **Install Plugin**. Alternatively, download the ZIP asset from the [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.2.5) and use **Install from ZIP**. Restart QGIS after an update.
+2. In **All**, search for **ABS - AutoBufferSketcher** and click **Install Plugin**. Alternatively, download the ZIP asset from the [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.4.0) and use **Install from ZIP**. Restart QGIS after an update.
 3. Open ABS from its toolbar button. In **Route / buffers** (**Rotta e buffer** in Italian), set the distances and click **Draw line** (**Disegna linea**): left-click to add vertices, right-click to finish, Backspace to remove the last vertex and Esc to cancel.
 4. Use **Edit line** (**Modifica linea**) and **Save changes** (**Salva modifiche**) to edit vertices. You can disable automatic updates and use **Recalculate buffers** (**Ricalcola buffer**).
 5. For local values, enable **Per-segment distances** (**Distanze diverse per segmento**), select a segment, change the values and click **Save segment distances** (**Salva distanze del segmento**) before selecting the next segment.

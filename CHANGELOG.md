@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.4.0 — Candidato sperimentale
+## 0.4.0 — 2026-11-17 · Sperimentale
 
 - Aggiunti spagnolo, portoghese brasiliano, francese e tedesco a italiano e inglese: 204 template completi per lingua, con cataloghi TS/QM.
 - Selettore persistente con modalità Automatica (QGIS) predefinita e cambio manuale immediato; impostazioni di QGIS e dati del progetto conservati.
