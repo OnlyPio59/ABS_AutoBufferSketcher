@@ -4,7 +4,7 @@
 
 ## Italiano
 
-Con la **0.4.0** mantengo un solo codice per QGIS **3.34–4.99**, usando `qgis.PyQt` per Qt5 e Qt6. La 0.2.5 già approvata nel catalogo resta limitata a QGIS 3; l’approvazione di quella versione non vale come pubblicazione del nuovo candidato.
+Con la **0.4.0** mantengo un solo codice per QGIS **3.34–4.99**, usando `qgis.PyQt` per Qt5 e Qt6. La 0.4.0 è approvata nel catalogo QGIS come versione sperimentale. Ho verificato anche l’installazione dal catalogo in un profilo nuovo QGIS 3.44.15 Linux: 13 controlli superati e 34 file identici al pacchetto validato.
 
 Le verifiche Linux comprendono QGIS 3.34.4/Qt5 (Ubuntu 24.04), QGIS 3.44.15/Qt 5.15.13 e QGIS 4.2.3/Qt 6.10.2 (immagine ufficiale QGIS basata su Ubuntu 26.04). In CI il runtime Qt6 è vincolato al digest dell’immagine, e il job controlla esplicitamente QGIS >=4 e Qt6. Windows e macOS non sono ancora convalidati; non dichiaro supporto a QGIS 5.
 
@@ -16,7 +16,7 @@ La migrazione riguarda enum e import Qt/QGIS e i tipi dei campi: il bridge conse
 
 ## English
 
-With **0.4.0** I maintain one codebase for QGIS **3.34–4.99**, using `qgis.PyQt` for Qt5 and Qt6. The approved catalog version 0.2.5 remains limited to QGIS 3; its approval does not mean the new candidate has been published.
+With **0.4.0** I maintain one codebase for QGIS **3.34–4.99**, using `qgis.PyQt` for Qt5 and Qt6. Version 0.4.0 is approved in the QGIS catalog as an experimental release. I also verified catalog installation in a new QGIS 3.44.15 Linux profile: 13 checks passed and all 34 installed files match the validated package.
 
 Linux checks cover QGIS 3.34.4/Qt5 (Ubuntu 24.04), QGIS 3.44.15/Qt 5.15.13, and QGIS 4.2.3/Qt 6.10.2 (the official QGIS image based on Ubuntu 26.04). CI pins the Qt6 runtime image digest and explicitly checks QGIS >=4 and Qt6. Windows and macOS are not yet validated; I do not declare QGIS 5 support.
 
@@ -35,6 +35,6 @@ The migration concerns Qt/QGIS enum scopes, imports and field types: a bridge re
 
 ## Catalog Qt6 static check — 0.4.0
 
-The catalog checker reports one item at `qt_compat.py:9`, on `QVariant.Type(int(meta_type))`. This branch runs only on QGIS <3.38 with Qt5 and supplies the field-type enum required by those older bindings. QGIS >=3.38, including the tested QGIS 4.2.3/Qt6 runtime, returns the supplied `QMetaType.Type` unchanged. I retain this bridge to support QGIS 3.34; runtime CI and native ZIP installation checks pass on both Qt generations. The catalog flag remains visible for review and is not described as a passed Qt6 catalog check.
+The catalog checker reports one item at `qt_compat.py:9`, on `QVariant.Type(int(meta_type))`. This branch runs only on QGIS <3.38 with Qt5 and supplies the field-type enum required by those older bindings. QGIS >=3.38, including the tested QGIS 4.2.3/Qt6 runtime, returns the supplied `QMetaType.Type` unchanged. I retain this bridge to support QGIS 3.34; runtime CI and native ZIP installation checks pass on both Qt generations. Version 0.4.0 was approved on 20 November 2026, with this static flag still visible. Approval and runtime evidence do not mean the catalog Qt6 static check passed.
 
-Il controllo statico del catalogo segnala il ramo `QVariant.Type` riservato a QGIS <3.38/Qt5. Su QGIS 4 quel ramo non viene eseguito: mantengo il bridge per QGIS 3.34 e documento la segnalazione per la revisione, senza dichiarare superato il controllo Qt6 del portale.
+Il controllo statico del catalogo segnala il ramo `QVariant.Type` riservato a QGIS <3.38/Qt5. Su QGIS 4 quel ramo non viene eseguito: mantengo il bridge per QGIS 3.34 e documento la segnalazione ancora visibile sulla 0.4.0 approvata, senza dichiarare superato il controllo Qt6 statico del portale.
