@@ -1,6 +1,6 @@
 # Translating ABS
 
-Candidate 0.4.0 includes Italian (`it`), English (`en`), Spanish (`es`), Brazilian Portuguese (`pt_BR`), French (`fr`) and German (`de`). Public catalog version 0.2.5 remains separate from this candidate.
+Version 0.4.0 includes Italian (`it`), English (`en`), Spanish (`es`), Brazilian Portuguese (`pt_BR`), French (`fr`) and German (`de`). Version 0.4.0 is approved in the QGIS catalog as an experimental release.
 
 ## Language selection
 

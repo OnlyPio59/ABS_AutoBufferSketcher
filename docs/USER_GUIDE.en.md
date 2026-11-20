@@ -4,7 +4,7 @@
 
 ## Interface language
 
-From candidate 0.4.0, the **Language** selector below the logo offers **Automatic (QGIS)**, Italiano, English, Español, Português (Brasil), Français and Deutsch. Automatic mode follows QGIS; a manual choice updates the existing panel immediately and persists across sessions without changing QGIS’s own language settings. Unsaved distances, selected segments and project data are retained. Changing the language of QGIS itself uses its settings and requires a QGIS restart. Missing catalogs fall back to Italian; Portuguese locales use the available Brazilian Portuguese translation. Public catalog version 0.2.5 retains IT/EN.
+From 0.4.0, the **Language** selector below the logo offers **Automatic (QGIS)**, Italiano, English, Español, Português (Brasil), Français and Deutsch. Automatic mode follows QGIS; a manual choice updates the existing panel immediately and persists across sessions without changing QGIS’s own language settings. Unsaved distances, selected segments and project data are retained. Changing the language of QGIS itself uses its settings and requires a QGIS restart. Missing catalogs fall back to Italian; Portuguese locales use the available Brazilian Portuguese translation. Version 0.4.0 is available in the official catalog as an experimental release.
 
 ## Loaded version
 

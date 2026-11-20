@@ -4,7 +4,7 @@
 
 ## Lingua dell’interfaccia
 
-Dal candidato 0.4.0, il selettore **Lingua** sotto il logo offre **Automatica (QGIS)**, Italiano, English, Español, Português (Brasil), Français e Deutsch. La modalità automatica segue la lingua di QGIS; la scelta manuale si applica subito al pannello e viene conservata per le aperture successive, senza modificare le impostazioni linguistiche di QGIS. Distanze non salvate, segmenti selezionati e dati del progetto rimangono intatti. Per cambiare la lingua dell’applicazione QGIS usa le sue impostazioni e riavviala. I cataloghi mancanti ricadono sull’italiano; i locali portoghesi usano la traduzione brasiliana disponibile. La 0.2.5 del catalogo pubblico conserva IT/EN.
+Dalla 0.4.0, il selettore **Lingua** sotto il logo offre **Automatica (QGIS)**, Italiano, English, Español, Português (Brasil), Français e Deutsch. La modalità automatica segue la lingua di QGIS; la scelta manuale si applica subito al pannello e viene conservata per le aperture successive, senza modificare le impostazioni linguistiche di QGIS. Distanze non salvate, segmenti selezionati e dati del progetto rimangono intatti. Per cambiare la lingua dell’applicazione QGIS usa le sue impostazioni e riavviala. I cataloghi mancanti ricadono sull’italiano; i locali portoghesi usano la traduzione brasiliana disponibile. La 0.4.0 è disponibile nel catalogo ufficiale come versione sperimentale.
 
 ## Versione caricata
 
