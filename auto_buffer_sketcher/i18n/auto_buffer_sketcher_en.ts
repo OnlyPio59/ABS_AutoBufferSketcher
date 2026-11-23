@@ -334,8 +334,8 @@ You can move, add or remove vertices.</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="221" />
-      <source>Esporta .plan per RigiCloud</source>
-      <translation>Export .plan for RigiCloud</translation>
+      <source>Esporta .plan</source>
+      <translation>Export .plan</translation>
     </message>
     <message>
       <location filename="../plugin.py" line="694" />
@@ -359,8 +359,13 @@ You can move, add or remove vertices.</translation>
     </message>
     <message>
       <location filename="../plugin.py" line="778" />
-      <source>Esporta piano per RigiCloud (.plan)</source>
-      <translation>Export plan for RigiCloud (.plan)</translation>
+      <source>Esporta piano missione (.plan)</source>
+      <translation>Export mission plan (.plan)</translation>
+    </message>
+    <message>
+      <location filename="../dock_panel.py" line="221" />
+      <source>Esporta rotta, quote e geofence</source>
+      <translation>Export route, altitudes and geofences</translation>
     </message>
     <message>
       <location filename="../plugin.py" line="709" />
@@ -708,6 +713,11 @@ make the layers persistent and save the QGIS project.</translation>
       <translation>Plan exported to {value}</translation>
     </message>
     <message>
+      <location filename="../plugin.py" line="780" />
+      <source>Piano missione (*.plan)</source>
+      <translation>Mission plan (*.plan)</translation>
+    </message>
+    <message>
       <location filename="../plan_exporter.py" line="144" />
       <location filename="../plugin.py" line="724" />
       <source>Più rotte presenti: selezionare una sola rotta sulla mappa per esportare il .plan.</source>
@@ -727,11 +737,6 @@ make the layers persistent and save the QGIS project.</translation>
       <location filename="../dock_panel.py" line="176" />
       <source>Pregeocage</source>
       <translation>Pregeocage</translation>
-    </message>
-    <message>
-      <location filename="../dock_panel.py" line="221" />
-      <source>Profilo missione dedicato a RigiCloud</source>
-      <translation>Dedicated RigiCloud mission profile</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="250" />
@@ -782,11 +787,6 @@ make the layers persistent and save the QGIS project.</translation>
       <location filename="../plugin.py" line="491" />
       <source>Ricalcolo interrotto: {error}</source>
       <translation>Recalculation stopped: {error}</translation>
-    </message>
-    <message>
-      <location filename="../plugin.py" line="780" />
-      <source>RigiCloud Plan (*.plan)</source>
-      <translation>RigiCloud Plan (*.plan)</translation>
     </message>
     <message>
       <location filename="../plugin.py" line="262" />

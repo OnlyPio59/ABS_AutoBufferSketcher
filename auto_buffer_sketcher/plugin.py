@@ -740,7 +740,7 @@ class AutoBufferPlugin:
         return route,buffers
 
     def _on_export_plan(self):
-        """Esporta la rotta e i buffer in un file .plan per Rigicloud."""
+        """Esporta la rotta e i buffer in un file .plan di missione."""
         project = QgsProject.instance()
 
         # Verifica che il layer rotta sia valido e presente
@@ -775,9 +775,9 @@ class AutoBufferPlugin:
 
         file_path, _ = QFileDialog.getSaveFileName(
             self.dock_panel,
-            tr('Esporta piano per RigiCloud (.plan)'),
+            tr('Esporta piano missione (.plan)'),
             os.path.expanduser("~/abs_mission.plan"),
-            tr('RigiCloud Plan (*.plan)'),
+            tr('Piano missione (*.plan)'),
         )
 
         if not file_path:

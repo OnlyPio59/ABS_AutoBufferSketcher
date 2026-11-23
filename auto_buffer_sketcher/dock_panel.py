@@ -218,7 +218,7 @@ class BufferDockPanel(QDockWidget):
         mission.addLayout(grid)
         exports = self._card(files, self._ui_tr('Esporta'), self._ui_tr('Scegli il formato per il passaggio successivo.'))
         for attr, text, signal, description in (
-            ("btn_export_plan", self._ui_tr('Esporta .plan per RigiCloud'), self.export_plan_requested, self._ui_tr('Profilo missione dedicato a RigiCloud')),
+            ("btn_export_plan", self._ui_tr('Esporta .plan'), self.export_plan_requested, self._ui_tr('Esporta rotta, quote e geofence')),
             ("btn_export_geojson", self._ui_tr('Esporta GeoJSON'), self.export_geojson_requested, self._ui_tr('Dati geografici in formato JSON')),
             ("btn_export", self._ui_tr('Esporta GeoPackage'), self.export_requested, self._ui_tr('Rotta e buffer in un file .gpkg')),
         ):

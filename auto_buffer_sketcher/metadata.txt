@@ -3,22 +3,23 @@ name=ABS - AutoBufferSketcher
 qgisMinimumVersion=3.34
 qgisMaximumVersion=4.99
 description=Draw a line and automatically generate pregeocage, geocage, ground buffer, and adjacent-area zones with real-time updates.
-version=0.4.0
+version=0.4.1
 author=Francesco Rosano
 email=rosano_francesco@hotmail.it
-about=Interactive route sketching with four metric buffer zones and independent per-segment distances. Includes GeoPackage persistence, GeoJSON, experimental RigiCloud .plan export, and Italian, English, Spanish, Brazilian Portuguese, French and German interface translations, with automatic or manual language selection.
+about=Interactive route sketching with four metric buffer zones and independent per-segment distances. Includes GeoPackage persistence, GeoJSON, experimental .plan mission export, and Italian, English, Spanish, Brazilian Portuguese, French and German interface translations, with automatic or manual language selection.
     Requires QGIS 3.34–4.99, using the Python/Qt shipped with QGIS and no external Python packages. Linux checks cover QGIS 3.34.4 and 3.44.15 with Qt5, and QGIS 4.2.3 with Qt6; Windows and macOS are not validated.
-    Buffer calculation is regional (local UTM); broad extents and polar routes are not supported. Full RigiCloud 1.19.9 compatibility, including mission parameters and altitudes, is still under validation.
+    Buffer calculation is regional (local UTM); broad extents and polar routes are not supported. Verify mission parameters and check schema compatibility before importing a .plan file.
 tracker=https://github.com/OnlyPio59/ABS_AutoBufferSketcher/issues
 repository=https://github.com/OnlyPio59/ABS_AutoBufferSketcher
 homepage=https://github.com/OnlyPio59/ABS_AutoBufferSketcher#readme
-changelog=0.4.0 - Six interface languages, automatic QGIS locale and persistent manual selection with live retranslation.
+changelog=0.4.1 - Neutral mission plan export labels and documentation; unchanged file schema.
+    0.4.0 - Six interface languages, automatic QGIS locale and persistent manual selection with live retranslation.
     0.3.0 - QGIS 3/4 and Qt5/Qt6 compatibility; unchanged buffer calculations and export formats.
     0.2.5 - Rename ambiguous local layer variables; no behavior changes.
     0.2.4 - Keep primary action labels white when disabled on first open.
     0.2.3 - Visible loaded-version badge in the panel header.
     0.2.2 - Clear native vertex-tool overlays when deleting an edited route.
-    0.2.1 - Italian/English interface, bilingual guides and compact layout checks; dedicated RigiCloud export labels.
+    0.2.1 - Italian/English interface, bilingual guides and compact layout checks; localized mission plan export labels.
     0.2.0 - ABS identity; metric buffers and segment persistence; redesigned panel and export safeguards.
 category=Vector
 icon=resources/icon.png

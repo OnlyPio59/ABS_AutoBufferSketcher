@@ -69,8 +69,8 @@ class LocalizedWorkflowTests(unittest.TestCase):
 
     def test_buttons_edit_states_errors_and_dialogs_follow_language(self):
         for language, draw, save, delete, error, title in (
-            ('it_IT', 'Disegna linea', 'Salva modifiche', 'Conferma eliminazione', 'Nessuna linea da eliminare.', 'Esporta piano per RigiCloud (.plan)'),
-            ('en_GB', 'Draw line', 'Save changes', 'Confirm deletion', 'No lines to delete.', 'Export plan for RigiCloud (.plan)'),
+            ('it_IT', 'Disegna linea', 'Salva modifiche', 'Conferma eliminazione', 'Nessuna linea da eliminare.', 'Esporta piano missione (.plan)'),
+            ('en_GB', 'Draw line', 'Save changes', 'Confirm deletion', 'No lines to delete.', 'Export mission plan (.plan)'),
         ):
             with self.subTest(language=language):
                 p, panel = self.create(language)
@@ -86,7 +86,7 @@ class LocalizedWorkflowTests(unittest.TestCase):
                 with patch('auto_buffer_sketcher.plugin.QFileDialog.getSaveFileName', return_value=('', '')) as dialog:
                     p._on_export_plan()
                 self.assertEqual(dialog.call_args.args[1], title)
-                self.assertEqual(dialog.call_args.args[3], 'RigiCloud Plan (*.plan)')
+                self.assertEqual(dialog.call_args.args[3], 'Piano missione (*.plan)' if language == 'it_IT' else 'Mission plan (*.plan)')
 
     def test_two_segment_values_survive_switching_persistence_and_language_change(self):
         p, panel = self.create('it_IT')

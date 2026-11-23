@@ -7,7 +7,7 @@ L’interfaccia della versione 0.2.3 segue la lingua di QGIS: italiano e inglese
 con italiano come ripiego. Per cambiare lingua riavvia QGIS dopo la modifica
 in Impostazioni → Opzioni → Generale.
 
-Requisiti del candidato 0.4.0: QGIS 3.34–4.99. Verifiche su Linux con
+Requisiti: QGIS 3.34–4.99. Verifiche su Linux con
 QGIS 3.34.4 e 3.44.15/Qt5 e QGIS 4.2.3/Qt6; Windows e macOS non convalidati.
 Non richiede pacchetti Python esterni a QGIS.
 
@@ -24,10 +24,9 @@ Missione e file contiene quote AMSL, export e salvataggio. Salva distanze
 memorizza i valori nel layer corrente. Rendi layer persistenti conserva
 anche i segmenti su GeoPackage; salva poi il progetto QGIS. Esporta
 GeoPackage salva una copia della rotta e dei buffer senza i segmenti.
-GeoJSON esporta le geometrie in WGS84. L’esportazione .plan è pensata
-appositamente per RigiCloud, non come formato missione universale. Richiede una
-rotta continua con almeno tre vertici; la compatibilità completa con
-RigiCloud 1.19.9 è ancora in validazione.
+GeoJSON esporta le geometrie in WGS84. L’esportazione .plan produce un file
+con lo schema missione di ABS. Richiede una
+rotta continua con almeno tre vertici. Verifica che il software di destinazione supporti lo schema.
 
 Il calcolo UTM è regionale: estensioni oltre 6 gradi e zone polari non
 sono supportate. Consulta i messaggi nel fondo del pannello.
@@ -35,8 +34,7 @@ sono supportate. Consulta i messaggi nel fondo del pannello.
 Guida completa e sorgenti:
 https://github.com/OnlyPio59/ABS_AutoBufferSketcher
 
-Questo candidato resta sperimentale; la 0.2.5 approvata nel catalogo QGIS
-è distinta dal nuovo pacchetto 0.4.0.
+Il plugin è sperimentale.
 Per la licenza completa vedi LICENSE; attribuzione in NOTICE.
 
 ## English
@@ -46,7 +44,7 @@ ABS offers six languages: Italian, English, Spanish, Brazilian Portuguese,
 French and German, with Italian as fallback. Restart QGIS after changing the language in
 Settings → Options → General.
 
-Candidate 0.4.0 requirements: QGIS 3.34–4.99, with Linux checks on
+Requirements: QGIS 3.34–4.99, with Linux checks on
 3.34.4 and 3.44.15/Qt5 and 4.2.3/Qt6. Windows and macOS are not validated. No external Python packages
 are required beyond the components provided by QGIS.
 
@@ -56,13 +54,12 @@ Use Per-segment distances and Save segment distances to store independent values
 Make layers persistent saves route, buffers and segments; then save the QGIS project.
 GeoPackage export copies route and buffers without the segments layer.
 
-GeoJSON exports geometries in WGS84. The .plan export is dedicated to RigiCloud
-and requires a single continuous route with at least three vertices. Full
-RigiCloud 1.19.9 compatibility still needs validation. Local UTM calculation is
+GeoJSON exports geometries in WGS84. The .plan export uses the ABS mission schema
+and requires a single continuous route with at least three vertices.
+Check that the destination software supports this schema. Local UTM calculation is
 regional; extents beyond 6 degrees and polar regions are unsupported.
 
-This candidate remains experimental; approved catalog version 0.2.5
-is separate from the new 0.4.0 package.
+The plugin is experimental.
 See the full English guide and source at:
 https://github.com/OnlyPio59/ABS_AutoBufferSketcher/blob/main/docs/USER_GUIDE.en.md
 
