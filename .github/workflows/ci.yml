@@ -113,9 +113,10 @@ jobs:
         run: |
           export ABS_NATIVE_ROOT="$(mktemp -d /tmp/abs-native-XXXXXX)"
           python3 scripts/build_plugin.py --output "$ABS_NATIVE_ROOT/package"
-          packages=("$ABS_NATIVE_ROOT"/package/ABS_AutoBufferSketcher_*.zip)
-          test "${#packages[@]}" -eq 1 && test -f "${packages[0]}"
-          export ABS_NATIVE_ZIP="${packages[0]}"
+          set -- "$ABS_NATIVE_ROOT"/package/ABS_AutoBufferSketcher_*.zip
+          test "$#" -eq 1
+          test -f "$1"
+          export ABS_NATIVE_ZIP="$1"
           export ABS_NATIVE_RESULT="$ABS_NATIVE_ROOT/result.json"
           if ! timeout 90 xvfb-run -a qgis --profiles-path "$ABS_NATIVE_ROOT/profiles" --profile ABS-native --nologo --noplugins --noversioncheck --code "$GITHUB_WORKSPACE/tests/native_qgis_install.py" > "$ABS_NATIVE_ROOT/qgis.log" 2>&1; then
             cat "$ABS_NATIVE_ROOT/qgis.log"
