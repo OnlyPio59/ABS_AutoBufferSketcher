@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.1
+
+- Dicitura neutra per il piano missione `.plan` nell’interfaccia e nella documentazione.
+- Lo schema e i parametri del file esportato sono invariati.
+
 ## 0.4.0 — 2026-11-17 · Sperimentale
 
 - Aggiunti spagnolo, portoghese brasiliano, francese e tedesco a italiano e inglese: 204 template completi per lingua, con cataloghi TS/QM.
@@ -45,7 +50,7 @@
 - Aggiunti cataloghi IT/EN iniziali, aggiornamento riproducibile dei testi marcati e inclusione TS/QM nel builder. Completata la traduzione inglese di 198 testi, con cataloghi compilati IT/EN, controlli dei placeholder, flussi bilingui ed export invarianti.
 
 - Presentazione divisa in italiano e inglese, con voce dell’autore in prima persona.
-- Destinazione mission planning software esplicita nel comando e nel dialogo di esportazione .plan, senza modificare lo schema o i parametri esportati.
+- Etichette localizzate nel comando e nel dialogo di esportazione .plan, senza modificare lo schema o i parametri esportati.
 - Documentata la distinzione fra .plan dedicato, formati GIS di scambio e possibili esportatori futuri.
 
 ## 0.2.0 — Sperimentale
@@ -66,4 +71,4 @@
 - Collegamenti della repository e descrizione dei quattro buffer aggiornati nei metadati.
 - Test di regressione estesi alla compatibilità dei progetti e GeoPackage precedenti.
 
-Il progetto resta sperimentale. La distribuzione ufficiale QGIS e la compatibilità completa con mission planning software sono ancora in preparazione.
+Il progetto resta sperimentale. La distribuzione ufficiale QGIS è ancora in preparazione.

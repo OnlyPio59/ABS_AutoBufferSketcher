@@ -65,7 +65,7 @@ Le tabelle estranee del GeoPackage di destinazione vengono conservate. Un GeoPac
 
 **Volo** e **Pad** sono quote AMSL, riferite al livello medio del mare. I valori iniziali sono rispettivamente 120 e 40 metri; l’intervallo dei campi è 0–5000 metri con due decimali. Non sono altezze AGL automaticamente ricavate dal terreno.
 
-Il formato `.plan` contiene anche parametri statici ereditati dall’esportatore. Il funzionamento del file è stato verificato dall’autore nel proprio ambiente mission planning software 1.19.9; la prova non copre ogni configurazione di missione e modificare le quote nel pannello non convalida una missione.
+Il file `.plan` contiene parametri statici della missione oltre alle quote impostate nel pannello. Verifica queste impostazioni prima di usare il piano.
 
 ## Scegliere il formato
 
@@ -74,7 +74,7 @@ Il formato `.plan` contiene anche parametri statici ereditati dall’esportatore
 | Esporta GeoPackage | Rotta e quattro buffer | Consegnare una copia dei risultati GIS. |
 | Rendi layer persistenti | Rotta, buffer e segmenti | Continuare il lavoro conservando i parametri per segmento. |
 | GeoJSON | Rotte, waypoint e buffer in WGS84 | Scambio con altri strumenti GIS; conserva parti separate e buchi. |
-| .plan per mission planning software | Una rotta selezionata, buffer e parametri del profilo dedicato | Flusso mission planning software, nei limiti rappresentabili e con prova pratica positiva nel flusso dell’autore. |
+| .plan | Una rotta selezionata, buffer e parametri di missione | Verifica la compatibilità dello schema prima dell’importazione. |
 
 Se ci sono più rotte, l’esportazione `.plan` richiede la selezione esplicita di una sola rotta. Il profilo attuale richiede almeno tre vertici e rifiuta parti separate, anelli interni o altre geometrie non rappresentabili. Non tutti i file con estensione `.plan` usano lo stesso schema.
 
@@ -91,10 +91,6 @@ Se ci sono più rotte, l’esportazione `.plan` richiede la selezione esplicita 
 
 Per una segnalazione riproducibile usa il modello Issues e un esempio sintetico. Indica versione QGIS/plugin, sistema, CRS, modalità dei buffer e passaggi eseguiti.
 
-## A quale applicazione è destinato il .plan?
+## Compatibilità del piano missione
 
-Il comando **Esporta .plan** produce il profilo specifico attualmente implementato per quel flusso, con missione VTOL, parametri di sicurezza e geofence. L’autore ha verificato il funzionamento del file nel proprio ambiente mission planning software 1.19.9; non è una verifica di ogni possibile configurazione. Non è una dichiarazione di conformità a un formato universale.
-
-L’estensione `.plan` non identifica da sola uno schema comune a tutte le applicazioni. Per esempio, [QGroundControl documenta un proprio formato](https://docs.qgroundcontrol.com/master/en/qgc-dev-guide/file_formats/plan.html), diverso da quello attuale di ABS. Un eventuale esportatore aggiuntivo dovrà essere identificato con il nome del destinatario, avere una specifica/versione e prove di importazione dedicate. Non è presente un secondo esportatore missione generico.
-
-Per scambiare le geometrie senza vincolarsi al profilo missione mission planning software, sono disponibili GeoJSON e GeoPackage; questi non equivalgono a un piano di volo eseguibile in qualsiasi software.
+Il file `.plan` contiene una missione VTOL, parametri di sicurezza e geofence. Controlla che il software di destinazione supporti lo schema del file e verifica i parametri della missione prima dell’uso.

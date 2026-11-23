@@ -740,7 +740,7 @@ class AutoBufferPlugin:
         return route,buffers
 
     def _on_export_plan(self):
-        """Esporta la rotta e i buffer in un file .plan per mission planning software."""
+        """Esporta la rotta e i buffer in un file .plan di missione."""
         project = QgsProject.instance()
 
         # Verifica che il layer rotta sia valido e presente
@@ -777,7 +777,7 @@ class AutoBufferPlugin:
             self.dock_panel,
             tr('Esporta piano missione (.plan)'),
             os.path.expanduser("~/abs_mission.plan"),
-            tr('Mission plan (*.plan)'),
+            tr('Piano missione (*.plan)'),
         )
 
         if not file_path:

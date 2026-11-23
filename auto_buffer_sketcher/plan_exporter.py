@@ -1,5 +1,5 @@
 """
-plan_exporter.py — Esportatore in formato .plan (mission planning software) per ABS - AutoBufferSketcher.
+plan_exporter.py — Esportatore in formato .plan per ABS - AutoBufferSketcher.
 """
 
 from .i18n import tr
@@ -21,7 +21,7 @@ from qgis.core import (
 TAG = PLUGIN_NAME
 
 class PlanExporter:
-    """Gestisce la generazione del file .plan per mission planning software."""
+    """Gestisce la generazione del file .plan di missione."""
 
     def __init__(self):
         self.last_error = ""
@@ -390,7 +390,7 @@ class PlanExporter:
         alt_flight = config.get("alt_flight", 120.0)
         
         # Le distanze passate sono assolute dalla rotta.
-        # mission planning software vuole i valori incrementali rispetto ai layer interni:
+        # Lo schema del file usa valori incrementali rispetto ai layer interni:
         # - distancePathPregeocage = pregeocage
         # - distancePregeocageGeocage = geocage - pregeocage
         # - distanceBufferGeocage = ground - geocage

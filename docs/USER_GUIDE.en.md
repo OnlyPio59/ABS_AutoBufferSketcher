@@ -96,10 +96,7 @@ and `-shm` files accompanying an open GeoPackage are database service files.
 values are 120 and 40 metres respectively; fields accept 0–5000 metres with two
 decimals. These are not AGL heights automatically derived from terrain.
 
-The `.plan` format also contains inherited static exporter parameters. The author has
-verified that the exported file works in their mission planning software 1.19.9 environment. This
-does not cover every mission configuration; changing panel altitudes does not
-validate a mission.
+The `.plan` file contains static mission settings alongside the altitudes entered in the panel. Review these settings before using the mission plan.
 
 ## Choosing an export
 
@@ -108,7 +105,7 @@ validate a mission.
 | Export GeoPackage | Route and four buffers | Deliver a copy of the GIS results. |
 | Make layers persistent | Route, buffers and segments | Continue work while retaining per-segment parameters. |
 | GeoJSON | Routes, waypoints and buffers in WGS84 | Exchange with GIS tools; preserves separate parts and holes. |
-| .plan for mission planning software | One selected route, buffers and dedicated profile parameters | mission planning software workflow, within representable limits; a practical check in the author's workflow passed. |
+| .plan | One selected route, buffers and mission settings | Check schema compatibility before import. |
 
 If several routes exist, `.plan` export requires explicitly selecting one route.
 The current profile needs at least three vertices and rejects separate parts,
@@ -129,18 +126,6 @@ extension do not necessarily share a schema.
 Use the Issues template and a synthetic example for reproducible reports. Include
 QGIS/plugin versions, operating system, CRS, buffer mode and the steps performed.
 
-## Which application is the .plan intended for?
+## Mission plan compatibility
 
-**Export .plan** generates the dedicated profile currently implemented
-for that workflow, including a VTOL mission, safety settings and geofences. The author
-has verified that the exported file works in their mission planning software 1.19.9 environment;
-this does not validate every possible configuration.
-
-The `.plan` extension alone does not identify a common schema across applications.
-For example, [QGroundControl documents its own format](https://docs.qgroundcontrol.com/master/en/qgc-dev-guide/file_formats/plan.html),
-which differs from the current ABS profile. An additional exporter would need a
-named destination, a schema/version and dedicated import tests. There is no second
-generic mission exporter.
-
-GeoJSON and GeoPackage exchange geometries independently of the mission planning software mission
-profile; they are not flight plans executable in every application.
+The `.plan` file contains a VTOL mission, safety settings and geofences. Check that the destination software supports the file schema and verify the mission parameters before use.

@@ -335,7 +335,7 @@ Sie können Stützpunkte verschieben, hinzufügen oder entfernen.</translation>
     <message>
       <location filename="../dock_panel.py" line="221" />
       <source>Esporta .plan</source>
-      <translation>.plan für mission planning software exportieren</translation>
+      <translation>.plan exportieren</translation>
     </message>
     <message>
       <location filename="../plugin.py" line="694" />
@@ -360,7 +360,12 @@ Sie können Stützpunkte verschieben, hinzufügen oder entfernen.</translation>
     <message>
       <location filename="../plugin.py" line="778" />
       <source>Esporta piano missione (.plan)</source>
-      <translation>Plan für mission planning software exportieren (.plan)</translation>
+      <translation>Missionsplan exportieren (.plan)</translation>
+    </message>
+    <message>
+      <location filename="../dock_panel.py" line="221" />
+      <source>Esporta rotta, quote e geofence</source>
+      <translation>Route, Höhen und Geofences exportieren</translation>
     </message>
     <message>
       <location filename="../plugin.py" line="709" />
@@ -708,6 +713,11 @@ machen Sie die Layer persistent und speichern Sie das QGIS-Projekt.</translation
       <translation>Plan exportiert nach {value}</translation>
     </message>
     <message>
+      <location filename="../plugin.py" line="780" />
+      <source>Piano missione (*.plan)</source>
+      <translation>Missionsplan (*.plan)</translation>
+    </message>
+    <message>
       <location filename="../plan_exporter.py" line="144" />
       <location filename="../plugin.py" line="724" />
       <source>Più rotte presenti: selezionare una sola rotta sulla mappa per esportare il .plan.</source>
@@ -727,11 +737,6 @@ machen Sie die Layer persistent und speichern Sie das QGIS-Projekt.</translation
       <location filename="../dock_panel.py" line="176" />
       <source>Pregeocage</source>
       <translation>Pregeocage</translation>
-    </message>
-    <message>
-      <location filename="../dock_panel.py" line="221" />
-      <source>Esporta rotta, quote e geofence</source>
-      <translation>Spezielles mission planning software-Missionsprofil</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="250" />
@@ -782,11 +787,6 @@ machen Sie die Layer persistent und speichern Sie das QGIS-Projekt.</translation
       <location filename="../plugin.py" line="491" />
       <source>Ricalcolo interrotto: {error}</source>
       <translation>Neuberechnung angehalten: {error}</translation>
-    </message>
-    <message>
-      <location filename="../plugin.py" line="780" />
-      <source>Mission plan (*.plan)</source>
-      <translation>Mission plan (*.plan)</translation>
     </message>
     <message>
       <location filename="../plugin.py" line="262" />
