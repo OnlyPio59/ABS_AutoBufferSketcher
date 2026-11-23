@@ -10,7 +10,7 @@ Le verifiche Linux comprendono QGIS 3.34.4/Qt5 (Ubuntu 24.04), QGIS 3.44.15/Qt 5
 
 Le suite controllano geometrie e buffer, distanze salvate per segmento, adozione dei layer storici, conservazione delle tabelle GeoPackage estranee, persistenza, riapertura del progetto e export GeoPackage/GeoJSON/.plan. I controlli dell’interfaccia coprono tutte e sei le lingue, palette, pulsanti, layout compatto e scala 150%.
 
-La prova nativa aggiuntiva installa lo ZIP con il gestore di QGIS in un profilo temporaneo nuovo, verifica il codice caricato, salva due distanze indipendenti, esporta nei tre formati e riapre il progetto persistente. Le prove offscreen non certificano tutte le interazioni desktop o ogni configurazione di missione mission planning software.
+La prova nativa aggiuntiva installa lo ZIP con il gestore di QGIS in un profilo temporaneo nuovo, verifica il codice caricato, salva due distanze indipendenti, esporta nei tre formati e riapre il progetto persistente. Le prove offscreen non certificano tutte le interazioni desktop o ogni configurazione di missione.
 
 La migrazione riguarda enum e import Qt/QGIS e i tipi dei campi: il bridge conserva `QVariant.Type` per QGIS <3.38 e usa `QMetaType.Type` sulle versioni successive. Mantengo i nomi dei layer, lo schema salvato, i calcoli e i formati esportati.
 
@@ -22,7 +22,7 @@ Linux checks cover QGIS 3.34.4/Qt5 (Ubuntu 24.04), QGIS 3.44.15/Qt 5.15.13, and 
 
 The suites check geometry and buffers, saved per-segment distances, adoption of legacy layers, preservation of unrelated GeoPackage tables, persistence, project reopen and GeoPackage/GeoJSON/.plan export. Interface checks cover all six languages, palettes, controls, compact layout and 150% scale.
 
-The additional native check installs the ZIP with QGIS’s installer in a new temporary profile, verifies the loaded code, saves two independent distances, exports all three formats and reopens the persistent project. Offscreen checks do not certify every desktop interaction or mission planning software mission configuration.
+The additional native check installs the ZIP with QGIS’s installer in a new temporary profile, verifies the loaded code, saves two independent distances, exports all three formats and reopens the persistent project. Offscreen checks do not certify every desktop interaction or mission configuration.
 
 The migration concerns Qt/QGIS enum scopes, imports and field types: a bridge retains `QVariant.Type` on QGIS <3.38 and uses `QMetaType.Type` on newer versions. I preserve layer names, stored schema, calculations and exported formats.
 

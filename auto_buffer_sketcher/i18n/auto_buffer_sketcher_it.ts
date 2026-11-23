@@ -363,6 +363,11 @@ Puoi spostare, aggiungere o rimuovere vertici.</translation>
       <translation>Esporta piano missione (.plan)</translation>
     </message>
     <message>
+      <location filename="../dock_panel.py" line="221" />
+      <source>Esporta rotta, quote e geofence</source>
+      <translation>Esporta rotta, quote e geofence</translation>
+    </message>
+    <message>
       <location filename="../plugin.py" line="709" />
       <source>Esportazione completata: {file_path}</source>
       <translation>Esportazione completata: {file_path}</translation>
@@ -708,6 +713,11 @@ rendi persistenti i layer e salva il progetto QGIS.</translation>
       <translation>Piano esportato in {value}</translation>
     </message>
     <message>
+      <location filename="../plugin.py" line="780" />
+      <source>Piano missione (*.plan)</source>
+      <translation>Piano missione (*.plan)</translation>
+    </message>
+    <message>
       <location filename="../plan_exporter.py" line="144" />
       <location filename="../plugin.py" line="724" />
       <source>Più rotte presenti: selezionare una sola rotta sulla mappa per esportare il .plan.</source>
@@ -727,11 +737,6 @@ rendi persistenti i layer e salva il progetto QGIS.</translation>
       <location filename="../dock_panel.py" line="176" />
       <source>Pregeocage</source>
       <translation>Pregeocage</translation>
-    </message>
-    <message>
-      <location filename="../dock_panel.py" line="221" />
-      <source>Esporta rotta, quote e geofence</source>
-      <translation>Esporta rotta, quote e geofence</translation>
     </message>
     <message>
       <location filename="../dock_panel.py" line="250" />
@@ -782,11 +787,6 @@ rendi persistenti i layer e salva il progetto QGIS.</translation>
       <location filename="../plugin.py" line="491" />
       <source>Ricalcolo interrotto: {error}</source>
       <translation>Ricalcolo interrotto: {error}</translation>
-    </message>
-    <message>
-      <location filename="../plugin.py" line="780" />
-      <source>Mission plan (*.plan)</source>
-      <translation>Mission plan (*.plan)</translation>
     </message>
     <message>
       <location filename="../plugin.py" line="262" />

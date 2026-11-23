@@ -86,7 +86,7 @@ class LocalizedWorkflowTests(unittest.TestCase):
                 with patch('auto_buffer_sketcher.plugin.QFileDialog.getSaveFileName', return_value=('', '')) as dialog:
                     p._on_export_plan()
                 self.assertEqual(dialog.call_args.args[1], title)
-                self.assertEqual(dialog.call_args.args[3], 'Mission plan (*.plan)')
+                self.assertEqual(dialog.call_args.args[3], 'Piano missione (*.plan)' if language == 'it_IT' else 'Mission plan (*.plan)')
 
     def test_two_segment_values_survive_switching_persistence_and_language_change(self):
         p, panel = self.create('it_IT')

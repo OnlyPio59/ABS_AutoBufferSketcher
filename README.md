@@ -12,7 +12,7 @@
 
 Sto sviluppando ABS come progetto personale per disegnare e modificare rotte in QGIS e gestire quattro fasce di buffer, con distanze uniformi oppure diverse per ogni segmento. Ho portato questo progetto anche nella mia tesina di fine corso.
 
-Con ABS voglio raccogliere nello stesso pannello il lavoro sulla rotta, il calcolo dei buffer e la preparazione dei dati da esportare. Per lo scambio GIS metto a disposizione GeoPackage e GeoJSON; per il flusso missione ho un’esportazione `.plan` pensata appositamente per **mission planning software**.
+Con ABS voglio raccogliere nello stesso pannello il lavoro sulla rotta, il calcolo dei buffer e la preparazione dei dati da esportare. Per lo scambio GIS metto a disposizione GeoPackage e GeoJSON; per il flusso missione ho un’esportazione `.plan` per le missioni.
 
 **Stato:** ho pubblicato la [0.4.0](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.4.0), **approvata e disponibile nel [catalogo ufficiale QGIS](https://plugins.qgis.org/plugins/auto_buffer_sketcher/)** come versione sperimentale. Include sei lingue e compatibilità QGIS 3/4. La scansione sicurezza/qualità è passata 5/5 senza rilievi; ho verificato anche l’installazione dal catalogo in un profilo QGIS pulito.
 
@@ -32,9 +32,9 @@ Il pannello segue il tema di QGIS; mantengo il logo sul suo fondo scuro in entra
 
 ### Da dove nasce
 
-Ho creato ABS partendo da una difficoltà concreta nella pianificazione delle rotte: nel mio flusso di lavoro con mission planning software, correggere un tratto poteva richiedere di riposizionare manualmente anche molti punti delle fasce associate. Volevo poter intervenire su singoli vertici e adattare le distanze lungo il percorso mantenendo il controllo della geometria complessiva.
+Ho creato ABS partendo da una difficoltà concreta nella pianificazione delle rotte: correggere un tratto poteva richiedere di riposizionare manualmente anche molti punti delle fasce associate. Volevo poter intervenire su singoli vertici e adattare le distanze lungo il percorso mantenendo il controllo della geometria complessiva.
 
-Ho quindi portato questo lavoro in QGIS: modifico la rotta, ricalcolo i buffer e posso impostare distanze diverse per segmento. Nel flusso che ho descritto nella mia tesina, esportavo poi il `.plan` e lo importavo in mission planning software, dove rifinivo quote e geocage. È da questa esigenza che nasce l’esportazione dedicata: ABS si concentra sul lavoro geometrico e prepara il passaggio alla piattaforma di pianificazione.
+Ho quindi portato questo lavoro in QGIS: modifico la rotta, ricalcolo i buffer e posso impostare distanze diverse per segmento. Posso poi esportare un piano missione in formato `.plan`.
 
 ### Cosa posso fare con ABS
 
@@ -42,7 +42,7 @@ Ho quindi portato questo lavoro in QGIS: modifico la rotta, ricalcolo i buffer e
 - Generare **Pregeocage**, **Geocage**, **Ground Buffer** e **Adjacent Area** in metri, con aggiornamento automatico o manuale.
 - Salvare distanze indipendenti per ciascun segmento e ritrovarle passando da un segmento all’altro.
 - Rendere persistenti i layer e conservare modalità e parametri nel progetto QGIS.
-- Esportare geometrie GIS oppure un profilo missione `.plan` dedicato a mission planning software, entro i limiti documentati.
+- Esportare geometrie GIS oppure un piano missione `.plan`, entro i limiti documentati.
 
 ### Installazione e primo utilizzo
 
@@ -69,11 +69,9 @@ Per lavorare dal sorgente, copia `auto_buffer_sketcher` in `python/plugins` del 
 
 Il pulsante del segmento salva nel layer corrente: per conservare layer temporanei dopo la chiusura uso **Rendi layer persistenti** e salvo il progetto QGIS.
 
-### Perché specifico mission planning software
+### Il file .plan
 
-Il `.plan` che esporto contiene una missione VTOL, un profilo e parametri di sicurezza e i geofence. Lo considero un’esportazione dedicata al flusso **mission planning software**, non un piano universale compatibile con qualunque applicazione. Ho verificato il funzionamento del file esportato nel mio ambiente **mission planning software 1.19.9**. Questa prova pratica riguarda il flusso che utilizzo e non estende la compatibilità ad altri formati o a ogni possibile configurazione di missione.
-
-Non ho ancora implementato un secondo esportatore missione generico. Per aggiungerlo dovrò prima scegliere l’applicazione destinataria e il suo schema: la stessa estensione `.plan` è usata anche da formati differenti. GeoJSON e GeoPackage rimangono le mie opzioni di scambio delle geometrie GIS.
+Esporto una missione VTOL con rotta, quote, parametri di sicurezza e geofence. La compatibilità dipende dallo schema supportato dal software di destinazione. Per scambiare le geometrie GIS uso GeoJSON o GeoPackage.
 
 ### Limiti e verifiche
 
@@ -99,7 +97,7 @@ Mantengo la compatibilità con i layer storici `ABC` e con i nomi personalizzati
 
 I am developing ABS as a personal project to draw and edit routes in QGIS and manage four buffer zones, with uniform distances or different values for each segment. I also presented this project in my end-of-course thesis.
 
-With ABS, I want to bring route editing, buffer calculation and export preparation into the same panel. I provide GeoPackage and GeoJSON for GIS data exchange, and a `.plan` mission export designed specifically for the **mission planning software** workflow.
+With ABS, I want to bring route editing, buffer calculation and export preparation into the same panel. I provide GeoPackage and GeoJSON for GIS data exchange, and a `.plan` mission export for mission planning.
 
 **Status:** I have published [0.4.0](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.4.0), **approved and available in the [official QGIS catalog](https://plugins.qgis.org/plugins/auto_buffer_sketcher/)** as an experimental release. It includes six languages and QGIS 3/4 compatibility. Security/quality scanning passed 5/5 with no issues; I also verified installation from the catalog in a clean QGIS profile.
 
@@ -119,9 +117,9 @@ The panel follows the QGIS theme; I keep the logo on its dark background in both
 
 ### Where it started
 
-I created ABS to address a practical difficulty in route planning: in my mission planning software workflow, correcting a section of a route could also require manually repositioning many points in the associated zones. I wanted to edit individual vertices and adjust distances along the route while keeping control of the overall geometry.
+I created ABS to address a practical difficulty in route planning: correcting a section of a route could also require manually repositioning many points in the associated zones. I wanted to edit individual vertices and adjust distances along the route while keeping control of the overall geometry.
 
-I moved this work into QGIS, where I can edit the route, recalculate its buffers and set different distances for each segment. In the workflow I described in my thesis, I then exported the `.plan` and imported it into mission planning software, where I refined altitudes and geocage settings. This is why the dedicated export exists: ABS focuses on geometry editing and prepares the handoff to the planning platform.
+I moved this work into QGIS, where I can edit the route, recalculate its buffers and set different distances for each segment. I can then export a mission plan as a `.plan` file.
 
 ### What I can do with ABS
 
@@ -129,7 +127,7 @@ I moved this work into QGIS, where I can edit the route, recalculate its buffers
 - Generate **Pregeocage**, **Geocage**, **Ground Buffer** and **Adjacent Area** in metres, with automatic or manual updates.
 - Save independent distances for each segment and retrieve them when switching between segments.
 - Save temporary layers to disk and preserve modes and parameters in the QGIS project.
-- Export GIS geometries or a dedicated mission planning software `.plan` mission profile, within the documented limits.
+- Export GIS geometries or a `.plan` mission file, within the documented limits.
 
 ### Installation and first use
 
@@ -156,11 +154,9 @@ To work from source, copy `auto_buffer_sketcher` into the QGIS profile’s `pyth
 
 The segment button saves values in the current layer. To retain temporary layers after closing QGIS, I use **Rendi layer persistenti** (Make layers persistent) and save the QGIS project.
 
-### Why I specify mission planning software
+### The .plan file
 
-The `.plan` I export contains a VTOL mission, a safety profile and settings, and geofences. I treat it as a dedicated export for the **mission planning software** workflow, not a universal mission plan compatible with every application. I have verified that the exported file works in my **mission planning software 1.19.9** environment. This practical check covers my workflow and does not extend compatibility to other formats or every possible mission configuration.
-
-I have not yet implemented a second generic mission exporter. Before adding one, I will need to choose its destination application and schema: the `.plan` extension is also used by different formats. GeoJSON and GeoPackage remain my options for exchanging GIS geometries.
+I export a VTOL mission with the route, altitudes, safety settings and geofences. Compatibility depends on the schema supported by the destination software. For GIS geometry exchange I use GeoJSON or GeoPackage.
 
 ### Limits and checks
 
