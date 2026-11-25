@@ -15,6 +15,12 @@ class PackageTests(unittest.TestCase):
         self.root=Path(self.temp.name)/'source';self.root.mkdir()
         shutil.copytree(ROOT/'auto_buffer_sketcher',self.root/'auto_buffer_sketcher',ignore=shutil.ignore_patterns('__pycache__','*.pyc'))
         for name in ('LICENSE','NOTICE'):shutil.copyfile(ROOT/name,self.root/name)
+        metadata = self.root / 'auto_buffer_sketcher/metadata.txt'
+        text = metadata.read_text()
+        metadata.write_text('\n'.join(
+            'experimental=True' if line.startswith('experimental=') else line
+            for line in text.splitlines()
+        ) + '\n')
     def tearDown(self):self.temp.cleanup()
     def test_reproducible_and_only_plugin_files(self):
         package=self.root/'auto_buffer_sketcher'
@@ -49,9 +55,14 @@ class PackageTests(unittest.TestCase):
     def test_release_path_with_synthetic_contact_fixture(self):
         # Fixture exercises validation only; no real contact is selected for the project.
         path=self.root/'auto_buffer_sketcher/metadata.txt'
+        metadata = path.read_text()
+        path.write_text(metadata.replace('experimental=True', 'experimental=False'))
         path.write_text('\n'.join('email=fixture@abs.test' if line.startswith('email=') else line for line in path.read_text().splitlines())+'\n')
         archive,_,_,valid=build_plugin(self.root,Path(self.temp.name)/'release')
         self.assertTrue(valid);self.assertFalse(archive.name.endswith('-dev.zip'))
+        with zipfile.ZipFile(archive) as package:
+            self.assertIn(b'experimental=False', package.read('auto_buffer_sketcher/metadata.txt'))
+
     def test_license_mirror_must_match(self):
         (self.root/'auto_buffer_sketcher/LICENSE').write_text('different license')
         with self.assertRaisesRegex(ValueError,'LICENSE differs'):build_plugin(self.root,Path(self.temp.name)/'out',True)
