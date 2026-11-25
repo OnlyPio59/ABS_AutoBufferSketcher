@@ -14,7 +14,7 @@ Sto sviluppando ABS come progetto personale per disegnare e modificare rotte in 
 
 Con ABS voglio raccogliere nello stesso pannello il lavoro sulla rotta, il calcolo dei buffer e la preparazione dei dati da esportare. Per lo scambio GIS metto a disposizione GeoPackage e GeoJSON; per il flusso missione ho un’esportazione `.plan` per le missioni.
 
-**Stato:** ho pubblicato la [0.4.1](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.4.1) su GitHub e l’ho inviata per la revisione nel [catalogo ufficiale QGIS](https://plugins.qgis.org/plugins/auto_buffer_sketcher/). La 0.4.1 è sperimentale e supporta QGIS 3 e 4.
+**Stato:** la [0.4.2](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.4.2) è la release stabile di ABS per QGIS 3 e 4. La disponibilità nel gestore dei plugin è indicata nel [catalogo ufficiale QGIS](https://plugins.qgis.org/plugins/auto_buffer_sketcher/).
 
 [Guida completa](docs/USER_GUIDE.md) · [Demo riproducibile](examples/README.md) · [Presentazione breve](docs/DEMO.md#italiano) · [Changelog](CHANGELOG.md) · [Contribuire](CONTRIBUTING.md)
 
@@ -46,10 +46,10 @@ Ho quindi portato questo lavoro in QGIS: modifico la rotta, ricalcolo i buffer e
 
 ### Installazione e primo utilizzo
 
-Uso Python, Qt e PyQGIS già forniti con QGIS, senza pacchetti Python esterni. La 0.4.1 dichiara QGIS **3.34–4.99**; le verifiche su Linux coprono **3.34.4 e 3.44.15/Qt5** e **4.2.3/Qt6**. Non ho ancora convalidato Windows o macOS.
+Uso Python, Qt e PyQGIS già forniti con QGIS, senza pacchetti Python esterni. La 0.4.2 dichiara QGIS **3.34–4.99**; le verifiche su Linux coprono **3.34.4 e 3.44.15/Qt5** e **4.2.3/Qt6**. Non ho ancora convalidato Windows o macOS.
 
-1. In QGIS apri **Plugin → Gestisci e installa plugin → Impostazioni** e abilita **Mostra anche plugin sperimentali**.
-2. Per installare la 0.4.1, scarica lo ZIP dalla [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.4.1) e usa **Installa da ZIP**. Dopo un aggiornamento, riavvia QGIS.
+1. In QGIS apri **Plugin → Gestisci e installa plugin**.
+2. Per installare la 0.4.2, scarica lo ZIP dalla [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.4.2) e usa **Installa da ZIP**. Dopo un aggiornamento, riavvia QGIS.
 3. Apri ABS dalla toolbar. In **Rotta e buffer** imposta le distanze e premi **Disegna linea**: clic sinistro per i vertici, clic destro per completare, Backspace per rimuovere l’ultimo vertice, Esc per annullare.
 4. Usa **Modifica linea** e **Salva modifiche** per intervenire sui vertici. Puoi disattivare l’aggiornamento automatico e usare **Ricalcola buffer**.
 5. Per valori locali, attiva **Distanze diverse per segmento**, seleziona un segmento, modifica i campi e premi **Salva distanze del segmento** prima di selezionare il successivo.
@@ -99,7 +99,7 @@ I am developing ABS as a personal project to draw and edit routes in QGIS and ma
 
 With ABS, I want to bring route editing, buffer calculation and export preparation into the same panel. I provide GeoPackage and GeoJSON for GIS data exchange, and a `.plan` mission export for mission planning.
 
-**Status:** I published [0.4.1](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.4.1) on GitHub and submitted it for review in the [official QGIS catalog](https://plugins.qgis.org/plugins/auto_buffer_sketcher/). Version 0.4.1 is experimental and supports QGIS 3 and 4.
+**Status:** [0.4.2](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.4.2) is the stable ABS release for QGIS 3 and 4. Check the [official QGIS catalog](https://plugins.qgis.org/plugins/auto_buffer_sketcher/) for availability in the plugin manager.
 
 [Detailed guide](docs/USER_GUIDE.en.md) · [Reproducible demo — Italian](examples/README.md) · [Short presentation](docs/DEMO.md#english) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
 
@@ -131,10 +131,10 @@ I moved this work into QGIS, where I can edit the route, recalculate its buffers
 
 ### Installation and first use
 
-I use the Python, Qt and PyQGIS components shipped with QGIS, without additional Python packages. The 0.4.1 release declares QGIS **3.34–4.99**; Linux checks cover **3.34.4 and 3.44.15/Qt5** and **4.2.3/Qt6**. I have not yet validated Windows or macOS.
+I use the Python, Qt and PyQGIS components shipped with QGIS, without additional Python packages. The 0.4.2 release declares QGIS **3.34–4.99**; Linux checks cover **3.34.4 and 3.44.15/Qt5** and **4.2.3/Qt6**. I have not yet validated Windows or macOS.
 
-1. In QGIS, open **Plugins → Manage and Install Plugins → Settings** and enable **Show also experimental plugins**.
-2. To install 0.4.1, download the ZIP from the [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.4.1) and choose **Install from ZIP**. Restart QGIS after updating.
+1. In QGIS, open **Plugins → Manage and Install Plugins**.
+2. To install 0.4.2, download the ZIP from the [release](https://github.com/OnlyPio59/ABS_AutoBufferSketcher/releases/tag/v0.4.2) and choose **Install from ZIP**. Restart QGIS after updating.
 3. Open ABS from its toolbar button. In **Route / buffers** (**Rotta e buffer** in Italian), set the distances and click **Draw line** (**Disegna linea**): left-click to add vertices, right-click to finish, Backspace to remove the last vertex and Esc to cancel.
 4. Use **Edit line** (**Modifica linea**) and **Save changes** (**Salva modifiche**) to edit vertices. You can disable automatic updates and use **Recalculate buffers** (**Ricalcola buffer**).
 5. For local values, enable **Per-segment distances** (**Distanze diverse per segmento**), select a segment, change the values and click **Save segment distances** (**Salva distanze del segmento**) before selecting the next segment.

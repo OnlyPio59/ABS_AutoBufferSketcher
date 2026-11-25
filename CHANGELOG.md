@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.2
+
+- Prima versione stabile. Funzioni, interfaccia e formati di esportazione invariati.
+
 ## 0.4.1
 
 - Dicitura neutra per il piano missione `.plan` nell’interfaccia e nella documentazione.

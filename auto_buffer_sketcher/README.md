@@ -34,7 +34,6 @@ sono supportate. Consulta i messaggi nel fondo del pannello.
 Guida completa e sorgenti:
 https://github.com/OnlyPio59/ABS_AutoBufferSketcher
 
-Il plugin è sperimentale.
 Per la licenza completa vedi LICENSE; attribuzione in NOTICE.
 
 ## English
@@ -59,7 +58,6 @@ and requires a single continuous route with at least three vertices.
 Check that the destination software supports this schema. Local UTM calculation is
 regional; extents beyond 6 degrees and polar regions are unsupported.
 
-The plugin is experimental.
 See the full English guide and source at:
 https://github.com/OnlyPio59/ABS_AutoBufferSketcher/blob/main/docs/USER_GUIDE.en.md
 
